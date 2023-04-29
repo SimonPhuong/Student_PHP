@@ -1,0 +1,122 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    outline: 0;
+}
+
+body {
+    text-align: center;
+    font-family: Helvetica,Arial,sans-serif;
+    font-size: 12px;
+    background-color: #e9ebee;
+    left: 0px;
+    right: 0px;
+}
+
+html{
+    font-size: 14px;
+}
+
+main{
+    margin-top: 1rem;
+}
+
+form {
+    display: block;
+    margin-top: 0em;
+}
+
+main .soLienLacDienTu{
+    padding: 2rem;
+    background: #FFF; 
+    padding: 10px;
+ 
+}
+
+tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+	border-color:#000;
+}
+
+th {
+    display: table-cell;
+    vertical-align: inherit;
+    font-weight: bold;
+    padding: 1rem 1rem;
+    border-bottom: 1px solid #CCC;
+}
+
+td {
+    display: table-cell;
+    vertical-align: inherit;
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
+}
+
+#form-solienlac input[type="submit"] {
+    background: none repeat scroll 0 0 #007BBF;
+    border: medium none;
+    border-radius: 5px;
+    color: #FFF;
+    cursor: pointer;
+    padding: 5px 15px;
+}
+
+#form-solienlac select {
+    width: 258px;
+    padding: 5px 3px;
+    margin-bottom: 10px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+}
+
+table {
+    background-color: transparent;
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+#bangDiem table{
+    width: 80%;
+    margin-top: 2rem;
+    border-right: 1px solid #CCC;
+    border-bottom: 1px solid #CCC;
+}
+
+#bangDiem table.center{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+tbody {
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+#bangDiem tr.tophead {
+    
+    background: #f3f7f9;
+    color: #1da1f2;
+    
+}
+#bangDiem tr td {
+    border-left: 1px solid #CCC;
+    border-bottom: 1px solid #CCC;
+}
+
+.tophead th{
+    border-right: 1px solid #CCC;
+}
+
+.tophead {
+    border: 1px solid #CCC;
+}
+
+#bangDiem .title{
+    margin-top: 2rem;
+}
+
+
