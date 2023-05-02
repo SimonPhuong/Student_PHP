@@ -8,8 +8,9 @@ $mamh=$_POST['mamon'];
 $id = $_POST['id'];
 $text=$_POST['text'];
 $name = $_POST['column_name'];
-$sql = "update diem set $name='$text' where mahocsinh='$id' and hocki=1 and namhoc='$nh' and  mamonhoc='$mamh'";
-$query = mysqli_query($con,$sql);
+$hocki=$_POST['hocki'];
+$stmt = $con->prepare("update diem set $name='$text' where mahocsinh='$id' and hocki='$hocki' and namhoc='$nh' and  mamonhoc='$mamh'");
+$stmt->execute();
 }
 //select tên học sinh để nhập điểm ở trang nhập điểm pro
 if(isset($_POST['nh']))
@@ -17,10 +18,11 @@ if(isset($_POST['nh']))
 $nh = $_POST['nh'];
 $mamh=$_POST['mamh'];
 $lop1=$_POST['lop1'];
-$sql = "select * from diem where mamonhoc='$mamh' and hocki=1 and namhoc='$nh' and lop='$lop1'";
-$query = mysqli_query($con,$sql);
-$num = mysqli_num_rows($query);
-if($num > 0){
+$hocki=$_POST['hocki'];
+$stmt = $con->prepare("select * from diem where mamonhoc='$mamh' and hocki='$hocki' and namhoc='$nh' and lop='$lop1'");
+	$stmt->execute();
+	$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+	$kq=$stmt->fetchALL();
 	echo ' <tr class="tophead">
                             <th width="180px">Họ và tên</th>
 							  <th>Lớp</th>
@@ -30,8 +32,8 @@ if($num > 0){
                             <th>Giữa kỳ</th>
                             <th>Cuối kỳ</th>
                         </tr>';
-while($row=mysqli_fetch_array($query))
-{
+	 foreach($kq as $row)
+	 {
 	$mieng=$row['diemmieng'];
 				$muoilamphut=$row['diem15phut'];
 				$mottiet=$row['diem1tiet'];
@@ -64,7 +66,7 @@ while($row=mysqli_fetch_array($query))
                             </td>
 							</tr>';
 }
-}
+/*}
 else
 {
 	echo ' <tr class="tophead">
@@ -76,7 +78,7 @@ else
                             <th>Giữa kỳ</th>
                             <th>Cuối kỳ</th>
                         </tr>';
-}
+}*/
 }
 ////load điểm học sinh
 if(isset($_POST['namhoc']))
@@ -84,11 +86,11 @@ if(isset($_POST['namhoc']))
 $lop = $_POST['tenlop'];
 $nh = $_POST['namhoc'];
 $mamh=$_POST['mamonhoc'];
-//$sql = "select * from hocsinh where lop='10A1'";
-$sql = "select * from diem where mamonhoc='$mamh' and hocki=1 and namhoc='$nh' and lop='$lop'";
-$query = mysqli_query($con,$sql);
-$num = mysqli_num_rows($query);
-if($num > 0){
+$hk=$_POST['hk'];
+	$stmt = $con->prepare("select * from diem where mamonhoc='$mamh' and hocki='$hk' and namhoc='$nh' and lop='$lop'");
+	$stmt->execute();
+	$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+	$kq=$stmt->fetchALL();
 	echo ' <tr class="tophead">
                             <th width="180px">Họ và tên</th>
                             <th>Điểm miệng</th>
@@ -98,8 +100,8 @@ if($num > 0){
                             <th>Cuối kỳ</th>
                             <th width="150px">Trung bình môn</th>
                         </tr>';
-while($row=mysqli_fetch_array($query))
-{
+	 foreach($kq as $row)
+	 {	
 	$mieng=$row['diemmieng'];
 				$muoilamphut=$row['diem15phut'];
 				$mottiet=$row['diem1tiet'];
@@ -137,7 +139,7 @@ while($row=mysqli_fetch_array($query))
 							</td>
 							</tr>';
 }
-}
+/*}
 else
 {
 	echo '  <tr class="tophead">
@@ -149,17 +151,17 @@ else
                             <th>Cuối kỳ</th>
                             <th width="150px">Trung bình môn</th>
                         </tr>';
-}
+}*/
 }
 if(isset($_POST['mh']))
 {
-$mh = $_POST['mh'];
-$sql = "select * from giaovien where bomon='$mh'";
-$query = mysqli_query($con,$sql);
-$num = mysqli_num_rows($query);
-if($num > 0){
-while($row=mysqli_fetch_array($query))
-{
+       $mh = $_POST['mh'];
+        $stmt = $con->prepare("select * from giaovien where bomon='$mh'");
+        $stmt->execute();
+		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+		$kq=$stmt->fetchALL();
+         foreach($kq as $row)
+		 {			
 	$magiaovien=$row['magiaovien'];
 				$dc=$row['diachi'];
 				$hoten=$row['hoten'];
@@ -199,11 +201,6 @@ while($row=mysqli_fetch_array($query))
 		           </div>
                </div>
 			   ';
-}
-}
-else
-{
-echo 'ĐANG CẬP NHẬT DỮ LIỆU';
 }
 }
 ?>

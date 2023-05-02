@@ -150,7 +150,7 @@ a:hover
 	                      case 'Gửi':
                           {
 		                    $nd=$_REQUEST['txtnd'];
-					if($p->themxoasua("insert into guigopy (mahocsinh,noidung,magiaovien) values('0','$nd','$layid')")==1)
+					if($p->guigopygv($nd,$layid)==1)
 			                    {
 			              	      echo '<script> alert("Gửi góp ý thành công!"); </script>'; 
 			                    }

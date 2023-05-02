@@ -12,8 +12,7 @@ else
 }
 include("cls/cls.php");
 $p=new tmdt();
-$layid=$_SESSION['mahs'];
-$layidgv=$_SESSION['user'];
+$layid=$_SESSION['user'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -122,7 +121,7 @@ a:hover
             <div class="main-section-content" id="contnet">
                 <div class="row" style="display:block">
                                             <?php
-											$p->loadttgv("select * from giaovien where magiaovien='$layidgv' limit 1");
+											$p->loadttgv($layid);
 											?>
                 </div>
             </div>

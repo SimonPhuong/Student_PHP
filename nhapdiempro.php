@@ -77,18 +77,27 @@ if(isset($_REQUEST['id']))
                                  </select>
                             </td>
                         </tr>
-                            <td width="190"></td>
+						<tr>
+                            <td width="190">Chọn học kì:</td>
                             <td align="left">
-                              <input class="btn btn-primary d-grid w-100" type="submit" name="button" id="button" value="Xem"/>
-                                <a href="index1.php"><input class="btn btn-primary d-grid w-100" type="button"  value="Quay về trang chủ"/></a>
+                                <select id="hocki" name="hocki" class="form-control" style="margin-top:10px;">
+                               <option value="1" selected="selected">1</option>
+                               <option value="2" selected="selected">2</option>
+                                 </select>
                             </td>
                         </tr>
-                        <tr>
+						<tr>
                             <td width="190">Chọn lớp</td>
                             <td align="left">
                                 <?php
-                                $p->loadlop("select * from giaovienlophoc where magiaovien='$layid'");
+                                $p->loadlop($layid);
 								?>
+                            </td>
+                        </tr>
+						<tr>
+                            <td width="190"></td>
+                            <td align="left">
+                                <a href="index1.php"><input class="btn btn-primary d-grid w-100" type="button"  value="Quay về trang chủ"/></a>
                             </td>
                         </tr>
                     </tbody>
@@ -97,7 +106,7 @@ if(isset($_REQUEST['id']))
 
             <div id="bangDiem">
 <?php
-				$p->loadmamon("select * from giaovienmonhoc where magiaovien=".$layid."");
+				$p->loadmamon($layid);
 				
 				//switch($_POST['button'])
                //  {
@@ -111,39 +120,10 @@ if(isset($_REQUEST['id']))
 				 //  }
 				?>
                 <!--Bảng điểm HK1-->
-                <div class="title"><h2>Nhập điểm học kỳ 1</h2></div>
+                <div class="title"><h2>Nhập điểm</h2></div>
                 <table class="center">
                     <tbody id="ten">
               
-                    </tbody>
-                </table>
-                <input class="btn btn-primary d-grid w-100" type="submit" name="button" id="button" value="Xác nhận" style="margin:0 auto; margin-top:20px;"/>
-                
-                
-
-                <!--Bảng điểm HK2-->
-                <div class="title"><h2>Nhập điểm học kỳ 2</h2></div>
-                
-                <table class="center">
-                    <tbody>
-                        <tr class="tophead">
-                            <th width="180px">Môn học</th>
-                            <th>Điểm miệng</th>
-                            <th>Điểm 15 phút</th>
-                            <th>Điểm 1 tiết</th>
-                            <th>Giữa kỳ</th>
-                            <th>Cuối kỳ</th>
-                        </tr>
-      <?php
-				switch($_POST['button'])
-                 {
-	              case 'Xem':
-	               {
-				
-				         	$p->loaddiemhspro("select * from diem where mamonhoc=$mamon and hocki=2 and namhoc='$nh'");
-				   }
-				 }
-				?>
                     </tbody>
                 </table>
                 <input class="btn btn-primary d-grid w-100" type="submit" name="button" id="button" value="Xác nhận" style="margin:0 auto; margin-top:20px;"/>
@@ -154,23 +134,23 @@ if(isset($_REQUEST['id']))
 							var lop1=$(this).val()
 							var nh=$('#namhoc').val()
 							var mamh=$('#txtmamh').val();
-						
+						    var hocki=$('#hocki').val();
 							$.ajax({
 								url:"data.php",
 								method:"POST",
-								data:{nh:nh,mamh:mamh,lop1:lop1},
+								data:{nh:nh,mamh:mamh,lop1:lop1,hocki:hocki},
 								success:function(data)
 								{
 									$("#ten").html(data);
 								}
 								});
 						});
-						function insert_data(id,text,column_name,mamon,namhoc)
+						function insert_data(id,text,column_name,mamon,namhoc,hocki)
 						 {
 							 $.ajax({
 								url:"data.php",
 								method:"POST",
-								data:{id:id,text:text,column_name:column_name,mamon:mamon,namhoc:namhoc},
+								data:{id:id,text:text,column_name:column_name,mamon:mamon,namhoc:namhoc,hocki:hocki},
 								success:function(data)
 								{
 								}
@@ -181,7 +161,8 @@ if(isset($_REQUEST['id']))
 							var mamh=$('#txtmamh').val();
 							 var id=$(this).data('id1');
 							 var text=$(this).text();
-							 insert_data(id,text,"diemmieng",mamh,nh);
+							 var hocki=$('#hocki').val();
+							 insert_data(id,text,"diemmieng",mamh,nh,hocki);
 							 });
 							 
 							 /////
@@ -190,7 +171,8 @@ if(isset($_REQUEST['id']))
 							var mamh=$('#txtmamh').val();
 							 var id=$(this).data('id2');
 							 var text=$(this).text();
-							 insert_data(id,text,"diem15phut",mamh,nh);
+							 var hocki=$('#hocki').val();
+							 insert_data(id,text,"diem15phut",mamh,nh,hocki);
 							 });
 							 /////
 	                    $(document).on('blur','.diem1tiet',function(){
@@ -198,7 +180,8 @@ if(isset($_REQUEST['id']))
 							var mamh=$('#txtmamh').val();
 							 var id=$(this).data('id3');
 							 var text=$(this).text();
-							 insert_data(id,text,"diem1tiet",mamh,nh);
+							 var hocki=$('#hocki').val();
+							 insert_data(id,text,"diem1tiet",mamh,nh,hocki);
 							 });
 							 /////
 						$(document).on('blur','.diemgk',function(){
@@ -206,7 +189,8 @@ if(isset($_REQUEST['id']))
 							var mamh=$('#txtmamh').val();
 							 var id=$(this).data('id4');
 							 var text=$(this).text();
-							 insert_data(id,text,"diemgk",mamh,nh);
+							 var hocki=$('#hocki').val();
+							 insert_data(id,text,"diemgk",mamh,nh,hocki);
 							 });
 							 //////
 						$(document).on('blur','.diemck',function(){
@@ -214,7 +198,8 @@ if(isset($_REQUEST['id']))
 							var mamh=$('#txtmamh').val();
 							 var id=$(this).data('id5');
 							 var text=$(this).text();
-							 insert_data(id,text,"diemck",mamh,nh);
+							 var hocki=$('#hocki').val();
+							 insert_data(id,text,"diemck",mamh,nh,hocki);
 							 });
 							 ///////
                     });

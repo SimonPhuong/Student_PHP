@@ -77,19 +77,28 @@ if(isset($_REQUEST['id']))
                                  </select>
                             </td>
                         </tr>
+                        <tr>
+                            <td width="190">Chọn học kì:</td>
+                            <td align="left">
+                                <select name="hocki" id="hocki" class="form-control" style="margin-top:10px;">
+                               <option value="1" selected="selected">1</option>
+                               <option value="2" selected="selected">2</option>
+                                 </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="190">Chọn lớp</td>
+                            <td align="left">
+                                <?php
+                                $p->loadlop($layid);
+								?>
+                            </td>
+                        </tr>
                          <tr>
                             <td width="190"></td>
                             <td align="left">
                                 <a href="index1.php"><input class="btn btn-primary d-grid w-100" type="button"  value="Quay về trang chủ"/></a>
                                 <a href="nhapdiempro.php"><input class="btn btn-primary d-grid w-100" type="button"  value="Nhập điểm và chỉnh sửa điểm"/></a>
-                            </td>
-                        </tr>
-                         <tr>
-                            <td width="190">Chọn lớp</td>
-                            <td align="left">
-                                <?php
-                                $p->loadlop("select * from giaovienlophoc where magiaovien='$layid'");
-								?>
                             </td>
                         </tr>
                     </tbody>
@@ -100,7 +109,7 @@ if(isset($_REQUEST['id']))
 
                 <!--Bảng điểm HK1-->
                    <?php
-				$p->loadmamon("select * from giaovienmonhoc where magiaovien=".$layid."");
+				$p->loadmamon($layid);
 				
 				//switch($_POST['button'])
                //  {
@@ -113,7 +122,7 @@ if(isset($_REQUEST['id']))
 				 //  }
 				 //  }
 				?>
-                <div class="title"><b>Kết quả học tập học kỳ 1</b></div>
+                <div class="title"><b>Kết quả học tập</b></div>
                 <table class="center">
                     <tbody id="load">
               <?php
@@ -160,75 +169,18 @@ if(isset($_REQUEST['id']))
                         </tr>
                     </tbody>
                 </table>
-                
-
-                <!--Bảng điểm HK2-->
-                <div class="title"><b>Kết quả học tập học kỳ 2</b></div>
-                
-                <table class="center">
-                    <tbody>
-                        <tr class="tophead">
-                            <th width="180px">Môn học</th>
-                            <th>Điểm miệng</th>
-                            <th>Điểm 15 phút</th>
-                            <th>Điểm 1 tiết</th>
-                            <th>Giữa kỳ</th>
-                            <th>Cuối kỳ</th>
-                            <th>Hành động</th>
-                            <th width="150px">Trung bình môn</th>
-                        </tr>
-      <?php
-				switch($_POST['button'])
-                 {
-	              case 'Xem':
-	               {
-				
-				         	$p->loaddiemhs("select * from diem where mamonhoc=$mamon and hocki=2 and namhoc='$nh'");
-				   }
-				 }
-				?>
-                    </tbody>
-                </table>
-                
-                <!--Thành tích HK2-->
-                <div class="title"><b>Thành tích HK2</b></div>
-
-                <table class="center">
-                    <tbody>
-                        <tr colspan="2" style="border-top:1px solid #CCC">
-                            <td width="300px">Điểm trung bình</td>
-                            <td></td>
-                        </tr>
-
-                        <tr>
-                            <td>Xếp hạng</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Danh hiệu</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Hạnh kiểm</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Học lực</td>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                </table>
                     <script type="text/javascript">
 					 $(document).ready(function() {
                         $("#lop").change(function()
 						{
 							var tenlop=$(this).val()
 							var mamonhoc=$('#txtmamh').val();
+                            var hk=$('#hocki').val();
 						var namhoc=$("#namhoc").val();
 							$.ajax({
 								url:"data.php",
 								method:"POST",
-								data:{namhoc:namhoc,mamonhoc:mamonhoc,tenlop:tenlop},
+								data:{namhoc:namhoc,mamonhoc:mamonhoc,tenlop:tenlop,hk:hk},
 								success:function(data)
 								{
 									$("#load").html(data);

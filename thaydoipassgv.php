@@ -139,7 +139,7 @@ a:hover
                                                     <div class="form-group">
                                             <form id="formAuthentication" class="mb-3" action="" method="POST">
                                                     <?php
-													$p->loadpasscu("select pass from taikhoangv where magiaovien=".$layid." ");
+													$p->loadpasscugv($layid);
 													?>
                                                                                <label for="email" class="form-label">Nhập mật khẩu cũ:</label>
                                   <input
@@ -186,7 +186,7 @@ a:hover
 					{
 						if($pass1==$pass)
 						{	
-				        	if($p->themxoasua("UPDATE taikhoangv SET pass= '$pass2' WHERE magiaovien ='$layid' LIMIT 1 ;")==1)
+				        	if($p->chanepassgv($pass2,$layid)==1)
 			                    {
 			              	      echo '<script> alert("Thay đổi mật khẩu thành công!"); </script>'; 
 			                    }

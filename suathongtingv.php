@@ -142,7 +142,7 @@ a:hover
                 <div class="row" style="display:block">
                 <form id="formAuthentication" class="mb-3" action="" method="POST">
                                            <?php
-											$p->suathongtingv("select * from giaovien where magiaovien='$layid' limit 1");
+											$p->suathongtingv($layid);
 											?>
                                                  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
@@ -175,7 +175,7 @@ a:hover
 							 $xa=$_REQUEST['town'];
 							 $noisinh=$xa.', '.$huyen.', '.$tp;
 							
-					if($p->themxoasua("insert into giaovienedit(magiaovien,hoten,gioitinh,diachi,sdt,kinhnghiem,bomon,chucvu,ngaysinh,socmnd,dantoc,tongiao,noisinh) values('$layid','$hoten','$gt','$dc','$sdt','$kh','$bm','$cv','$ns','$socmnd','$dt','$tg','$noisinh')")==1)
+					if($p->editteacher($layid,$hoten,$gt,$dc,$sdt,$kn,$bm,$cv,$ns,$socmnd,$dt,$tg,$noisinh)==1)
 			                    {
 			              	      echo'<script> alert("Gửi thông tin thành công"); </script>'; 
 			                    }

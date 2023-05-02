@@ -153,7 +153,7 @@ a:hover
                 <form action="" method="POST">
                 <h2>Chọn môn học:</h2>    
     <?php
-	$p->loadmonh("select tenmon from monhoc");
+	$p->loadmonh();
 	?>
    <h2>Thông tin giáo viên</h2>
                                         <div id="loadgv"></div>

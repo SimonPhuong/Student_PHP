@@ -183,7 +183,7 @@ a:hover
                 <div class="row" style="display:block">
                 <form id="formAuthentication" class="mb-3" action="" method="POST">
                                             <?php
-											$p->suathongtin("select * from hocsinh where mahocsinh='$layid' limit 1");
+											$p->suathongtin($layid);
 											?>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -229,7 +229,7 @@ switch($_POST['button'])
 			//$name=time()."_".$name;
          // if($a->uploadfile($name,$tmp_name,"img")==1)S
 		   //	{
-					if($p->themxoasua("insert into hocsinhedit(mahocsinh,hoten,gioitinh,trangthai,ngayvaotruong,diachi,sdt,khoahoc,ngaysinh,socmnd,dantoc,tongiao,noisinh,lop,hinh) values('$layid','$hoten','$gt','$tt','$nvt','$dc','$sdt','$kh','$ns','$socmnd','$dt','$tg','$noisinh','$lop','$name')")==1)
+					if($p->editstudent($layid,$hoten,$gt,$tt,$nvt,$dc,$sdt,$kh,$ns,$socmnd,$dt,$tg,$noisinh,$lop,$name)==1)
 			                    {
 			              	      echo'<script> alert("Gửi thông tin thành công"); </script>'; 
 			                    }

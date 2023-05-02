@@ -87,12 +87,14 @@ $layid=$_SESSION['user'];
                         <tr>
                             <td class="subjects">Toán học</td>
                            <?php
+                           $hk=1;
+                           $mamh=1;
 						   switch($_POST['button'])
                  {
 	              case 'Xem':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-						   $p->loaddiem("select * from diem where mahocsinh='$layid' and mamonhoc=1 and hocki=1 and namhoc='$nh'");
+						   $p->loaddiem($layid,$mamh,$hk,$nh);
 				   }
 				 }
 						   ?>
@@ -101,13 +103,14 @@ $layid=$_SESSION['user'];
                         <tr>
                             <td class="subjects">Ngữ văn</td>
                             <?php
-							    
+                           $hk=1;
+                           $mamh=2;
 						   switch($_POST['button'])
                  {
 	              case 'Xem':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-						   $p->loaddiem("select * from diem where mahocsinh='$layid' and mamonhoc=2 and hocki=1 and namhoc='$nh'");
+						   $p->loaddiem($layid,$mamh,$hk,$nh);
 				   }
 				 }
 						   ?>
@@ -116,154 +119,177 @@ $layid=$_SESSION['user'];
                         <tr>
                             <td class="subjects">Hoá học</td>
                             <?php
-									   switch($_POST['button'])
+                           $hk=1;
+                           $mamh=3;
+						   switch($_POST['button'])
                  {
 	              case 'Xem':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-						   $p->loaddiem("select * from diem where mahocsinh='$layid' and mamonhoc=3 and hocki=1 and namhoc='$nh'");
+						   $p->loaddiem($layid,$mamh,$hk,$nh);
 				   }
 				 }
-				 ?>
+						   ?>
                         </tr>
 
                         <tr>
                             <td class="subjects">Vật lý</td>
                             <?php
-									   switch($_POST['button'])
+                           $hk=1;
+                           $mamh=4;
+						   switch($_POST['button'])
                  {
 	              case 'Xem':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-						   $p->loaddiem("select * from diem where mahocsinh='$layid' and mamonhoc=4 and hocki=1 and namhoc='$nh'");
+						   $p->loaddiem($layid,$mamh,$hk,$nh);
 				   }
 				 }
-				 ?>
+						   ?>
                         </tr>
 
                         <tr>
                             <td class="subjects">Sinh học</td>
                             <?php
-									   switch($_POST['button'])
+                           $hk=1;
+                           $mamh=5;
+						   switch($_POST['button'])
                  {
 	              case 'Xem':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-						   $p->loaddiem("select * from diem where mahocsinh='$layid' and mamonhoc=5 and hocki=1 and namhoc='$nh'");
+						   $p->loaddiem($layid,$mamh,$hk,$nh);
 				   }
 				 }
-				 ?>
+						   ?>
                         </tr>
 
                         <tr>
                             <td class="subjects">Tin học</td>
-                           <?php
-						   		   switch($_POST['button'])
+                            <?php
+                           $hk=1;
+                           $mamh=6;
+						   switch($_POST['button'])
                  {
 	              case 'Xem':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-						   $p->loaddiem("select * from diem where mahocsinh='$layid' and mamonhoc=6 and hocki=1 and namhoc='$nh'");
+						   $p->loaddiem($layid,$mamh,$hk,$nh);
 				   }
 				 }
-				 ?>
+						   ?>
                         </tr>
 
                         <tr>
                             <td class="subjects">Lịch sử</td>
-                           <?php
-						   		   switch($_POST['button'])
+                            <?php
+                           $hk=1;
+                           $mamh=7;
+						   switch($_POST['button'])
                  {
 	              case 'Xem':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-						   $p->loaddiem("select * from diem where mahocsinh='$layid' and mamonhoc=7 and hocki=1 and namhoc='$nh'");
+						   $p->loaddiem($layid,$mamh,$hk,$nh);
 				   }
 				 }
-				 ?>
+						   ?>
                         </tr>
 
                         <tr>
                             <td class="subjects">Địa lý</td>
                             <?php
-									   switch($_POST['button'])
+                           $hk=1;
+                           $mamh=8;
+						   switch($_POST['button'])
                  {
 	              case 'Xem':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-						   $p->loaddiem("select * from diem where mahocsinh='$layid' and mamonhoc=8 and hocki=1 and namhoc='$nh'");
+						   $p->loaddiem($layid,$mamh,$hk,$nh);
 				   }
 				 }
-				 ?>
+						   ?>
                         </tr>
 
                         <tr>
                             <td class="subjects">Ngoại ngữ</td>
-                           <?php
-						   		   switch($_POST['button'])
+                            <?php
+                           $hk=1;
+                           $mamh=9;
+						   switch($_POST['button'])
                  {
 	              case 'Xem':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-						   $p->loaddiem("select * from diem where mahocsinh='$layid' and mamonhoc=9 and hocki=1 and namhoc='$nh'");
+						   $p->loaddiem($layid,$mamh,$hk,$nh);
 				   }
 				 }
-				 ?>
+						   ?>
                         </tr>
 
                         <tr>
                             <td class="subjects">GDCD</td>
                             <?php
-									   switch($_POST['button'])
+                           $hk=1;
+                           $mamh=10;
+						   switch($_POST['button'])
                  {
 	              case 'Xem':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-						   $p->loaddiem("select * from diem where mahocsinh='$layid' and mamonhoc=10 and hocki=1 and namhoc='$nh'");
+						   $p->loaddiem($layid,$mamh,$hk,$nh);
 				   }
 				 }
-				 ?>
+						   ?>
                         </tr>
                         
                         <tr>
                             <td class="subjects">Công nghệ</td>
                             <?php
-									   switch($_POST['button'])
+                           $hk=1;
+                           $mamh=11;
+						   switch($_POST['button'])
                  {
 	              case 'Xem':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-						   $p->loaddiem("select * from diem where mahocsinh='$layid' and mamonhoc=11 and hocki=1 and namhoc='$nh'");
+						   $p->loaddiem($layid,$mamh,$hk,$nh);
 				   }
 				 }
-				 ?>
+						   ?>
                         </tr>
 
                         <tr>
                             <td class="subjects">Thể dục</td>
                             <?php
-									   switch($_POST['button'])
+                           $hk=1;
+                           $mamh=12;
+						   switch($_POST['button'])
                  {
 	              case 'Xem':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-						   $p->loaddiem("select * from diem where mahocsinh='$layid' and mamonhoc=12 and hocki=1 and namhoc='$nh'");
+						   $p->loaddiem($layid,$mamh,$hk,$nh);
 				   }
 				 }
-				 ?>
+						   ?>
                         </tr>
 
                         <tr>
                             <td class="subjects">GDQP</td>
-                          <?php
-						  		   switch($_POST['button'])
+                            <?php
+                           $hk=1;
+                           $mamh=13;
+						   switch($_POST['button'])
                  {
 	              case 'Xem':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-						   $p->loaddiem("select * from diem where mahocsinh='$layid' and mamonhoc=13 and hocki=1 and namhoc='$nh'");
+						   $p->loaddiem($layid,$mamh,$hk,$nh);
 				   }
-				 }?>
+				 }
+						   ?>
                         </tr>
 
                     </tbody>
@@ -316,13 +342,15 @@ $layid=$_SESSION['user'];
 
                         <tr>
                             <td class="subjects">Toán học</td>
-                           <?php
+                            <?php
+                           $hk=2;
+                           $mamh=1;
 						   switch($_POST['button'])
                  {
 	              case 'Xem':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-						   $p->loaddiem("select * from diem where mahocsinh='$layid' and mamonhoc=1 and hocki=2 and namhoc='$nh'");
+						   $p->loaddiem($layid,$mamh,$hk,$nh);
 				   }
 				 }
 						   ?>
@@ -331,13 +359,14 @@ $layid=$_SESSION['user'];
                         <tr>
                             <td class="subjects">Ngữ văn</td>
                             <?php
-							    
+                           $hk=2;
+                           $mamh=2;
 						   switch($_POST['button'])
                  {
 	              case 'Xem':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-						   $p->loaddiem("select * from diem where mahocsinh='$layid' and mamonhoc=2 and hocki=2 and namhoc='$nh'");
+						   $p->loaddiem($layid,$mamh,$hk,$nh);
 				   }
 				 }
 						   ?>
@@ -346,159 +375,180 @@ $layid=$_SESSION['user'];
                         <tr>
                             <td class="subjects">Hoá học</td>
                             <?php
-									   switch($_POST['button'])
+                           $hk=2;
+                           $mamh=3;
+						   switch($_POST['button'])
                  {
 	              case 'Xem':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-						   $p->loaddiem("select * from diem where mahocsinh='$layid' and mamonhoc=3 and hocki=2 and namhoc='$nh'");
+						   $p->loaddiem($layid,$mamh,$hk,$nh);
 				   }
 				 }
-				 ?>
+						   ?>
                         </tr>
 
                         <tr>
                             <td class="subjects">Vật lý</td>
                             <?php
-									   switch($_POST['button'])
+                           $hk=2;
+                           $mamh=4;
+						   switch($_POST['button'])
                  {
 	              case 'Xem':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-						   $p->loaddiem("select * from diem where mahocsinh='$layid' and mamonhoc=4 and hocki=2 and namhoc='$nh'");
+						   $p->loaddiem($layid,$mamh,$hk,$nh);
 				   }
 				 }
-				 ?>
+						   ?>
                         </tr>
 
                         <tr>
                             <td class="subjects">Sinh học</td>
                             <?php
-									   switch($_POST['button'])
+                           $hk=2;
+                           $mamh=5;
+						   switch($_POST['button'])
                  {
 	              case 'Xem':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-						   $p->loaddiem("select * from diem where mahocsinh='$layid' and mamonhoc=5 and hocki=2 and namhoc='$nh'");
+						   $p->loaddiem($layid,$mamh,$hk,$nh);
 				   }
 				 }
-				 ?>
+						   ?>
                         </tr>
 
                         <tr>
                             <td class="subjects">Tin học</td>
-                           <?php
-						   		   switch($_POST['button'])
+                            <?php
+                           $hk=2;
+                           $mamh=6;
+						   switch($_POST['button'])
                  {
 	              case 'Xem':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-						   $p->loaddiem("select * from diem where mahocsinh='$layid' and mamonhoc=6 and hocki=2 and namhoc='$nh'");
+						   $p->loaddiem($layid,$mamh,$hk,$nh);
 				   }
 				 }
-				 ?>
+						   ?>
                         </tr>
 
                         <tr>
                             <td class="subjects">Lịch sử</td>
-                           <?php
-						   		   switch($_POST['button'])
+                            <?php
+                           $hk=2;
+                           $mamh=7;
+						   switch($_POST['button'])
                  {
 	              case 'Xem':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-						   $p->loaddiem("select * from diem where mahocsinh='$layid' and mamonhoc=7 and hocki=2 and namhoc='$nh'");
+						   $p->loaddiem($layid,$mamh,$hk,$nh);
 				   }
 				 }
-				 ?>
+						   ?>
                         </tr>
 
                         <tr>
                             <td class="subjects">Địa lý</td>
                             <?php
-									   switch($_POST['button'])
+                           $hk=2;
+                           $mamh=8;
+						   switch($_POST['button'])
                  {
 	              case 'Xem':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-						   $p->loaddiem("select * from diem where mahocsinh='$layid' and mamonhoc=8 and hocki=2 and namhoc='$nh'");
+						   $p->loaddiem($layid,$mamh,$hk,$nh);
 				   }
 				 }
-				 ?>
+						   ?>
                         </tr>
 
                         <tr>
                             <td class="subjects">Ngoại ngữ</td>
-                           <?php
-						   		   switch($_POST['button'])
+                            <?php
+                           $hk=2;
+                           $mamh=9;
+						   switch($_POST['button'])
                  {
 	              case 'Xem':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-						   $p->loaddiem("select * from diem where mahocsinh='$layid' and mamonhoc=9 and hocki=2 and namhoc='$nh'");
+						   $p->loaddiem($layid,$mamh,$hk,$nh);
 				   }
 				 }
-				 ?>
+						   ?>
                         </tr>
 
                         <tr>
                             <td class="subjects">GDCD</td>
                             <?php
-									   switch($_POST['button'])
+                           $hk=2;
+                           $mamh=10;
+						   switch($_POST['button'])
                  {
 	              case 'Xem':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-						   $p->loaddiem("select * from diem where mahocsinh='$layid' and mamonhoc=10 and hocki=2 and namhoc='$nh'");
+						   $p->loaddiem($layid,$mamh,$hk,$nh);
 				   }
 				 }
-				 ?>
+						   ?>
                         </tr>
                         
                         <tr>
                             <td class="subjects">Công nghệ</td>
                             <?php
-									   switch($_POST['button'])
+                           $hk=2;
+                           $mamh=11;
+						   switch($_POST['button'])
                  {
 	              case 'Xem':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-						   $p->loaddiem("select * from diem where mahocsinh='$layid' and mamonhoc=11 and hocki=2 and namhoc='$nh'");
+						   $p->loaddiem($layid,$mamh,$hk,$nh);
 				   }
 				 }
-				 ?>
+						   ?>
                         </tr>
 
                         <tr>
                             <td class="subjects">Thể dục</td>
                             <?php
-									   switch($_POST['button'])
+                           $hk=2;
+                           $mamh=12;
+						   switch($_POST['button'])
                  {
 	              case 'Xem':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-						   $p->loaddiem("select * from diem where mahocsinh='$layid' and mamonhoc=12 and hocki=2 and namhoc='$nh'");
+						   $p->loaddiem($layid,$mamh,$hk,$nh);
 				   }
 				 }
-				 ?>
+						   ?>
                         </tr>
 
                         <tr>
                             <td class="subjects">GDQP</td>
-                          <?php
-						  		   switch($_POST['button'])
+                            <?php
+                           $hk=2;
+                           $mamh=13;
+						   switch($_POST['button'])
                  {
 	              case 'Xem':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-						   $p->loaddiem("select * from diem where mahocsinh='$layid' and mamonhoc=13 and hocki=2 and namhoc='$nh'");
+						   $p->loaddiem($layid,$mamh,$hk,$nh);
 				   }
-				 }?>
+				 }
+						   ?>
                         </tr>
-
                     </tbody>
-                </table>
-                
+                </table>  
                 <!--Thành tích HK2-->
                 <div class="title"><b>Thành tích HK2</b></div>
 
@@ -527,7 +577,6 @@ $layid=$_SESSION['user'];
                         </tr>
                     </tbody>
                 </table>
-            
             </div>        
         </div>
     </main>

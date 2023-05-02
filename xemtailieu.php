@@ -144,7 +144,7 @@ a:hover
                 <div class="row" style="display:block">
                  <div class="box-df profile-ds-info">
                <?php
-			   $p->loadtailieu("select * from tailieu ");
+			   $p->loadtailieu();
 			   ?>
                </div>
 											 </div>

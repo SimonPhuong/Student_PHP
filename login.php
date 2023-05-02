@@ -74,12 +74,11 @@ $p=new login();
 		  $user=$_REQUEST['txttdn'];
 		  $pass1=$_REQUEST['txtpass'];
 		  $pass=md5($pass1);
-		  echo 'alert("'.$pass.'")';
 		  if($user!='' && $pass1!='')
 		  {
 			  if($p->mylogin($user,$pass)==1)
 			  {
-				  
+                header('location:index.php');
 			  }
 		  }
 		  else

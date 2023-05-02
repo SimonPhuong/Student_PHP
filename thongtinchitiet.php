@@ -131,7 +131,7 @@ $layid=$_SESSION['user'];
             <div class="main-section-content" id="contnet">
                 <div class="row" style="display:block">
                     <?php
-											$p->loadttchitiet("select * from hocsinh where mahocsinh='$layid' limit 1");
+											$p->loadttchitiet($layid);
 											?>
                 </div>
             </div>

@@ -3,7 +3,7 @@ class login
 {
      private function connect()
 	{				
-		$con=mysqli_connect("localhost","root","","detai");
+		$con=mysqli_connect("localhost","root","","doan2");
   		if(!$con)
    		{
 	   		die("Khong ket noi duoc den CSDL");

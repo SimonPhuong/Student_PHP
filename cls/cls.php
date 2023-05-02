@@ -3,7 +3,7 @@ class tmdt
 {
      private function connect()
 	{				
-		$con=mysqli_connect("localhost","root","","detai");
+		$con=mysqli_connect("localhost","root","","doan2");
   		if(!$con)
    		{
 	   		die("Khong ket noi duoc den CSDL");
@@ -15,31 +15,123 @@ class tmdt
 			return $con;
 		}
 	}
-
-	public function themxoasua($sql)
+	//hàm kết nối pdo
+	function connectpdo()
 	{
-		$link=$this->connect();
+		$servername = "localhost";
+		$username = "root";
+		$password = "";
 		
-            if (mysqli_query($link,$sql)) 
-		   {
-            return 1;
-           } 
-		   else 
-		   {
-                return 0;
-           }
+		try {
+		  $con = new PDO("mysql:host=$servername;dbname=doan2", $username, $password);
+		  // set the PDO error mode to exception
+		  $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		  //echo "Connected successfully";
+		} catch(PDOException $e) {
+		  //echo "Connection failed: " . $e->getMessage();
+		}
+		return $con;
+	}
+	///hàm gửi thông tin góp ý
+	function guigopy($layid,$nd)
+	{
+		$dbh=$this->connectpdo();
+		$stmt = $dbh->prepare("insert into guigopy (mahocsinh,noidung,magiaovien) values('$layid','$nd','0')");
+		//$stmt->bindParam(':value', $giatri);
+		if($stmt->execute())
+		{
+			return 1;	
+		}
+		else
+		{
+			return 0;	
+		}
+	}
+///hàm thay đổi mật khẩu
+function chanepass($pass2,$layid)
+	{
+		$dbh=$this->connectpdo();
+		$stmt = $dbh->prepare("UPDATE taikhoanhs SET pass= '$pass2' WHERE mahocsinh ='$layid' LIMIT 1 ;");
+		//$stmt->bindParam(':value', $giatri);
+		if($stmt->execute())
+		{
+			return 1;	
+		}
+		else
+		{
+			return 0;	
+		}
+	}
+	//hàm thay đổi mật khẩu giáo viên
+	function chanepassgv($pass2,$layid)
+	{
+		$dbh=$this->connectpdo();
+		$stmt = $dbh->prepare("UPDATE taikhoangv SET pass= '$pass2' WHERE magiaovien ='$layid' LIMIT 1 ;");
+		//$stmt->bindParam(':value', $giatri);
+		if($stmt->execute())
+		{
+			return 1;	
+		}
+		else
+		{
+			return 0;	
+		}
+	}
+	///hàm sửa thông tin học sinh
+	function editstudent($layid,$hoten,$gt,$tt,$nvt,$dc,$sdt,$kh,$ns,$socmnd,$dt,$tg,$noisinh,$lop,$name)
+	{
+		$dbh=$this->connectpdo();
+		$stmt = $dbh->prepare("insert into hocsinhedit(mahocsinh,hoten,gioitinh,trangthai,ngayvaotruong,diachi,sdt,khoahoc,ngaysinh,socmnd,dantoc,tongiao,noisinh,lop,hinh) values('$layid','$hoten','$gt','$tt','$nvt','$dc','$sdt','$kh','$ns','$socmnd','$dt','$tg','$noisinh','$lop','$name')");
+		//$stmt->bindParam(':value', $giatri);
+		if($stmt->execute())
+		{
+			return 1;	
+		}
+		else
+		{
+			return 0;	
+		}
+	}
+	//hàm sửa thông tin giáo viên
+	function guigopygv($nd,$layid)
+	{
+		$dbh=$this->connectpdo();
+		$stmt = $dbh->prepare("insert into guigopy (mahocsinh,noidung,magiaovien) values('0','$nd','$layid')");
+		//$stmt->bindParam(':value', $giatri);
+		if($stmt->execute())
+		{
+			return 1;	
+		}
+		else
+		{
+			return 0;	
+		}
+	}
+	///đăng tài liệu
+	function addfile($mon,$layid,$name,$khoi)
+	{
+		$dbh=$this->connectpdo();
+		$stmt = $dbh->prepare("insert into tailieu(tenmon,magiaovien,tentailieu,khoi) values('$mon','$layid','$name','$khoi')");
+		//$stmt->bindParam(':value', $giatri);
+		if($stmt->execute())
+		{
+			return 1;	
+		}
+		else
+		{
+			return 0;	
+		}
 	}
 	//load thông tin của học sinh
-	public function loadtt($sql)
+	public function loadtt($layid)
 	{
-		$link=$this->connect();
-		$kq=mysqli_query($link,$sql);
-		mysqli_close($link);
-		$i=mysqli_num_rows($kq);
-		if($i>0)
-		{
-			while($row=mysqli_fetch_array($kq))
-			{
+		$con=$this->connectpdo();
+        $stmt = $con->prepare("select * from hocsinh where mahocsinh='$layid' limit 1");
+        $stmt->execute();
+		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+		$kq=$stmt->fetchALL();
+         foreach($kq as $row)
+		 {
 				$mahs=$row['mahocsinh'];
 				$lop=$row['lop'];
 				$hoten=$row['hoten'];
@@ -97,23 +189,17 @@ class tmdt
                             </div>
                         </div>';
 			}
-		}
-		else
-		{
-			echo "Đang cập nhật dữ liệu";
-		}
 	}
 	//load thông tin chi tiết của học sinh
-	public function loadttchitiet($sql)
+	public function loadttchitiet($layid)
 	{
-		$link=$this->connect();
-		$kq=mysqli_query($link,$sql);
-		mysqli_close($link);
-		$i=mysqli_num_rows($kq);
-		if($i>0)
-		{
-			while($row=mysqli_fetch_array($kq))
-			{
+		$con=$this->connectpdo();
+        $stmt = $con->prepare("select * from hocsinh where mahocsinh='$layid' limit 1");
+        $stmt->execute();
+		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+		$kq=$stmt->fetchALL();
+         foreach($kq as $row)
+		 {
 				$mahs=$row['mahocsinh'];
 				$lop=$row['lop'];
 				$hoten=$row['hoten'];
@@ -195,22 +281,16 @@ class tmdt
                             </div>
                         </div>';
 			}
-		}
-		else
-		{
-			echo "Đang cập nhật dữ liệu";
-		}
 	}
-	public function loadttchitietgv($sql)
+	public function loadttchitietgv($layid)
 	{
-		$link=$this->connect();
-		$kq=mysqli_query($link,$sql);
-		mysqli_close($link);
-		$i=mysqli_num_rows($kq);
-		if($i>0)
-		{
-			while($row=mysqli_fetch_array($kq))
-			{
+		$con=$this->connectpdo();
+        $stmt = $con->prepare("select * from giaovien where magiaovien='$layid' limit 1");
+        $stmt->execute();
+		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+		$kq=$stmt->fetchALL();
+         foreach($kq as $row)
+		 {
 				$magv=$row['magiaovien'];
 				$hoten=$row['hoten'];
 				$gt=$row['gioitinh'];
@@ -285,23 +365,17 @@ class tmdt
                             </div>
                         </div>';
 			}
-		}
-		else
-		{
-			echo "Đang cập nhật dữ liệu";
-		}
 	}
 	////load thông tin học sinh để sửa
-	public function suathongtin($sql)
+	public function suathongtin($layid)
 	{
-		$link=$this->connect();
-		$kq=mysqli_query($link,$sql);
-		mysqli_close($link);
-		$i=mysqli_num_rows($kq);
-		if($i>0)
-		{
-			while($row=mysqli_fetch_array($kq))
-			{
+		$con=$this->connectpdo();
+        $stmt = $con->prepare("select * from hocsinh where mahocsinh='$layid' limit 1");
+        $stmt->execute();
+		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+		$kq=$stmt->fetchALL();
+         foreach($kq as $row)
+		 {
 				$mahs=$row['mahocsinh'];
 				$hoten=$row['hoten'];
 				$gt=$row['gioitinh'];
@@ -423,22 +497,16 @@ class tmdt
                             </div>
                         </div>';
 			}
-		}
-		else
-		{
-			echo "Đang cập nhật dữ liệu";
-		}
 	}
-	public function suathongtingv($sql)
+	public function suathongtingv($layid)
 	{
-		$link=$this->connect();
-		$kq=mysqli_query($link,$sql);
-		mysqli_close($link);
-		$i=mysqli_num_rows($kq);
-		if($i>0)
-		{
-			while($row=mysqli_fetch_array($kq))
-			{
+		$con=$this->connectpdo();
+        $stmt = $con->prepare("select * from giaovien where magiaovien='$layid' limit 1");
+        $stmt->execute();
+		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+		$kq=$stmt->fetchALL();
+         foreach($kq as $row)
+		 {
 				$hinh=$row['hinh'];
 				$magv=$row['magiaovien'];
 				echo ' <div class="row" style="display:block">
@@ -502,7 +570,7 @@ class tmdt
 														<input type="text" name="txtcmnd" id="txtcmnd" class="form-control" >
 														</label>
                                                         <label class="col-xs-6"> Dân tộc:
-														<input type="date" name="txtdt" id="txtdt" class="form-control">
+														<input type="text" name="txtdt" id="txtdt" class="form-control">
 														</div> 
 														 <div class="form-group">
                                                         <label class="col-xs-6"> Tôn giáo:
@@ -531,23 +599,17 @@ class tmdt
                             </div>
                         </div>';
 			}
-		}
-		else
-		{
-			echo "Đang cập nhật dữ liệu";
-		}
 	}
 	///load điểm hs khi hs muốn xem điểm của mình
-	public function loaddiem($sql)
+	public function loaddiem($layid,$mamh,$hk,$nh)
 	{
-		$link=$this->connect();
-		$kq=mysqli_query($link,$sql);
-		mysqli_close($link);
-		$i=mysqli_num_rows($kq);
-		if($i>0)
-		{
-			while($row=mysqli_fetch_array($kq))
-			{
+		$con=$this->connectpdo();
+        $stmt = $con->prepare("select * from diem where mahocsinh='$layid' and mamonhoc='$mamh' and hocki='$hk' and namhoc='$nh'");
+        $stmt->execute();
+		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+		$kq=$stmt->fetchALL();
+         foreach($kq as $row)
+		 {
 				$mieng=$row['diemmieng'];
 				$muoilamphut=$row['diem15phut'];
 				$mottiet=$row['diem1tiet'];
@@ -575,7 +637,7 @@ class tmdt
 							</td>
                             <td><span style="display: inline-grid;width: 20px; text-align: center;">'.$tbm.'</span></td>';
 			}
-		}
+		/*}
 		else
 		{
 			echo ' <td>
@@ -594,18 +656,17 @@ class tmdt
 							<span style="display: inline-grid;width: 20px; text-align: center;"></span>
 							</td>
                             <td></td>';
-		}
+		}*/
 	}
-	public function loadttgv($sql)
+	public function loadttgv($layid)
 	{
-		$link=$this->connect();
-		$kq=mysqli_query($link,$sql);
-		mysqli_close($link);
-		$i=mysqli_num_rows($kq);
-		if($i>0)
-		{
-			while($row=mysqli_fetch_array($kq))
-			{
+		$con=$this->connectpdo();
+        $stmt = $con->prepare("select * from giaovien where magiaovien='$layid' limit 1");
+        $stmt->execute();
+		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+		$kq=$stmt->fetchALL();
+         foreach($kq as $row)
+		 {
 				$magiaovien=$row['magiaovien'];
 				$dc=$row['diachi'];
 				$hoten=$row['hoten'];
@@ -665,11 +726,6 @@ class tmdt
                         </div>
 						<hr></hr>';
 			}
-		}
-		else
-		{
-			echo "Đang cập nhật dữ liệu";
-		}
 	}
 	///load tin tức 	 bên học sinh	
 	public function loadtintuc($sql)
@@ -779,25 +835,19 @@ class tmdt
 		return $giatri;
 	}
 	///////////////////////////load mon để đăng tin tức
-	public function loadmon1($sql)
-	{
-		$link=$this->connect();
-		$kq=mysqli_query($link,$sql);
-		mysqli_close($link);
-		$i=mysqli_num_rows($kq);
-		if($i>0)
-		{
-			while($row=mysqli_fetch_array($kq))
-			{
+	public function loadmon1($layid)
+	{ 
+		$con=$this->connectpdo();
+        $stmt = $con->prepare("select * from giaovienmonhoc where magiaovien='$layid'");
+        $stmt->execute();
+		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+		$kq=$stmt->fetchALL();
+         foreach($kq as $row)
+		 {
 				$bm=$row['tenmon'];
 				$mm=$row['mamonhoc'];
 				echo '<input type="text" name="txtmon" id="txtmon" class="form-control" value="'.$bm.'" readonly="readonly">';
 			}
-		}
-		else
-		{
-			echo "Đang cập nhật dữ liệu";
-		}
 	}
 	public function loadkhoi($sql)
 	{
@@ -822,14 +872,13 @@ class tmdt
 	/////////load điểm học sinh trong bảng điểm của giáo viên
 	public function loaddiemhs($sql)
 	{
-		$link=$this->connect();
-		$kq=mysqli_query($link,$sql);
-		mysqli_close($link);
-		$i=mysqli_num_rows($kq);
-		if($i>0)
-		{
-			while($row=mysqli_fetch_array($kq))
-			{
+		$con=$this->connectpdo();
+        $stmt = $con->prepare("select * from diem where mamonhoc=$mamon and hocki=2 and namhoc='$nh'");
+        $stmt->execute();
+		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+		$kq=$stmt->fetchALL();
+         foreach($kq as $row)
+		 {
 				$mieng=$row['diemmieng'];
 				$muoilamphut=$row['diem15phut'];
 				$mottiet=$row['diem1tiet'];
@@ -870,19 +919,18 @@ class tmdt
 							</td>
 							</tr>';
 			}
-		}
 	}	
 	///////////
-	public function loadmamon($sql)
+	public function loadmamon($layid)
 	{
-		$link=$this->connect();
-		$kq=mysqli_query($link,$sql);
-		mysqli_close($link);
-		$i=mysqli_num_rows($kq);
-		if($i>0)
-		{
-			while($row=mysqli_fetch_array($kq))
-			{
+		$con=$this->connectpdo();
+        $stmt = $con->prepare("select * from giaovienmonhoc where magiaovien=".$layid."");
+        $stmt->execute();
+		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+		$kq=$stmt->fetchALL();
+         foreach($kq as $row)
+		 {
+			
 				$mamh=$row['mamonhoc'];
 				$ten=$row['tenmon'];
 			echo'
@@ -892,7 +940,6 @@ class tmdt
 			<input type="text" name="txtmamh" id="txtmamh" value="'.$mamh.'" readonly="readonly" class="form-control" style="margin:0 auto; width:100px;text-align:center;"/>
 			';			
 			}
-		}
 	}
 	/////load điểm hs lên để sửa 
 	public function loaddiemhsedit($sql)
@@ -931,38 +978,48 @@ class tmdt
 		}
 	}	
 	/////load môn để đăng tài liệu
-		public function loadmonh($sql)
+		public function loadmonh()
 	{
-		$link=$this->connect();
-		$kq=mysqli_query($link,$sql);
-		mysqli_close($link);
-		$i=mysqli_num_rows($kq);
-		if($i>0)
-		{
-			 echo '<select name="mon" id="mon" class="form-control">';
-			while($row=mysqli_fetch_array($kq))
-			{
+		$con=$this->connectpdo();
+        $stmt = $con->prepare("select tenmon from monhoc");
+        $stmt->execute();
+		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+		$kq=$stmt->fetchALL();
+		echo '<select name="mon" id="mon" class="form-control">';
+         foreach($kq as $row)
+		 {
 				$bm=$row['tenmon'];
 			echo'<option value="'.$bm.'"selected="selected">'.$bm.'</option>';			
 			}
 			echo "</select>";
-		}
 	}
 	////load mật khảu cũ để so khớp khi thay đổi pass
-		public function loadpasscu($sql)
+		public function loadpasscu($layid)
 	{
-		$link=$this->connect();
-		$kq=mysqli_query($link,$sql);
-		mysqli_close($link);
-		$i=mysqli_num_rows($kq);
-		if($i>0)
-		{
-			while($row=mysqli_fetch_array($kq))
-			{
+		$con=$this->connectpdo();
+        $stmt = $con->prepare("select pass from taikhoanhs where mahocsinh=".$layid."");
+        $stmt->execute();
+		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+		$kq=$stmt->fetchALL();
+         foreach($kq as $row)
+		 {
 				$pass=$row['pass'];
 			echo' <input type="hidden" class="form-control" id="txtpasscu" name="txtpasscu" value="'.$pass.'"/>';			
-			}
-		}
+		 }
+	}
+	////load mật khảu cũ để so khớp khi thay đổi pass của giáo viên
+	public function loadpasscugv($layid)
+	{
+		$con=$this->connectpdo();
+        $stmt = $con->prepare("select pass from taikhoangv where magiaovien=".$layid."");
+        $stmt->execute();
+		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+		$kq=$stmt->fetchALL();
+         foreach($kq as $row)
+		 {
+				$pass=$row['pass'];
+			echo' <input type="hidden" class="form-control" id="txtpasscu" name="txtpasscu" value="'.$pass.'"/>';			
+		 }
 	}
 	////LOAD HỌC SINH ĐỂ NHẬP ĐIỂM
 			public function loadtenhs($sql)
@@ -988,22 +1045,20 @@ class tmdt
 		}
 	}
 	////load lớp học để nhập điểm
-		public function loadlop($sql)
+		public function loadlop($layid)
 	{
-		$link=$this->connect();
-		$kq=mysqli_query($link,$sql);
-		mysqli_close($link);
-		$i=mysqli_num_rows($kq);
-		if($i>0)
-		{
-			echo '<select name="lop" id="lop" class="form-control">';
-			while($row=mysqli_fetch_array($kq))
-			{
+		$con=$this->connectpdo();
+        $stmt = $con->prepare("select * from giaovienlophoc where magiaovien='$layid'");
+        $stmt->execute();
+		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+		$kq=$stmt->fetchALL();
+		echo '<select name="lop" id="lop" class="form-control">';
+         foreach($kq as $row)
+		 {
 				$lop=$row['tenlop'];
 			echo' <option value="'.$lop.'"selected="selected">'.$lop.'</option>';			
 			}
 			echo "</select>";
-		}
 	}
 	////load mã học sinh từ tên để nhập điểm
 		public function loadmahs($sql)
@@ -1022,16 +1077,15 @@ class tmdt
 		}
 	}
 	///LOAD CÔNG NỢ
-	public function loadcn($sql)
+	public function loadcn($layid)
 	{
-		$link=$this->connect();
-		$kq=mysqli_query($link,$sql);
-		mysqli_close($link);
-		$i=mysqli_num_rows($kq);
-		if($i>0)
-		{
-			while($row=mysqli_fetch_array($kq))
-			{
+		$con=$this->connectpdo();
+        $stmt = $con->prepare("select * from congno where mahocsinh='$layid'");
+        $stmt->execute();
+		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+		$kq=$stmt->fetchALL();
+         foreach($kq as $row)
+		 {
 				$macn=$row['macongno'];
 				$ndthu=$row['noidungthu'];
 				$sotien=$row['sotien'];
@@ -1063,7 +1117,7 @@ class tmdt
 							  </tr>
 							';
 			}
-		}
+		/*}
 		else
 		{
 			echo ' <td>
@@ -1082,19 +1136,18 @@ class tmdt
 							<span style="display: inline-grid;width: 20px; text-align: center;"></span>
 							</td>
                             <td></td>';
-		}
+		}*/
 	}
 	///load tài liệu cho học sinh xem
-	public function loadtailieu($sql)
+	public function loadtailieu()
 	{
-		$link=$this->connect();
-		$kq=mysqli_query($link,$sql);
-		mysqli_close($link);
-		$i=mysqli_num_rows($kq);
-		if($i>0)
-		{
-			while($row=mysqli_fetch_array($kq))
-			{
+		$con=$this->connectpdo();
+        $stmt = $con->prepare("select * from tailieu ");
+        $stmt->execute();
+		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+		$kq=$stmt->fetchALL();
+         foreach($kq as $row)
+		 {
 				$macn=$row['tieude'];
 				$tenmon=$row['tenmon'];
 				$tentl=$row['tentailieu'];
@@ -1110,11 +1163,6 @@ class tmdt
 				</a>
 							';
 			}
-		}
-		else
-		{
-			echo ' Đang cập nhật dữ liệu';
-		}
 	}
 	///load diem hoc sinh pro
 	public function loaddiemhspro($sql)

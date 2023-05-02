@@ -1,13 +1,15 @@
 <?php
-	$con=mysqli_connect("localhost","root","","detai");
-  		if(!$con)
-   		{
-	   		die("Khong ket noi duoc den CSDL");
-			exit();
-		}
-		else
-		{			
-			mysqli_set_charset($con,"utf8");
-			return $con;
-		}
+	$servername = "localhost";
+	$username = "root";
+	$password = "";
+	
+	try {
+	  $con = new PDO("mysql:host=$servername;dbname=doan2", $username, $password);
+	  // set the PDO error mode to exception
+	  $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	  //echo "Connected successfully";
+	} catch(PDOException $e) {
+	  //echo "Connection failed: " . $e->getMessage();
+	}
+	return $con;
 ?>

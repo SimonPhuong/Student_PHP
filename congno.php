@@ -136,11 +136,9 @@ a:hover
                             <th style="width:100px;">Trạng thái</th>
                             <th style="width:100px;">Mã học sinh</th>
                         </tr>
-                       
                         <?php
-						$p->loadcn("select * from congno where mahocsinh='$layid'");
+						$p->loadcn($layid);
 						?>
-
                      </tbody>
                 </table>
                 </form>

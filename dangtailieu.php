@@ -133,7 +133,7 @@ a:hover
                                         <form action="" method="post" enctype="multipart/form-data" name="form1" id="form1">
                                         <h3>Môn học:</h3>
                                        <?php
-									     $p->loadmon1("select * from giaovienmonhoc where magiaovien='$layid'")
+									     $p->loadmon1($layid)
 									   ?>
                                        <h3>Chọn khối lớp:</h3>
                                         <select name="khoi" id="khoi" class="form-control" style="margin-top:10px;">
@@ -158,7 +158,7 @@ switch($_POST['button'])
 		
          if($a->uploadfile($name,$tmp_name,"tailieu")==1)
 			{
-				if($p->themxoasua("insert into tailieu1(tenmon,magiaovien,tentailieu,khoi) values('$mon','$layid','$name','$khoi')")==1)
+				if($p->addfile($mon,$layid,$name,$khoi)==1)
 				{
 				echo '<script> alert("Đăng tài liệu thành công"); </script>';}
 			else

@@ -38,6 +38,13 @@ $layid=$_SESSION['user'];
     height:auto;
     overflow: hidden;
 }
+img:hover
+{
+	width:200px;
+	height:200px;
+	box-shadow: 0 5px 10px 0 rgba(114, 109, 109, 0.993);
+	transition:all 300ms ease;
+}
 #tt
 {
 	margin-top:20px;
@@ -119,7 +126,7 @@ a:hover
             <div class="main-section-content" id="contnet">
                 <div class="row" style="display:block">
                                             <?php
-											$p->loadttchitietgv("select * from giaovien where magiaovien='$layid' limit 1");
+											$p->loadttchitietgv($layid);
 											?>
                 </div>
             </div>

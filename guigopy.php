@@ -154,7 +154,7 @@ $layid=$_SESSION['user'];
 	                      case 'Gửi':
                           {
 		                    $nd=$_REQUEST['txtnd'];
-					if($p->themxoasua("insert into guigopy (mahocsinh,noidung,magiaovien) values('$layid','$nd','0')")==1)
+					if($p->guigopy($layid,$nd)==1)
 			                    {
 			              	      echo '<script> alert("Gửi góp ý thành công!"); </script>'; 
 			                    }
