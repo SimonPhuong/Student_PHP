@@ -99,23 +99,11 @@ $layid=$_SESSION['user'];
                     <span class="material-icons-sharp">add_circle_outline</span>
                     <h3>Thay đổi mật khẩu</h3>
                 </a>
-                <a href="#">
-                    <form action="" method="POST">
+                <a href="logout.php">
                         <span class="material-icons-sharp">logout</span>
                         <button class="form-control" type="submit" id="nut1" name="nut1" value="Đăng xuất">Log
                             out</button>
-                        <?php
-         switch($_POST['nut1'])
-         {
-	        case 'Đăng xuất':
-	          {
-		         session_destroy();
-		         header("location:index.php");
-	          }
-          }
-       ?>
                 </a>
-                </form>
             </div>
         </aside>
         <!------------------- END OF ASIDE -------------------->

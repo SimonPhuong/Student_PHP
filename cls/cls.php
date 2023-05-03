@@ -23,7 +23,7 @@ class tmdt
 		$password = "";
 		
 		try {
-		  $con = new PDO("mysql:host=$servername;dbname=doan2", $username, $password);
+		  $con = new PDO("mysql:host=$servername;dbname=doan", $username, $password);
 		  // set the PDO error mode to exception
 		  $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		  //echo "Connected successfully";
@@ -126,21 +126,24 @@ function chanepass($pass2,$layid)
 	public function loadtt($layid)
 	{
 		$con=$this->connectpdo();
-        $stmt = $con->prepare("select * from hocsinh where mahocsinh='$layid' limit 1");
+        $stmt = $con->prepare("select * from students where id_student='$layid' limit 1");
         $stmt->execute();
 		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 		$kq=$stmt->fetchALL();
          foreach($kq as $row)
 		 {
-				$mahs=$row['mahocsinh'];
-				$lop=$row['lop'];
-				$hoten=$row['hoten'];
-				$kh=$row['khoahoc'];
-				$noisinh=$row['noisinh'];
-				$ngaysinh=$row['ngaysinh'];
-				$sdt=$row['sdt'];
-				$hinh=$row['hinh'];
-				$gt=$row['gioitinh'];
+				$id_stu=$row['id_student'];
+				$fullname=$row['first_name'].' '.$row['last_name'];
+				$gender=$row['gender'];
+				$phone=$row['phone'];
+				$email=$row['email'];
+				$dob=$row['date_of_birth'];
+				$acayear=$row['academic_year'];
+				$cid=$row['citizen_identity_card'];
+				$nation=$row['nation'];
+				$religion=$row['religion'];
+				$address=$row['address'].', '.$row['state'].', '.$row['city'];
+				$img=$row['image'];
 				echo ' <div class="row" style="display:block">
                         <div class="box-df profile-ds-info">
                             <div class="portlet">
@@ -154,7 +157,7 @@ function chanepass($pass2,$layid)
                                     <div class="row">
                                         <div class="col-sm-3">
                                             <div class="profile-userpic">
-                                                <img src="img/'.$hinh.'" class="img-responsive" style="object-fit: cover;">
+                                                <img src="img/'.$img.'" class="img-responsive" style="object-fit: cover;">
                                             </div>
                                             <div class="text-center">
                                                 <a href="suathongtin.php" class="color-active" lang="db-chitiet-button">Sửa thông tin</a>
@@ -165,20 +168,20 @@ function chanepass($pass2,$layid)
 				<div class="form-horizontal">
                                                 <div class="form-body">
                                                     <div class="form-group">
-                                                        <label class="col-xs-6"><span lang="sv-mssv">Mã số học sinh</span>: <span class="bold">'.$mahs.'</span></label>
-                                                        <label class="col-xs-6"><span lang="sv-mssv">Lớp</span>: <span class="bold">'.$lop.'</span></label>
+                                                        <label class="col-xs-6"><span lang="sv-mssv">ID STUDENT</span>: <span class="bold">'.$id_stu.'</span></label>
+                                                        <label class="col-xs-6"><span lang="sv-mssv">FULL NAME</span>: <span class="bold">'.$fullname.'</span></label>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label class="col-xs-6"><span lang="sv-mssv">Họ tên</span>: <span class="bold">'.$hoten.'</span></label>
-                                                        <label class="col-xs-6"><span lang="sv-mssv">Khoá học</span>: <span class="bold">'.$kh.'</span></label>
+                                                        <label class="col-xs-6"><span lang="sv-mssv">GENDER</span>: <span class="bold">'.$gender.'</span></label>
+                                                        <label class="col-xs-6"><span lang="sv-mssv">PHONE</span>: <span class="bold">'.$phone.'</span></label>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label class="col-xs-6"><span lang="sv-mssv">Nơi sinh</span>: <span class="bold">'.$noisinh.'</span></label>
-                                                        <label class="col-xs-6"><span lang="sv-mssv">Ngày sinh</span>: <span class="bold">'.$ngaysinh.'</span></label>
+                                                        <label class="col-xs-6"><span lang="sv-mssv">EMAIL</span>: <span class="bold">'.$email.'</span></label>
+                                                        <label class="col-xs-6"><span lang="sv-mssv">DATE OF BIRTH</span>: <span class="bold">'.$dob.'</span></label>
 														</div>
 														<div class="form-group">
-														<label class="col-xs-6"><span lang="sv-mssv">Giới tính</span>: <span class="bold">'.$gt.'</span></label>
-														<label class="col-xs-6"><span lang="sv-mssv">Số điện thoại</span>: <span class="bold">'.$sdt.'</span></label>
+														<label class="col-xs-6"><span lang="sv-mssv">ACADEMIC YEAR</span>: <span class="bold">'.$acayear.'</span></label>
+														<label class="col-xs-6"><span lang="sv-mssv">CITIZEN IDENTITY CARD</span>: <span class="bold">'.$cid.'</span></label>
 														</div>
                                                     </div>
                                                 </div>
@@ -194,92 +197,80 @@ function chanepass($pass2,$layid)
 	public function loadttchitiet($layid)
 	{
 		$con=$this->connectpdo();
-        $stmt = $con->prepare("select * from hocsinh where mahocsinh='$layid' limit 1");
+        $stmt = $con->prepare("select * from students where id_student='$layid' limit 1");
         $stmt->execute();
 		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 		$kq=$stmt->fetchALL();
          foreach($kq as $row)
 		 {
-				$mahs=$row['mahocsinh'];
-				$lop=$row['lop'];
-				$hoten=$row['hoten'];
-				$kh=$row['khoahoc'];
-				$noisinh=$row['noisinh'];
-				$ngaysinh=$row['ngaysinh'];
-				$sdt=$row['sdt'];
-				$hinh=$row['hinh'];
-				$gt=$row['gioitinh'];
-				$tt=$row['trangthai'];
-				$nvt=$row['ngayvaotruong'];
-				$dt=$row['dantoc'];
-				$tongiao=$row['tongiao'];
-				$cmnd=$row['socmnd'];
-				$email=$row['email'];
-				$khoi=$row['khoi'];
-				echo ' <div class="row" style="display:block">
-                        <div class="box-df profile-ds-info">
-                            <div class="portlet">
-                                <div class="portlet-title">
-                                    <div class="caption">
-                                        <span class="caption-subject bold" lang="db-thongtinsinhvien">Thông tin học sinh</span>
-                                    </div>
-                                </div>
+			$id_stu=$row['id_student'];
+			$fullname=$row['first_name'].' '.$row['last_name'];
+			$gender=$row['gender'];
+			$phone=$row['phone'];
+			$email=$row['email'];
+			$dob=$row['date_of_birth'];
+			$acayear=$row['academic_year'];
+			$cid=$row['citizen_identity_card'];
+			$nation=$row['nation'];
+			$religion=$row['religion'];
+			$address=$row['address'].', '.$row['state'].', '.$row['city'];
+			$img=$row['image'];
+			echo ' <div class="row" style="display:block">
+					<div class="box-df profile-ds-info">
+						<div class="portlet">
+							<div class="portlet-title">
+								<div class="caption">
+									<span class="caption-subject bold" lang="db-thongtinsinhvien">Thông tin học sinh</span>
+								</div>
+							</div>
 
-                                <div class="porlet-body">
-                                    <div class="row">
-                                        <div class="col-sm-3">
-                                            <div class="profile-userpic">
-                                                <img src="img/'.$hinh.'" class="img-responsive" style="object-fit: cover;">
-                                            </div>
-                                            <div class="text-center">
-                                                <a href="suathongtin.php" class="color-active" lang="db-chitiet-button">Sửa thông tin</a>
-                                            </div>
-                                        </div>
+							<div class="porlet-body">
+								<div class="row">
+									<div class="col-sm-3">
+										<div class="profile-userpic">
+											<img src="img/'.$img.'" class="img-responsive" style="object-fit: cover;">
+										</div>
+										<div class="text-center">
+											<a href="suathongtin.php" class="color-active" lang="db-chitiet-button">Sửa thông tin</a>
+										</div>
+									</div>
 
-                                        <div class="col-sm-9">
-				<div class="form-horizontal">
-                                                <div class="form-body">
-                                                    <div class="form-group">
-                                                        <label class="col-xs-6"><span lang="sv-mssv">Mã số học sinh</span>: <span class="bold">'.$mahs.'</span></label>
-                                                        <label class="col-xs-6"><span lang="sv-mssv">Lớp</span>: <span class="bold">'.$lop.'</span></label>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="col-xs-6"><span lang="sv-mssv">Họ tên</span>: <span class="bold">'.$hoten.'</span></label>
-                                                        <label class="col-xs-6"><span lang="sv-mssv">Khoá học</span>: <span class="bold">'.$kh.'</span></label>
-                                                    </div>
+									<div class="col-sm-9">
+			<div class="form-horizontal">
+											<div class="form-body">
+												<div class="form-group">
+													<label class="col-xs-6"><span lang="sv-mssv">ID STUDENT</span>: <span class="bold">'.$id_stu.'</span></label>
+													<label class="col-xs-6"><span lang="sv-mssv">FULL NAME</span>: <span class="bold">'.$fullname.'</span></label>
+												</div>
+												<div class="form-group">
+													<label class="col-xs-6"><span lang="sv-mssv">GENDER</span>: <span class="bold">'.$gender.'</span></label>
+													<label class="col-xs-6"><span lang="sv-mssv">PHONE</span>: <span class="bold">'.$phone.'</span></label>
+												</div>
+												<div class="form-group">
+													<label class="col-xs-6"><span lang="sv-mssv">EMAIL</span>: <span class="bold">'.$email.'</span></label>
+													<label class="col-xs-6"><span lang="sv-mssv">DATE OF BIRTH</span>: <span class="bold">'.$dob.'</span></label>
+													</div>
 													<div class="form-group">
-														<label class="col-xs-6"><span lang="sv-mssv">Trạng thái</span>: <span class="bold">'.$tt.'</span></label>
-														<label class="col-xs-6"><span lang="sv-mssv">Ngày vào trường</span>: <span class="bold">'.$nvt.'</span></label>
-														</div>
-                                                    <div class="form-group">
-                                                        <label class="col-xs-6"><span lang="sv-mssv">Nơi sinh</span>: <span class="bold">'.$noisinh.'</span></label>
-                                                        <label class="col-xs-6"><span lang="sv-mssv">Ngày sinh</span>: <span class="bold">'.$ngaysinh.'</span></label>
-														</div>
-														<div class="form-group">
-														<label class="col-xs-6"><span lang="sv-mssv">Giới tính</span>: <span class="bold">'.$gt.'</span></label>
-														<label class="col-xs-6"><span lang="sv-mssv">Số điện thoại</span>: <span class="bold">'.$sdt.'</span></label>
-														</div>
-														<div class="form-group">
-														<label class="col-xs-6"><span lang="sv-mssv">Trạng thái</span>: <span class="bold">'.$tt.'</span></label>
-														<label class="col-xs-6"><span lang="sv-mssv">Khối</span>: <span class="bold">'.$khoi.'</span></label>
-														</div>
-														<div class="form-group">
-														<label class="col-xs-6"><span lang="sv-mssv">Số CMND</span>: <span class="bold">'.$cmnd.'</span></label>
-														<label class="col-xs-6"><span lang="sv-mssv">Dân tộc</span>: <span class="bold">'.$dt.'</span></label>
-														</div>
-														<div class="form-group">
-														<label class="col-xs-6"><span lang="sv-mssv">Tôn giáo</span>: <span class="bold">'.$tongiao.'</span></label>
-														<label class="col-xs-6"><span lang="sv-mssv">Email</span>: <span class="bold">'.$email.'</span></label>
-														</div>
-													
-                                                    </div>
-                                                </div>
-                                            </div>
-											 </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>';
+													<label class="col-xs-6"><span lang="sv-mssv">ACADEMIC YEAR</span>: <span class="bold">'.$acayear.'</span></label>
+													<label class="col-xs-6"><span lang="sv-mssv">CITIZEN IDENTITY CARD</span>: <span class="bold">'.$cid.'</span></label>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-xs-6"><span lang="sv-mssv">NATION</span>: <span class="bold">'.$nation.'</span></label>
+													<label class="col-xs-6"><span lang="sv-mssv">RELIGION</span>: <span class="bold">'.$religion.'</span></label>
+													</div>
+													<div class="form-group">
+													<label class="col-xs-6"><span lang="sv-mssv">ADDRESS</span>: <span class="bold">'.$address.'</span></label>
+													<label class="col-xs-6"><span lang="sv-mssv"></span>: <span class="bold"></span></label>
+													</div>
+												</div>
+											</div>
+										</div>
+										 </div>
+								</div>
+							</div>
+						</div>
+					</div>';
 			}
 	}
 	public function loadttchitietgv($layid)

@@ -13,7 +13,6 @@ else
 include("cls/cls.php");
 $p=new tmdt();
 $layid=$_SESSION['user'];
- $laybm=$_REQUEST['bm'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
