@@ -33,10 +33,10 @@ class tmdt
 		return $con;
 	}
 	///hàm gửi thông tin góp ý
-	function guigopy($layid,$nd)
+	function sendcontact($layid,$nd)
 	{
 		$dbh=$this->connectpdo();
-		$stmt = $dbh->prepare("insert into guigopy (mahocsinh,noidung,magiaovien) values('$layid','$nd','0')");
+		$stmt = $dbh->prepare("insert into contacts (user_id,message) values('$layid','$nd')");
 		//$stmt->bindParam(':value', $giatri);
 		if($stmt->execute())
 		{
@@ -592,41 +592,60 @@ function chanepass($pass2,$layid)
 			}
 	}
 	///load điểm hs khi hs muốn xem điểm của mình
-	public function loaddiem($layid,$mamh,$hk,$nh)
+	public function loadscore($id,$mamh,$hk,$nh)
 	{
 		$con=$this->connectpdo();
-        $stmt = $con->prepare("select * from diem where mahocsinh='$layid' and mamonhoc='$mamh' and hocki='$hk' and namhoc='$nh'");
+        $stmt = $con->prepare("select * from scores where student_id='$id' and subject_id='$mamh' and semester='$hk' and school_year='$nh'");
         $stmt->execute();
 		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 		$kq=$stmt->fetchALL();
          foreach($kq as $row)
 		 {
-				$mieng=$row['diemmieng'];
-				$muoilamphut=$row['diem15phut'];
-				$mottiet=$row['diem1tiet'];
-				$gk=$row['diemgk'];
-				$ck=$row['diemck'];
-				$tbmon=$row['diemtbmon'];
-				$tbcaki=$row['diemtbcaki'];
-				$hocluc=$row['hocluc'];
-				$hanhkiem=$row['hanhkiem'];
-				$tbm=($mieng+$muoilamphut+$mottiet+$gk+$ck)/5;
+				$oe1=$row['oral_exam_1'];
+				$oe2=$row['oral_exam_2'];
+				$oe3=$row['oral_exam_3'];
+				$e151=$row['exam_15m_1'];
+				$e152=$row['exam_15m_2'];
+				$e153=$row['exam_15m_3'];
+				$e451=$row['exam_45m_1'];
+				$e452=$row['exam_45m_2'];
+				$e453=$row['exam_45m_3'];
+				$fe=$row['final_exam'];
+				$spa=$row['spa'];
 				echo ' <td>
-                                <span style="display: inline-grid;width: 20px; text-align: center;">'.$mieng.'</span>
+                                <span style="display: inline-grid;width: 20px; text-align: center;">'.$oe1.'</span>
                             </td>
                             <td>
-							<span style="display: inline-grid;width: 20px; text-align: center;">'.$muoilamphut.'</span>
+							<span style="display: inline-grid;width: 20px; text-align: center;">'.$oe2.'</span>
 							</td>
                             <td>
-							<span style="display: inline-grid;width: 20px; text-align: center;">'.$mottiet.'</span>
+							<span style="display: inline-grid;width: 20px; text-align: center;">'.$oe3.'</span>
 							</td>
                             <td>
-							<span style="display: inline-grid;width: 20px; text-align: center;">'.$gk.'</span>
+							<span style="display: inline-grid;width: 20px; text-align: center;">'.$e151.'</span>
 							</td>
                             <td>
-							<span style="display: inline-grid;width: 20px; text-align: center;">'.$ck.'</span>
+							<span style="display: inline-grid;width: 20px; text-align: center;">'.$e152.'</span>
 							</td>
-                            <td><span style="display: inline-grid;width: 20px; text-align: center;">'.$tbm.'</span></td>';
+							<td>
+							<span style="display: inline-grid;width: 20px; text-align: center;">'.$e153.'</span>
+							</td>
+							<td>
+							<span style="display: inline-grid;width: 20px; text-align: center;">'.$e451.'</span>
+							</td>
+							<td>
+							<span style="display: inline-grid;width: 20px; text-align: center;">'.$e452.'</span>
+							</td>
+							<td>
+							<span style="display: inline-grid;width: 20px; text-align: center;">'.$e453.'</span>
+							</td>
+							<td>
+							<span style="display: inline-grid;width: 20px; text-align: center;">'.$fe.'</span>
+							</td>
+							<td>
+							<span style="display: inline-grid;width: 20px; text-align: center;">'.$spa.'</span>
+							</td>';
+
 			}
 		/*}
 		else
@@ -648,6 +667,20 @@ function chanepass($pass2,$layid)
 							</td>
                             <td></td>';
 		}*/
+	}
+	//load id
+	public function loadid($layid)
+	{
+		$con=$this->connectpdo();
+        $stmt = $con->prepare("select * from students where id_student='$layid'");
+        $stmt->execute();
+		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+		$kq=$stmt->fetchALL();
+         foreach($kq as $row)
+		 {
+			$id=$row['id'];
+			echo '<input value="'.$id.'" id="id" type="hidden" name="id" />';
+			}
 	}
 	public function loadttgv($layid)
 	{
@@ -969,18 +1002,19 @@ function chanepass($pass2,$layid)
 		}
 	}	
 	/////load môn để đăng tài liệu
-		public function loadmonh()
+		public function loadsubject()
 	{
 		$con=$this->connectpdo();
-        $stmt = $con->prepare("select tenmon from monhoc");
+        $stmt = $con->prepare("select * from subjects");
         $stmt->execute();
 		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 		$kq=$stmt->fetchALL();
-		echo '<select name="mon" id="mon" class="form-control">';
+		echo '<select name="subject" id="subject" class="form-control">';
          foreach($kq as $row)
 		 {
-				$bm=$row['tenmon'];
-			echo'<option value="'.$bm.'"selected="selected">'.$bm.'</option>';			
+				$sub=$row['subject_name'];
+				$id=$row['id'];
+			echo'<option value="'.$id.'"selected="selected">'.$sub.'</option>';			
 			}
 			echo "</select>";
 	}

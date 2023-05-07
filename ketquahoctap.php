@@ -66,26 +66,31 @@ $layid=$_SESSION['user'];
 
 
             <!---------------Bảng điểm-------------->
-
+            <form id="formAuthentication" class="mb-3" action="" method="POST">
             <div id="bangDiem">
 
                 <!--Bảng điểm HK1-->
                 <div class="title"><b>Kết quả học tập học kỳ 1</b></div>
-                
+                <?php $p->loadid($layid) ?>
                 <table class="center">
                     <tbody>
                         <tr class="tophead">
-                            <th width="180px">Môn học</th>
-                            <th>Điểm miệng</th>
-                            <th>Điểm 15 phút</th>
-                            <th>Điểm 1 tiết</th>
-                            <th>Giữa kỳ</th>
-                            <th>Cuối kỳ</th>
-                            <th width="150px">Trung bình môn</th>
+                            <th width="300px">SUBJECT</th>
+                            <th>ORAL EXAM 1</th>
+                            <th>ORAL EXAM 2</th>
+                            <th>ORAL EXAM 3</th>
+                            <th>EXAM 15M 1</th>
+                            <th>EXAM 15M 2</th>
+                            <th>EXAM 15M 3</th>
+                            <th>EXAM 45M 1</th>
+                            <th>EXAM 45M 2</th>
+                            <th>EXAM 45M 3</th>
+                            <th>FINAL EXAM</th>
+                            <th>SPA</th>
                         </tr>
 
                         <tr>
-                            <td class="subjects">Toán học</td>
+                            <td class="subjects">Maths</td>
                            <?php
                            $hk=1;
                            $mamh=1;
@@ -94,14 +99,15 @@ $layid=$_SESSION['user'];
 	              case 'Xem':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-						   $p->loaddiem($layid,$mamh,$hk,$nh);
+                       $id=$_REQUEST['id'];
+						   $p->loadscore($id,$mamh,$hk,$nh);
 				   }
 				 }
 						   ?>
                         </tr>
 
                         <tr>
-                            <td class="subjects">Ngữ văn</td>
+                            <td class="subjects">Physics</td>
                             <?php
                            $hk=1;
                            $mamh=2;
@@ -110,14 +116,15 @@ $layid=$_SESSION['user'];
 	              case 'Xem':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-						   $p->loaddiem($layid,$mamh,$hk,$nh);
+                       $id=$_REQUEST['id'];
+                       $p->loadscore($id,$mamh,$hk,$nh);
 				   }
 				 }
 						   ?>
                         </tr>
 
                         <tr>
-                            <td class="subjects">Hoá học</td>
+                            <td class="subjects">Chemistry</td>
                             <?php
                            $hk=1;
                            $mamh=3;
@@ -126,14 +133,15 @@ $layid=$_SESSION['user'];
 	              case 'Xem':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-						   $p->loaddiem($layid,$mamh,$hk,$nh);
+                       $id=$_REQUEST['id'];
+                       $p->loadscore($id,$mamh,$hk,$nh);
 				   }
 				 }
 						   ?>
                         </tr>
 
                         <tr>
-                            <td class="subjects">Vật lý</td>
+                            <td class="subjects">Biology</td>
                             <?php
                            $hk=1;
                            $mamh=4;
@@ -142,14 +150,15 @@ $layid=$_SESSION['user'];
 	              case 'Xem':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-						   $p->loaddiem($layid,$mamh,$hk,$nh);
+                       $id=$_REQUEST['id'];
+                       $p->loadscore($id,$mamh,$hk,$nh);
 				   }
 				 }
 						   ?>
                         </tr>
 
                         <tr>
-                            <td class="subjects">Sinh học</td>
+                            <td class="subjects">Informatics</td>
                             <?php
                            $hk=1;
                            $mamh=5;
@@ -158,14 +167,15 @@ $layid=$_SESSION['user'];
 	              case 'Xem':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-						   $p->loaddiem($layid,$mamh,$hk,$nh);
+                       $id=$_REQUEST['id'];
+                       $p->loadscore($id,$mamh,$hk,$nh);
 				   }
 				 }
 						   ?>
                         </tr>
 
                         <tr>
-                            <td class="subjects">Tin học</td>
+                            <td class="subjects">Literature</td>
                             <?php
                            $hk=1;
                            $mamh=6;
@@ -174,14 +184,15 @@ $layid=$_SESSION['user'];
 	              case 'Xem':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-						   $p->loaddiem($layid,$mamh,$hk,$nh);
+                       $id=$_REQUEST['id'];
+                       $p->loadscore($id,$mamh,$hk,$nh);
 				   }
 				 }
 						   ?>
                         </tr>
 
                         <tr>
-                            <td class="subjects">Lịch sử</td>
+                            <td class="subjects">History</td>
                             <?php
                            $hk=1;
                            $mamh=7;
@@ -190,14 +201,15 @@ $layid=$_SESSION['user'];
 	              case 'Xem':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-						   $p->loaddiem($layid,$mamh,$hk,$nh);
+                       $id=$_REQUEST['id'];
+                       $p->loadscore($id,$mamh,$hk,$nh);
 				   }
 				 }
 						   ?>
                         </tr>
 
                         <tr>
-                            <td class="subjects">Địa lý</td>
+                            <td class="subjects">Geography</td>
                             <?php
                            $hk=1;
                            $mamh=8;
@@ -206,14 +218,15 @@ $layid=$_SESSION['user'];
 	              case 'Xem':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-						   $p->loaddiem($layid,$mamh,$hk,$nh);
+                       $id=$_REQUEST['id'];
+                       $p->loadscore($id,$mamh,$hk,$nh);
 				   }
 				 }
 						   ?>
                         </tr>
 
                         <tr>
-                            <td class="subjects">Ngoại ngữ</td>
+                            <td class="subjects">Foreign Language</td>
                             <?php
                            $hk=1;
                            $mamh=9;
@@ -222,14 +235,15 @@ $layid=$_SESSION['user'];
 	              case 'Xem':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-						   $p->loaddiem($layid,$mamh,$hk,$nh);
+                       $id=$_REQUEST['id'];
+                       $p->loadscore($id,$mamh,$hk,$nh);
 				   }
 				 }
 						   ?>
                         </tr>
 
                         <tr>
-                            <td class="subjects">GDCD</td>
+                            <td class="subjects">Civic Education</td>
                             <?php
                            $hk=1;
                            $mamh=10;
@@ -238,14 +252,15 @@ $layid=$_SESSION['user'];
 	              case 'Xem':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-						   $p->loaddiem($layid,$mamh,$hk,$nh);
+                       $id=$_REQUEST['id'];
+                       $p->loadscore($id,$mamh,$hk,$nh);
 				   }
 				 }
 						   ?>
                         </tr>
                         
                         <tr>
-                            <td class="subjects">Công nghệ</td>
+                            <td class="subjects">Technology</td>
                             <?php
                            $hk=1;
                            $mamh=11;
@@ -254,14 +269,15 @@ $layid=$_SESSION['user'];
 	              case 'Xem':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-						   $p->loaddiem($layid,$mamh,$hk,$nh);
+                       $id=$_REQUEST['id'];
+                       $p->loadscore($id,$mamh,$hk,$nh);
 				   }
 				 }
 						   ?>
                         </tr>
 
                         <tr>
-                            <td class="subjects">Thể dục</td>
+                            <td class="subjects">Physical Education</td>
                             <?php
                            $hk=1;
                            $mamh=12;
@@ -270,14 +286,15 @@ $layid=$_SESSION['user'];
 	              case 'Xem':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-						   $p->loaddiem($layid,$mamh,$hk,$nh);
+                       $id=$_REQUEST['id'];
+                       $p->loadscore($id,$mamh,$hk,$nh);
 				   }
 				 }
 						   ?>
                         </tr>
 
                         <tr>
-                            <td class="subjects">GDQP</td>
+                            <td class="subjects">National Defense Education</td>
                             <?php
                            $hk=1;
                            $mamh=13;
@@ -286,7 +303,8 @@ $layid=$_SESSION['user'];
 	              case 'Xem':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-						   $p->loaddiem($layid,$mamh,$hk,$nh);
+                       $id=$_REQUEST['id'];
+                       $p->loadscore($id,$mamh,$hk,$nh);
 				   }
 				 }
 						   ?>
@@ -331,18 +349,23 @@ $layid=$_SESSION['user'];
                 <table class="center">
                     <tbody>
                         <tr class="tophead">
-                            <th width="180px">Môn học</th>
-                            <th>Điểm miệng</th>
-                            <th>Điểm 15 phút</th>
-                            <th>Điểm 1 tiết</th>
-                            <th>Giữa kỳ</th>
-                            <th>Cuối kỳ</th>
-                            <th width="150px">Trung bình môn</th>
+                            <th width="300px;">SUBJECT</th>
+                            <th>ORAL EXAM 1</th>
+                            <th>ORAL EXAM 2</th>
+                            <th>ORAL EXAM 3</th>
+                            <th>EXAM 15M 1</th>
+                            <th>EXAM 15M 2</th>
+                            <th>EXAM 15M 3</th>
+                            <th>EXAM 45M 1</th>
+                            <th>EXAM 45M 2</th>
+                            <th>EXAM 45M 3</th>
+                            <th>FINAL EXAM</th>
+                            <th>SPA</th>
                         </tr>
 
                         <tr>
-                            <td class="subjects">Toán học</td>
-                            <?php
+                            <td class="subjects">Maths</td>
+                           <?php
                            $hk=2;
                            $mamh=1;
 						   switch($_POST['button'])
@@ -350,14 +373,15 @@ $layid=$_SESSION['user'];
 	              case 'Xem':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-						   $p->loaddiem($layid,$mamh,$hk,$nh);
+                       $id=$_REQUEST['id'];
+						   $p->loadscore($id,$mamh,$hk,$nh);
 				   }
 				 }
 						   ?>
                         </tr>
 
                         <tr>
-                            <td class="subjects">Ngữ văn</td>
+                            <td class="subjects">Physics</td>
                             <?php
                            $hk=2;
                            $mamh=2;
@@ -366,14 +390,15 @@ $layid=$_SESSION['user'];
 	              case 'Xem':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-						   $p->loaddiem($layid,$mamh,$hk,$nh);
+                       $id=$_REQUEST['id'];
+                       $p->loadscore($id,$mamh,$hk,$nh);
 				   }
 				 }
 						   ?>
                         </tr>
 
                         <tr>
-                            <td class="subjects">Hoá học</td>
+                            <td class="subjects">Chemistry</td>
                             <?php
                            $hk=2;
                            $mamh=3;
@@ -382,14 +407,15 @@ $layid=$_SESSION['user'];
 	              case 'Xem':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-						   $p->loaddiem($layid,$mamh,$hk,$nh);
+                       $id=$_REQUEST['id'];
+                       $p->loadscore($id,$mamh,$hk,$nh);
 				   }
 				 }
 						   ?>
                         </tr>
 
                         <tr>
-                            <td class="subjects">Vật lý</td>
+                            <td class="subjects">Biology</td>
                             <?php
                            $hk=2;
                            $mamh=4;
@@ -398,14 +424,15 @@ $layid=$_SESSION['user'];
 	              case 'Xem':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-						   $p->loaddiem($layid,$mamh,$hk,$nh);
+                       $id=$_REQUEST['id'];
+                       $p->loadscore($id,$mamh,$hk,$nh);
 				   }
 				 }
 						   ?>
                         </tr>
 
                         <tr>
-                            <td class="subjects">Sinh học</td>
+                            <td class="subjects">Informatics</td>
                             <?php
                            $hk=2;
                            $mamh=5;
@@ -414,14 +441,15 @@ $layid=$_SESSION['user'];
 	              case 'Xem':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-						   $p->loaddiem($layid,$mamh,$hk,$nh);
+                       $id=$_REQUEST['id'];
+                       $p->loadscore($id,$mamh,$hk,$nh);
 				   }
 				 }
 						   ?>
                         </tr>
 
                         <tr>
-                            <td class="subjects">Tin học</td>
+                            <td class="subjects">Literature</td>
                             <?php
                            $hk=2;
                            $mamh=6;
@@ -430,14 +458,15 @@ $layid=$_SESSION['user'];
 	              case 'Xem':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-						   $p->loaddiem($layid,$mamh,$hk,$nh);
+                       $id=$_REQUEST['id'];
+                       $p->loadscore($id,$mamh,$hk,$nh);
 				   }
 				 }
 						   ?>
                         </tr>
 
                         <tr>
-                            <td class="subjects">Lịch sử</td>
+                            <td class="subjects">History</td>
                             <?php
                            $hk=2;
                            $mamh=7;
@@ -446,14 +475,15 @@ $layid=$_SESSION['user'];
 	              case 'Xem':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-						   $p->loaddiem($layid,$mamh,$hk,$nh);
+                       $id=$_REQUEST['id'];
+                       $p->loadscore($id,$mamh,$hk,$nh);
 				   }
 				 }
 						   ?>
                         </tr>
 
                         <tr>
-                            <td class="subjects">Địa lý</td>
+                            <td class="subjects">Geography</td>
                             <?php
                            $hk=2;
                            $mamh=8;
@@ -462,14 +492,15 @@ $layid=$_SESSION['user'];
 	              case 'Xem':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-						   $p->loaddiem($layid,$mamh,$hk,$nh);
+                       $id=$_REQUEST['id'];
+                       $p->loadscore($id,$mamh,$hk,$nh);
 				   }
 				 }
 						   ?>
                         </tr>
 
                         <tr>
-                            <td class="subjects">Ngoại ngữ</td>
+                            <td class="subjects">Foreign Language</td>
                             <?php
                            $hk=2;
                            $mamh=9;
@@ -478,14 +509,15 @@ $layid=$_SESSION['user'];
 	              case 'Xem':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-						   $p->loaddiem($layid,$mamh,$hk,$nh);
+                       $id=$_REQUEST['id'];
+                       $p->loadscore($id,$mamh,$hk,$nh);
 				   }
 				 }
 						   ?>
                         </tr>
 
                         <tr>
-                            <td class="subjects">GDCD</td>
+                            <td class="subjects">Civic Education</td>
                             <?php
                            $hk=2;
                            $mamh=10;
@@ -494,14 +526,15 @@ $layid=$_SESSION['user'];
 	              case 'Xem':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-						   $p->loaddiem($layid,$mamh,$hk,$nh);
+                       $id=$_REQUEST['id'];
+                       $p->loadscore($id,$mamh,$hk,$nh);
 				   }
 				 }
 						   ?>
                         </tr>
                         
                         <tr>
-                            <td class="subjects">Công nghệ</td>
+                            <td class="subjects">Technology</td>
                             <?php
                            $hk=2;
                            $mamh=11;
@@ -510,14 +543,15 @@ $layid=$_SESSION['user'];
 	              case 'Xem':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-						   $p->loaddiem($layid,$mamh,$hk,$nh);
+                       $id=$_REQUEST['id'];
+                       $p->loadscore($id,$mamh,$hk,$nh);
 				   }
 				 }
 						   ?>
                         </tr>
 
                         <tr>
-                            <td class="subjects">Thể dục</td>
+                            <td class="subjects">Physical Education</td>
                             <?php
                            $hk=2;
                            $mamh=12;
@@ -526,14 +560,15 @@ $layid=$_SESSION['user'];
 	              case 'Xem':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-						   $p->loaddiem($layid,$mamh,$hk,$nh);
+                       $id=$_REQUEST['id'];
+                       $p->loadscore($id,$mamh,$hk,$nh);
 				   }
 				 }
 						   ?>
                         </tr>
 
                         <tr>
-                            <td class="subjects">GDQP</td>
+                            <td class="subjects">National Defense Education</td>
                             <?php
                            $hk=2;
                            $mamh=13;
@@ -542,41 +577,15 @@ $layid=$_SESSION['user'];
 	              case 'Xem':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-						   $p->loaddiem($layid,$mamh,$hk,$nh);
+                       $id=$_REQUEST['id'];
+                       $p->loadscore($id,$mamh,$hk,$nh);
 				   }
 				 }
 						   ?>
                         </tr>
                     </tbody>
-                </table>  
-                <!--Thành tích HK2-->
-                <div class="title"><b>Thành tích HK2</b></div>
-
-                <table class="center">
-                    <tbody>
-                        <tr colspan="2" style="border-top:1px solid #CCC">
-                            <td width="300px">Điểm trung bình</td>
-                            <td></td>
-                        </tr>
-
-                        <tr>
-                            <td>Xếp hạng</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Danh hiệu</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Hạnh kiểm</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Học lực</td>
-                            <td></td>
-                        </tr>
-                    </tbody>
                 </table>
+                </form>
             </div>        
         </div>
     </main>

@@ -156,44 +156,44 @@ else
 if(isset($_POST['mh']))
 {
        $mh = $_POST['mh'];
-        $stmt = $con->prepare("select * from giaovien where bomon='$mh'");
+        $stmt = $con->prepare("select * from teachers where subject_id='$mh'");
         $stmt->execute();
 		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 		$kq=$stmt->fetchALL();
          foreach($kq as $row)
-		 {			
-	$magiaovien=$row['magiaovien'];
-				$dc=$row['diachi'];
-				$hoten=$row['hoten'];
-				
-				$noisinh=$row['noisinh'];
-				$ngaysinh=$row['ngaysinh'];
-				$sdt=$row['sdt'];
-				$hinh=$row['hinh'];
-				$gt=$row['gioitinh'];
-				$kn=$row['kinhnghiem'];
+		 {		
+				$image=$row['image'];
+	            $fullname=$row['first_name'].' '.$row['last_name'];
+				$gender=$row['gender'];
+				$phone=$row['phone'];
+				$email=$row['email'];
+				$dob=$row['date_of_birth'];
+				$jd=$row['joining_date'];
+				$degree=$row['degree'];
+				$cic=$row['citizen_identity_card'];
+				$address=$row['address'].', '.$row['state'].', '.$row['city'];
 				echo ' 
 				<div id="dngv">
                  <div class="row">
                      <div class="col-sm-3">
                          <div class="profile-userpic">
-                              <img src="img/'.$hinh.'" class="img-responsive" style="object-fit: cover;">
+                              <img src="img/'.$image.'" class="img-responsive" style="object-fit: cover;">
                          </div>                  
                       </div>
                       <div class="col-sm-9">
 				            <div class="form-horizontal">
                                 <div class="form-body">
                                       <div class="form-group">
-                                         <label class="col-xs-6"><span lang="sv-mssv">Họ tên</span>: <span class="bold">'.$hoten.'</span></label>
-								         <label class="col-xs-6"><span lang="sv-mssv">Kinh nghiệm</span>: <span class="bold">'.$kn.'</span></label>
+                                         <label class="col-xs-6"><span lang="sv-mssv">FULL NAME</span>: <span class="bold">'.$fullname.'</span></label>
+								         <label class="col-xs-6"><span lang="sv-mssv">GENDER</span>: <span class="bold">'.$gender.'</span></label>
                                       </div>
                                       <div class="form-group">
-                                         <label class="col-xs-6"><span lang="sv-mssv">Nơi sinh</span>: <span class="bold">'.$noisinh.'</span></label>
-                                         <label class="col-xs-6"><span lang="sv-mssv">Ngày sinh</span>: <span class="bold">'.$ngaysinh.'</span></label>
+                                         <label class="col-xs-6"><span lang="sv-mssv">PHONE</span>: <span class="bold">'.$phone.'</span></label>
+                                         <label class="col-xs-6"><span lang="sv-mssv">EMAIL</span>: <span class="bold">'.$email.'</span></label>
 									  </div>
 									  <div class="form-group">
-										 <label class="col-xs-6"><span lang="sv-mssv">Giới tính</span>: <span class="bold">'.$gt.'</span></label>
-										 <label class="col-xs-6"><span lang="sv-mssv">Số điện thoại</span>: <span class="bold">'.$sdt.'</span></label>
+										 <label class="col-xs-6"><span lang="sv-mssv">DATE OF BIRTH</span>: <span class="bold">'.$dob.'</span></label>
+										 <label class="col-xs-6"><span lang="sv-mssv">DEGREE</span>: <span class="bold">'.$degree.'</span></label>
 									  </div>
                                   </div>
                               </div>

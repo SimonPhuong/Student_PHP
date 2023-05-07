@@ -152,13 +152,13 @@ a:hover
                 <form action="" method="POST">
                 <h2>Chọn môn học:</h2>    
     <?php
-	$p->loadmonh();
+	$p->loadsubject();
 	?>
    <h2>Thông tin giáo viên</h2>
                                         <div id="loadgv"></div>
                                           <script type="text/javascript">
 					 $(document).ready(function() {
-                        $("#mon").change(function()
+                        $("#subject").change(function()
 						{
 							var mh=$(this).val()
 							$.ajax({

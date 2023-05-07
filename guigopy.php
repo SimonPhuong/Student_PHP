@@ -154,8 +154,8 @@ $layid=$_SESSION['user'];
 	                      case 'Gửi':
                           {
 		                    $nd=$_REQUEST['txtnd'];
-					if($p->guigopy($layid,$nd)==1)
-			                    {
+					if($p->sendcontact($layid,$nd)==1)
+			                   {
 			              	      echo '<script> alert("Gửi góp ý thành công!"); </script>'; 
 			                    }
 			                 else
