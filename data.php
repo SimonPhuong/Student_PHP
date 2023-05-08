@@ -9,7 +9,7 @@ $id = $_POST['id'];
 $text=$_POST['text'];
 $name = $_POST['column_name'];
 $hocki=$_POST['hocki'];
-$stmt = $con->prepare("update diem set $name='$text' where mahocsinh='$id' and hocki='$hocki' and namhoc='$nh' and  mamonhoc='$mamh'");
+$stmt = $con->prepare("update scores set $name='$text' where student_id='$id' and semester='$hocki' and school_year='$nh' and  subject_id='$mamh'");
 $stmt->execute();
 }
 //select tên học sinh để nhập điểm ở trang nhập điểm pro
@@ -19,51 +19,66 @@ $nh = $_POST['nh'];
 $mamh=$_POST['mamh'];
 $lop1=$_POST['lop1'];
 $hocki=$_POST['hocki'];
-$stmt = $con->prepare("select * from diem where mamonhoc='$mamh' and hocki='$hocki' and namhoc='$nh' and lop='$lop1'");
+$stmt = $con->prepare("select * from scores where subject_id='$mamh' and semester='$hocki' and school_year='$nh' and classroom_id='$lop1'");
 	$stmt->execute();
 	$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 	$kq=$stmt->fetchALL();
 	echo ' <tr class="tophead">
-                            <th width="180px">Họ và tên</th>
-							  <th>Lớp</th>
-                            <th>Điểm miệng</th>
-                            <th>Điểm 15 phút</th>
-                            <th>Điểm 1 tiết</th>
-                            <th>Giữa kỳ</th>
-                            <th>Cuối kỳ</th>
-                        </tr>';
+	<th width="300px;">ID STUDENT</th>
+	<th>ORAL EXAM 1</th>
+	<th>ORAL EXAM 2</th>
+	<th>ORAL EXAM 3</th>
+	<th>EXAM 15M 1</th>
+	<th>EXAM 15M 2</th>
+	<th>EXAM 15M 3</th>
+	<th>EXAM 45M 1</th>
+	<th>EXAM 45M 2</th>
+	<th>EXAM 45M 3</th>
+	<th>FINAL EXAM</th>
+	<th>SPA</th>
+</tr>';
 	 foreach($kq as $row)
 	 {
-	$mieng=$row['diemmieng'];
-				$muoilamphut=$row['diem15phut'];
-				$mottiet=$row['diem1tiet'];
-				$gk=$row['diemgk'];
-				$ck=$row['diemck'];
-				$tbmon=$row['diemtbmon'];
-				$tbcaki=$row['diemtbcaki'];
-				$hocluc=$row['hocluc'];
-				$hanhkiem=$row['hanhkiem'];
-				$ht=$row['hoten'];
-				$nh=$row['namhoc'];
-				$mamh=$row['mamonhoc'];
-				$hk=$row['hocki'];
-				$mahs=$row['mahocsinh'];
-				$lop=$row['lop'];
-				$tbm=($mieng+$muoilamphut+$mottiet+$gk+$ck)/5;
+		$idstu=$row['student_id'];
+		$oe1=$row['oral_exam_1'];
+		$oe2=$row['oral_exam_2'];
+		$oe3=$row['oral_exam_3'];
+		$e151=$row['exam_15m_1'];
+		$e152=$row['exam_15m_2'];
+		$e153=$row['exam_15m_3'];
+		$e451=$row['exam_45m_1'];
+		$e452=$row['exam_45m_2'];
+		$e453=$row['exam_45m_3'];
+		$fe=$row['final_exam'];
 				echo ' 
 				<tr>
-				<td class="subjects">'.$ht.'</td>
-				<td class="subjects">'.$lop.'</td>
-				<td class="diemmieng" contenteditable="true" data-id1="'.$mahs.'">'.$mieng.'
+				<td class="subjects">'.$idstu.'</td>
+				<td class="oe1" contenteditable="true" data-id1="'.$idstu.'">'.$oe1.'
                             </td>
-                <td class="diem15phut" contenteditable="true" data-id2="'.$mahs.'">'.$muoilamphut.'
+                <td class="oe2" contenteditable="true" data-id2="'.$idstu.'">'.$oe2.'
                             </td>
-                <td class="diem1tiet" contenteditable="true" data-id3="'.$mahs.'">'.$mottiet.'
+                <td class="oe3" contenteditable="true" data-id3="'.$idstu.'">'.$oe3.'
                             </td>
-                <td class="diemgk" contenteditable="true" data-id4="'.$mahs.'">'.$gk.'
+                <td class="e15m1" contenteditable="true" data-id4="'.$idstu.'">'.$e151.'
                             </td>
-                <td class="diemck" contenteditable="true" data-id5="'.$mahs.'">'.$ck.'
+                <td class="e15m2" contenteditable="true" data-id5="'.$idstu.'">'.$e152.'
                             </td>
+							</td>
+                <td class="e15m3" contenteditable="true" data-id6="'.$idstu.'">'.$e153.'
+                            </td>
+							</td>
+                <td class="e45m1" contenteditable="true" data-id7="'.$idstu.'">'.$e451.'
+                            </td>
+							</td>
+                <td class="e45m2" contenteditable="true" data-id8="'.$idstu.'">'.$e452.'
+                            </td>
+							</td>
+                <td class="e45m3" contenteditable="true" data-id9="'.$idstu.'">'.$e453.'
+                            </td>
+							</td>
+                <td class="fe" contenteditable="true" data-id10="'.$idstu.'">'.$fe.'
+                            </td>
+							<td ></td>
 							</tr>';
 }
 /*}
@@ -87,57 +102,75 @@ $lop = $_POST['tenlop'];
 $nh = $_POST['namhoc'];
 $mamh=$_POST['mamonhoc'];
 $hk=$_POST['hk'];
-	$stmt = $con->prepare("select * from diem where mamonhoc='$mamh' and hocki='$hk' and namhoc='$nh' and lop='$lop'");
+	$stmt = $con->prepare("select * from scores where subject_id='$mamh' and semester='$hk' and school_year='$nh' and classroom_id='$lop'");
 	$stmt->execute();
 	$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 	$kq=$stmt->fetchALL();
 	echo ' <tr class="tophead">
-                            <th width="180px">Họ và tên</th>
-                            <th>Điểm miệng</th>
-                            <th>Điểm 15 phút</th>
-                            <th>Điểm 1 tiết</th>
-                            <th>Giữa kỳ</th>
-                            <th>Cuối kỳ</th>
-                            <th width="150px">Trung bình môn</th>
-                        </tr>';
+	<th width="300px;">ID STUDENT</th>
+	<th>ORAL EXAM 1</th>
+	<th>ORAL EXAM 2</th>
+	<th>ORAL EXAM 3</th>
+	<th>EXAM 15M 1</th>
+	<th>EXAM 15M 2</th>
+	<th>EXAM 15M 3</th>
+	<th>EXAM 45M 1</th>
+	<th>EXAM 45M 2</th>
+	<th>EXAM 45M 3</th>
+	<th>FINAL EXAM</th>
+	<th>SPA</th>
+</tr>';
 	 foreach($kq as $row)
 	 {	
-	$mieng=$row['diemmieng'];
-				$muoilamphut=$row['diem15phut'];
-				$mottiet=$row['diem1tiet'];
-				$gk=$row['diemgk'];
-				$ck=$row['diemck'];
-				$tbmon=$row['diemtbmon'];
-				$tbcaki=$row['diemtbcaki'];
-				$hocluc=$row['hocluc'];
-				$hanhkiem=$row['hanhkiem'];
-				$ht=$row['hoten'];
-				$nh=$row['namhoc'];
-				$mamh=$row['mamonhoc'];
-				$hk=$row['hocki'];
-				$tbm=($mieng+$muoilamphut+$mottiet+$gk+$ck)/5;
-				echo ' 
-				<tr>
-				<td class="subjects">'.$ht.'</td>
-				<td>
-                                <span style="display: inline-grid;width: 20px; text-align: center;">'.$mieng.'</span>
-                            </td>
-                            <td>
-							<span style="display: inline-grid;width: 20px; text-align: center;">'.$muoilamphut.'</span>
-							</td>
-                            <td>
-							<span style="display: inline-grid;width: 20px; text-align: center;">'.$mottiet.'</span>
-							</td>
-                            <td>
-							<span style="display: inline-grid;width: 20px; text-align: center;">'.$gk.'</span>
-							</td>
-                            <td>
-							<span style="display: inline-grid;width: 20px; text-align: center;">'.$ck.'</span>
-							</td>
-							<td>
-							<span style="display: inline-grid;width: 20px; text-align: center;">'.$tbm.'</span>
-							</td>
-							</tr>';
+		$idstu=$row['student_id'];
+		$oe1=$row['oral_exam_1'];
+		$oe2=$row['oral_exam_2'];
+		$oe3=$row['oral_exam_3'];
+		$e151=$row['exam_15m_1'];
+		$e152=$row['exam_15m_2'];
+		$e153=$row['exam_15m_3'];
+		$e451=$row['exam_45m_1'];
+		$e452=$row['exam_45m_2'];
+		$e453=$row['exam_45m_3'];
+		$fe=$row['final_exam'];
+		$spa=$row['spa'];
+		echo '      
+		            <td>
+		            <span style="display: inline-grid;width: 20px; text-align: center;">'.$idstu.'</span>
+	                </td>
+		            <td>
+						<span style="display: inline-grid;width: 20px; text-align: center;">'.$oe1.'</span>
+					</td>
+					<td>
+					<span style="display: inline-grid;width: 20px; text-align: center;">'.$oe2.'</span>
+					</td>
+					<td>
+					<span style="display: inline-grid;width: 20px; text-align: center;">'.$oe3.'</span>
+					</td>
+					<td>
+					<span style="display: inline-grid;width: 20px; text-align: center;">'.$e151.'</span>
+					</td>
+					<td>
+					<span style="display: inline-grid;width: 20px; text-align: center;">'.$e152.'</span>
+					</td>
+					<td>
+					<span style="display: inline-grid;width: 20px; text-align: center;">'.$e153.'</span>
+					</td>
+					<td>
+					<span style="display: inline-grid;width: 20px; text-align: center;">'.$e451.'</span>
+					</td>
+					<td>
+					<span style="display: inline-grid;width: 20px; text-align: center;">'.$e452.'</span>
+					</td>
+					<td>
+					<span style="display: inline-grid;width: 20px; text-align: center;">'.$e453.'</span>
+					</td>
+					<td>
+					<span style="display: inline-grid;width: 20px; text-align: center;">'.$fe.'</span>
+					</td>
+					<td>
+					<span style="display: inline-grid;width: 20px; text-align: center;">'.$spa.'</span>
+					</td>';
 }
 /*}
 else

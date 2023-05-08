@@ -144,7 +144,7 @@ a:hover
                 <div class="row" style="display:block">
                  <div class="box-df profile-ds-info">
                <?php
-			   $p->loadtailieu();
+			   $p->loaddoc();
 			   ?>
                </div>
 											 </div>

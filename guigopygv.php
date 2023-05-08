@@ -146,20 +146,20 @@ a:hover
                                                         <button class="btn btn-primary d-grid w-100" type="submit" name="button" id="button" value="Gửi">Gửi</button>
                                                                                                 <?php
                    switch($_POST['button'])
-                        {
-	                      case 'Gửi':
+                   {
+                     case 'Gửi':
+                     {
+                       $nd=$_REQUEST['txtnd'];
+               if($p->sendcontact($layid,$nd)==1)
                           {
-		                    $nd=$_REQUEST['txtnd'];
-					if($p->guigopygv($nd,$layid)==1)
-			                    {
-			              	      echo '<script> alert("Gửi góp ý thành công!"); </script>'; 
-			                    }
-			                 else
-			                    {
-				                   echo '<script> alert("Gửi góp ý không thành công!"); </script>';
-								}
-                        }
-						}
+                               echo '<script> alert("Gửi góp ý thành công!"); </script>'; 
+                           }
+                        else
+                           {
+                              echo '<script> alert("Gửi góp ý không thành công!"); </script>';
+                           }
+                   }
+                   }
                  ?>
                                                         <label for="email" class="form-label">Cảm ơn bạn đã góp ý!</label>
                                                         <br>

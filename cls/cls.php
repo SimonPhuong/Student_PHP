@@ -111,7 +111,7 @@ function chanepass($pass2,$layid)
 	function addfile($mon,$layid,$name,$khoi)
 	{
 		$dbh=$this->connectpdo();
-		$stmt = $dbh->prepare("insert into tailieu(tenmon,magiaovien,tentailieu,khoi) values('$mon','$layid','$name','$khoi')");
+		$stmt = $dbh->prepare("insert into documents(subject,teacher_id,topic,grades) values('$mon',(select id from teachers where id_teacher='$layid'),'$name','$khoi')");
 		//$stmt->bindParam(':value', $giatri);
 		if($stmt->execute())
 		{
@@ -276,85 +276,82 @@ function chanepass($pass2,$layid)
 	public function loadttchitietgv($layid)
 	{
 		$con=$this->connectpdo();
-        $stmt = $con->prepare("select * from giaovien where magiaovien='$layid' limit 1");
+        $stmt = $con->prepare("select * from teachers where id_teacher='$layid' limit 1");
         $stmt->execute();
 		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 		$kq=$stmt->fetchALL();
          foreach($kq as $row)
 		 {
-				$magv=$row['magiaovien'];
-				$hoten=$row['hoten'];
-				$gt=$row['gioitinh'];
-				$dc=$row['diachi'];
-				$sdt=$row['sdt'];
-				$kn=$row['kinhnghiem'];
-				$bm=$row['bomon'];
-				$cv=$row['chucvu'];
-				$ns=$row['ngaysinh'];
-				$cmnd=$row['socmnd'];
-				$dt=$row['dantoc'];
-				$tg=$row['tongiao'];
-				$noisinh=$row['noisinh'];
-				$hinh=$row['hinh'];
-				echo ' <div class="row" style="display:block">
-                        <div class="box-df profile-ds-info">
-                            <div class="portlet">
-                                <div class="portlet-title">
-                                    <div class="caption">
-                                        <span class="caption-subject bold" lang="db-thongtinsinhvien">Thông tin giáo viên</span>
-                                    </div>
-                                </div>
+			$fullname=$row['first_name'].' '.$row['last_name'];
+			$gender=$row['gender'];
+			$phone=$row['phone'];
+			$email=$row['email'];
+			$dob=$row['date_of_birth'];
+			$jd=$row['joining_date'];
+			$degree=$row['degree'];
+			$cic=$row['citizen_identity_card'];
+			$nation=$row['nation'];
+			$religion=$row['religion'];
+			$address=$row['address'].', '.$row['state'].', '.$row['city'];
+			$image=$row['image'];
+			$idtea=$row['id_teacher'];
+			echo ' <div class="row" style="display:block">
+					<div class="box-df profile-ds-info">
+						<div class="portlet">
+							<div class="portlet-title">
+								<div class="caption">
+									<span class="caption-subject bold" lang="db-thongtinsinhvien">Thông tin giáo viên</span>
+								</div>
+							</div>
 
-                                <div class="porlet-body">
-                                    <div class="row">
-                                        <div class="col-sm-3">
-                                            <div class="profile-userpic">
-                                                <img src="img/'.$hinh.'" class="img-responsive" style="object-fit: cover;">
-                                            </div>
-                                            <div class="text-center">
-                                                <a href="suathongtingv.php" class="color-active" lang="db-chitiet-button">Sửa thông tin</a>
-                                            </div>
-                                        </div>
+							<div class="porlet-body">
+								<div class="row">
+									<div class="col-sm-3">
+										<div class="profile-userpic">
+											<img src="img/'.$image.'" class="img-responsive" style="object-fit: cover;">
+										</div>
+										<div class="text-center">
+											<a href="suathongtingv.php" class="color-active" lang="db-chitiet-button">Sửa thông tin</a>
+										</div>
+									</div>
 
-                                        <div class="col-sm-9">
-				<div class="form-horizontal">
-                                                <div class="form-body">
-                                                    <div class="form-group">
-                                                        <label class="col-xs-6"><span lang="sv-mssv">Mã giáo viên</span>: <span class="bold">'.$magv.'</span></label>
-                                                        <label class="col-xs-6"><span lang="sv-mssv">Họ và tên</span>: <span class="bold">'.$hoten.'</span></label>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="col-xs-6"><span lang="sv-mssv">Giới tinh</span>: <span class="bold">'.$gt.'</span></label>
-                                                        <label class="col-xs-6"><span lang="sv-mssv">Địa chỉ</span>: <span class="bold">'.$dc.'</span></label>
-                                                    </div>
+									<div class="col-sm-9">
+			<div class="form-horizontal">
+											<div class="form-body">
+												<div class="form-group">
+													<label class="col-xs-6"><span lang="sv-mssv">ID TEACHER</span>: <span class="bold">'.$idtea.'</span></label>
+													<label class="col-xs-6"><span lang="sv-mssv">FULL NAME</span>: <span class="bold">'.$fullname.'</span></label>
+												</div>
+												<div class="form-group">
+													<label class="col-xs-6"><span lang="sv-mssv">GENDER</span>: <span class="bold">'.$gender.'</span></label>
+														 <label class="col-xs-6"><span lang="sv-mssv">PHONE</span>: <span class="bold">'.$phone.'</span></label>
+												</div>
+												<div class="form-group">
+													<label class="col-xs-6"><span lang="sv-mssv">EMAIL</span>: <span class="bold">'.$email.'</span></label>
+													<label class="col-xs-6"><span lang="sv-mssv">DATE OF BIRTH</span>: <span class="bold">'.$dob.'</span></label>
+													</div>
 													<div class="form-group">
-														<label class="col-xs-6"><span lang="sv-mssv">Số điện thoại</span>: <span class="bold">'.$sdt.'</span></label>
-														<label class="col-xs-6"><span lang="sv-mssv">Kinh nghiệm</span>: <span class="bold">'.$kn.'</span></label>
-														</div>
-                                                    <div class="form-group">
-                                                        <label class="col-xs-6"><span lang="sv-mssv">Bộ môn</span>: <span class="bold">'.$bm.'</span></label>
-                                                        <label class="col-xs-6"><span lang="sv-mssv">Chức vụ</span>: <span class="bold">'.$cv.'</span></label>
-														</div>
-														<div class="form-group">
-														<label class="col-xs-6"><span lang="sv-mssv">Ngày sinh</span>: <span class="bold">'.$ns.'</span></label>
-														<label class="col-xs-6"><span lang="sv-mssv">Số CMND</span>: <span class="bold">'.$cmnd.'</span></label>
-														</div>
-														<div class="form-group">
-														<label class="col-xs-6"><span lang="sv-mssv">Dân tộc</span>: <span class="bold">'.$dt.'</span></label>
-														<label class="col-xs-6"><span lang="sv-mssv">Tôn giáo</span>: <span class="bold">'.$tg.'</span></label>
-														</div>
-														<div class="form-group">
-														<label class="col-xs-6"><span lang="sv-mssv">Nơi sinh</span>: <span class="bold">'.$noisinh.'</span></label>
-														<label 
-														</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-											 </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>';
+													<label class="col-xs-6"><span lang="sv-mssv">DEGREE</span>: <span class="bold">'.$degree.'</span></label>
+													<label class="col-xs-6"><span lang="sv-mssv">CITIZEN IDENTITY CARD</span>: <span class="bold">'.$cic.'</span></label>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-xs-6"><span lang="sv-mssv">JOINING DATE</span>: <span class="bold">'.$jd.'</span></label>
+													<label class="col-xs-6"><span lang="sv-mssv">NATION</span>: <span class="bold">'.$nation.'</span></label>
+													</div>
+													<div class="form-group">
+													<label class="col-xs-6"><span lang="sv-mssv">RELIGION</span>: <span class="bold">'.$religion.'</span></label>
+													<label class="col-xs-6"><span lang="sv-mssv">ADDRESS</span>: <span class="bold">'.$address.'</span></label>
+													</div>
+												</div>
+											</div>
+										</div>
+										 </div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<hr></hr>';
 			}
 	}
 	////load thông tin học sinh để sửa
@@ -682,25 +679,28 @@ function chanepass($pass2,$layid)
 			echo '<input value="'.$id.'" id="id" type="hidden" name="id" />';
 			}
 	}
-	public function loadttgv($layid)
+	public function loadteacher($layid)
 	{
 		$con=$this->connectpdo();
-        $stmt = $con->prepare("select * from giaovien where magiaovien='$layid' limit 1");
+        $stmt = $con->prepare("select * from teachers where id_teacher='$layid' limit 1");
         $stmt->execute();
 		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 		$kq=$stmt->fetchALL();
          foreach($kq as $row)
 		 {
-				$magiaovien=$row['magiaovien'];
-				$dc=$row['diachi'];
-				$hoten=$row['hoten'];
-				$kh=$row['khoahoc'];
-				$noisinh=$row['noisinh'];
-				$ngaysinh=$row['ngaysinh'];
-				$sdt=$row['sdt'];
-				$hinh=$row['hinh'];
-				$gt=$row['gioitinh'];
-				$kn=$row['kinhnghiem'];
+				$fullname=$row['first_name'].' '.$row['last_name'];
+				$gender=$row['gender'];
+				$phone=$row['phone'];
+				$email=$row['email'];
+				$dob=$row['date_of_birth'];
+				$jd=$row['joining_date'];
+				$degree=$row['degree'];
+				$cic=$row['citizen_identity_card'];
+				$nation=$row['nation'];
+				$religion=$row['religion'];
+				$address=$row['address'].', '.$row['state'].', '.$row['city'];
+				$image=$row['image'];
+				$idtea=$row['id_teacher'];
 				echo ' <div class="row" style="display:block">
                         <div class="box-df profile-ds-info">
                             <div class="portlet">
@@ -714,7 +714,7 @@ function chanepass($pass2,$layid)
                                     <div class="row">
                                         <div class="col-sm-3">
                                             <div class="profile-userpic">
-                                                <img src="img/'.$hinh.'" class="img-responsive" style="object-fit: cover;">
+                                                <img src="img/'.$image.'" class="img-responsive" style="object-fit: cover;">
                                             </div>
                                             <div class="text-center">
                                                 <a href="suathongtingv.php" class="color-active" lang="db-chitiet-button">Sửa thông tin</a>
@@ -725,20 +725,20 @@ function chanepass($pass2,$layid)
 				<div class="form-horizontal">
                                                 <div class="form-body">
                                                     <div class="form-group">
-                                                        <label class="col-xs-6"><span lang="sv-mssv">Mã giáo viên</span>: <span class="bold">'.$magiaovien.'</span></label>
-                                                        <label class="col-xs-6"><span lang="sv-mssv">Địa chỉ</span>: <span class="bold">'.$dc.'</span></label>
+                                                        <label class="col-xs-6"><span lang="sv-mssv">ID TEACHER</span>: <span class="bold">'.$idtea.'</span></label>
+                                                        <label class="col-xs-6"><span lang="sv-mssv">FULL NAME</span>: <span class="bold">'.$fullname.'</span></label>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label class="col-xs-6"><span lang="sv-mssv">Họ tên</span>: <span class="bold">'.$hoten.'</span></label>
-															 <label class="col-xs-6"><span lang="sv-mssv">Kinh nghiệm</span>: <span class="bold">'.$kn.'</span></label>
+                                                        <label class="col-xs-6"><span lang="sv-mssv">GENDER</span>: <span class="bold">'.$gender.'</span></label>
+															 <label class="col-xs-6"><span lang="sv-mssv">PHONE</span>: <span class="bold">'.$phone.'</span></label>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label class="col-xs-6"><span lang="sv-mssv">Nơi sinh</span>: <span class="bold">'.$noisinh.'</span></label>
-                                                        <label class="col-xs-6"><span lang="sv-mssv">Ngày sinh</span>: <span class="bold">'.$ngaysinh.'</span></label>
+                                                        <label class="col-xs-6"><span lang="sv-mssv">EMAIL</span>: <span class="bold">'.$email.'</span></label>
+                                                        <label class="col-xs-6"><span lang="sv-mssv">DATE OF BIRTH</span>: <span class="bold">'.$dob.'</span></label>
 														</div>
 														<div class="form-group">
-														<label class="col-xs-6"><span lang="sv-mssv">Giới tính</span>: <span class="bold">'.$gt.'</span></label>
-														<label class="col-xs-6"><span lang="sv-mssv">Số điện thoại</span>: <span class="bold">'.$sdt.'</span></label>
+														<label class="col-xs-6"><span lang="sv-mssv">DEGREE</span>: <span class="bold">'.$degree.'</span></label>
+														<label class="col-xs-6"><span lang="sv-mssv">CITIZEN IDENTITY CARD</span>: <span class="bold">'.$cic.'</span></label>
 														</div>
                                                     </div>
                                                 </div>
@@ -777,55 +777,49 @@ function chanepass($pass2,$layid)
 		}
 	}
 	///load tin tức bên giáo viên
-		public function loadtintucgv($sql)
+		public function loadtintucgv()
 	{
-		$link=$this->connect();
-		$kq=mysqli_query($link,$sql);
-		mysqli_close($link);
-		$i=mysqli_num_rows($kq);
-		if($i>0)
-		{
-			while($row=mysqli_fetch_array($kq))
-			{
-				$matt=$row['matintuc'];
-				$tieude=$row['tieude'];
-				$nd=$row['noidung'];
-				echo '<a href="xemttgv.php?matt='.$matt.'">
+		$con=$this->connectpdo();
+        $stmt = $con->prepare("select * from news");
+        $stmt->execute();
+		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+		$kq=$stmt->fetchALL();
+         foreach($kq as $row)
+		 {
+				$id=$row['id'];
+				$cate=$row['category_id'];
+				$title=$row['title'];
+				echo '<a href="xemttgv.php?matt='.$id.'">
 				<div id="tt">
-				'.$tieude.'
+				'.$title.'
 				</div></a> ';
 			}
-		}
-		else
-		{
-			echo "Đang cập nhật dữ liệu";
-		}
 	}
 	//load chi tiết tin tức
-	public function loadcttintuc($sql)
+	public function loadcttintuc($layidtt)
 	{
-		$link=$this->connect();
-		$kq=mysqli_query($link,$sql);
-		mysqli_close($link);
-		$i=mysqli_num_rows($kq);
-		if($i>0)
-		{
-			while($row=mysqli_fetch_array($kq))
-			{
-				$matt=$row['matintuc'];
-				$tieude=$row['tieude'];
-				$nd=$row['noidung'];
+		$con=$this->connectpdo();
+        $stmt = $con->prepare("select * from news where id=".$layidtt."");
+        $stmt->execute();
+		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+		$kq=$stmt->fetchALL();
+         foreach($kq as $row)
+		 {
+			$id=$row['id'];
+			$cate=$row['category_id'];
+			$title=$row['title'];
+			$content=$row['content'];
 				echo ' <div class="row" style="display:block">
                         <div class="box-df profile-ds-info">
                             <div class="portlet">
                                 <div class="portlet-title">
                                     <div class="caption">
-                                        <h2 style="text-align:center;margin:0 auto;">'.$tieude.'</h2>
+                                        <h2 style="text-align:center;margin:0 auto;">'.$title.'</h2>
                                     </div> 
 									<div class="porlet-body">
                                     <div class="row">
                                         <div class="col-sm-12">
-				                      <p style="font-size:20px;color:black;">'.$nd.'</p>
+				                      <p style="font-size:20px;color:black;">'.$content.'</p>
                                              
 											 
 										  </div>
@@ -835,11 +829,6 @@ function chanepass($pass2,$layid)
                          </div>
                        </div>';
 			}
-		}
-		else
-		{
-			echo "Đang cập nhật dữ liệu";
-		}
 	}
 		public function laycot($sql)
 	{
@@ -858,19 +847,18 @@ function chanepass($pass2,$layid)
 		}
 		return $giatri;
 	}
-	///////////////////////////load mon để đăng tin tức
+	///////////////////////////load mon để đăng tài liệu
 	public function loadmon1($layid)
 	{ 
 		$con=$this->connectpdo();
-        $stmt = $con->prepare("select * from giaovienmonhoc where magiaovien='$layid'");
+        $stmt = $con->prepare("select * from subjects where id=(select subject_id from teachers where id_teacher=$layid)");
         $stmt->execute();
 		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 		$kq=$stmt->fetchALL();
          foreach($kq as $row)
 		 {
-				$bm=$row['tenmon'];
-				$mm=$row['mamonhoc'];
-				echo '<input type="text" name="txtmon" id="txtmon" class="form-control" value="'.$bm.'" readonly="readonly">';
+				$subn=$row['subject_name'];
+				echo '<input type="text" name="txtmon" id="txtmon" class="form-control" value="'.$subn.'" readonly="readonly">';
 			}
 	}
 	public function loadkhoi($sql)
@@ -948,20 +936,20 @@ function chanepass($pass2,$layid)
 	public function loadmamon($layid)
 	{
 		$con=$this->connectpdo();
-        $stmt = $con->prepare("select * from giaovienmonhoc where magiaovien=".$layid."");
+        $stmt = $con->prepare("select * from subjects where id=(select subject_id from teachers where id_teacher=$layid)");
         $stmt->execute();
 		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 		$kq=$stmt->fetchALL();
          foreach($kq as $row)
 		 {
 			
-				$mamh=$row['mamonhoc'];
-				$ten=$row['tenmon'];
+				$id=$row['id'];
+				$subn=$row['subject_name'];
 			echo'
 			<h2 style="margin:0 auto;">Môn học:</h2>
-			<input type="text" value="'.$ten.'" readonly="readonly" class="form-control" style="margin:0 auto; width:100px; text-align:center;"/>
+			<input type="text" value="'.$subn.'" readonly="readonly" class="form-control" style="margin:0 auto; width:100px; text-align:center;"/>
 			<h2 style="margin:0 auto;">Mã môn học:</h2>
-			<input type="text" name="txtmamh" id="txtmamh" value="'.$mamh.'" readonly="readonly" class="form-control" style="margin:0 auto; width:100px;text-align:center;"/>
+			<input type="text" name="txtmamh" id="txtmamh" value="'.$id.'" readonly="readonly" class="form-control" style="margin:0 auto; width:100px;text-align:center;"/>
 			';			
 			}
 	}
@@ -1073,15 +1061,16 @@ function chanepass($pass2,$layid)
 		public function loadlop($layid)
 	{
 		$con=$this->connectpdo();
-        $stmt = $con->prepare("select * from giaovienlophoc where magiaovien='$layid'");
+        $stmt = $con->prepare("select * from  teacher_classrooms where teacher_id=(select id from teachers where id_teacher=$layid)");
         $stmt->execute();
 		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 		$kq=$stmt->fetchALL();
 		echo '<select name="lop" id="lop" class="form-control">';
          foreach($kq as $row)
 		 {
-				$lop=$row['tenlop'];
-			echo' <option value="'.$lop.'"selected="selected">'.$lop.'</option>';			
+			    $id=$row['classroom_id'];
+				$cn=$row['classroom_name'];
+			echo' <option value="'.$id.'"selected="selected">'.$cn.'</option>';			
 			}
 			echo "</select>";
 	}
@@ -1102,43 +1091,39 @@ function chanepass($pass2,$layid)
 		}
 	}
 	///LOAD CÔNG NỢ
-	public function loadcn($layid)
+	public function loaddebt($layid)
 	{
 		$con=$this->connectpdo();
-        $stmt = $con->prepare("select * from congno where mahocsinh='$layid'");
+        $stmt = $con->prepare("select * from debt where id_student='$layid'");
         $stmt->execute();
 		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 		$kq=$stmt->fetchALL();
          foreach($kq as $row)
 		 {
-				$macn=$row['macongno'];
-				$ndthu=$row['noidungthu'];
-				$sotien=$row['sotien'];
-				$mg=$row['miengiam'];
-				$kt=$row['khautru'];
-				$cn=$row['congno'];
-				$trangthai=$row['trangthai'];
-				$mahs=$row['mahocsinh'];
+				$id=$row['id'];
+				$content=$row['content'];
+				$aom=$row['amount of money'];
+				$dd=$row['deduct'];
+				$sta=$row['status'];
+				$idstu=$row['id_student'];
 				echo '
 				<tr class="tophead"> 
 				<th>
-                                <span style="text-align: center;">'.$macn.'</span>
+                                <span style="text-align: center;">'.$id.'</span>
                             </th>
                             <th>
-							<span style="display: inline-grid;text-align: center;">'.$ndthu.'</span>
+							<span style="display: inline-grid;text-align: center;">'.$content.'</span>
 							</th>
                             <th>
-							<span style="display: inline-grid; text-align: center;">'.$sotien.'</span>
+							<span style="display: inline-grid; text-align: center;">'.$aom.'</span>
 							</th>
                             <th>
-							<span style="display: inline-grid; text-align: center;">'.$mg.'</span>
+							<span style="display: inline-grid; text-align: center;">'.$dd.'</span>
 							</th>
                             <th>
-							<span style="display: inline-grid; text-align: center;">'.$kt.'</span>
+							<span style="display: inline-grid; text-align: center;">'.$sta.'</span>
 							</th>
-                            <th>					<span style="display: inline-grid; text-align: center;">'.$cn.'</span></th>
-							 <th>					<span style="display: inline-grid; text-align: center;">'.$trangthai.'</span></th>
-							  <th>					<span style="display: inline-grid; text-align: center;">'.$mahs.'</span></th>
+							  <th><span style="display: inline-grid; text-align: center;">'.$idstu.'</span></th>
 							  </tr>
 							';
 			}
@@ -1164,26 +1149,24 @@ function chanepass($pass2,$layid)
 		}*/
 	}
 	///load tài liệu cho học sinh xem
-	public function loadtailieu()
+	public function loaddoc()
 	{
 		$con=$this->connectpdo();
-        $stmt = $con->prepare("select * from tailieu ");
+        $stmt = $con->prepare("select * from documents ");
         $stmt->execute();
 		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 		$kq=$stmt->fetchALL();
          foreach($kq as $row)
 		 {
-				$macn=$row['tieude'];
-				$tenmon=$row['tenmon'];
-				$tentl=$row['tentailieu'];
-				$khoi=$row['khoi'];
-				$link=$row['link'];
+				$topic=$row['topic'];
+				$sub=$row['subject'];
+				$file=$row['files'];
 				echo '
-				<a href="'.$link.'">
+				<a href="#">
 				<div id="tailieu">
 			    <img src="img/tailieu.jpg" style="height:150px;width:80%;margin: 0 auto;">
-				<h3>Tên tài liệu:'.$tentl.'</h3>
-				<h3>Môn học:'.$tenmon.'</h3>
+				<h3>Tên tài liệu:'.$file.'</h3>
+				<h3>Môn học:'.$sub.'</h3>
 				</div>
 				</a>
 							';

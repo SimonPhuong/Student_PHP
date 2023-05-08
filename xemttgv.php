@@ -149,7 +149,7 @@ a:hover
                 <div class="row" style="display:block">
                 <form action="" method="POST">
                                             <?php
-											$p->loadcttintuc("select * from tintuc where matintuc=".$layidtt."");
+											$p->loadcttintuc($layidtt);
 											?>
                                             </form>
                 </div>

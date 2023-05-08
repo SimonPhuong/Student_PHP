@@ -127,17 +127,15 @@ a:hover
                   <table class="center" style="margin:0 auto; margin-top:30px;">
                     <tbody>
                         <tr class="tophead">
-                            <th style="width:100px;">Mã công nợ</th>
-                            <th style="width:100px;">Nội dung thu</th>
-                            <th style="width:100px;">Số tiền</th>
-                            <th style="width:100px;">Miễn giảm</th>
-                            <th style="width:100px;">Khấu trừ</th>
-                            <th style="width:100px;">Công nợ</th>
-                            <th style="width:100px;">Trạng thái</th>
-                            <th style="width:100px;">Mã học sinh</th>
+                            <th style="width:100px;">ID DEBT</th>
+                            <th style="width:100px;">CONTENT</th>
+                            <th style="width:100px;">AMOUNT OF MONEY</th>
+                            <th style="width:100px;">DEDUCT</th>
+                            <th style="width:100px;">STATUS</th>
+                            <th style="width:100px;">ID STUDENT</th>
                         </tr>
                         <?php
-						$p->loadcn($layid);
+						$p->loaddebt($layid);
 						?>
                      </tbody>
                 </table>

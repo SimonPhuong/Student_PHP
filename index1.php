@@ -121,7 +121,7 @@ a:hover
             <div class="main-section-content" id="contnet">
                 <div class="row" style="display:block">
                                             <?php
-											$p->loadttgv($layid);
+											$p->loadteacher($layid);
 											?>
                 </div>
             </div>
@@ -186,7 +186,7 @@ a:hover
                         <div class="card-header">
                             <div class="card-title"><h5>Tin tức</h5>
                                                     <?php
-						$p->loadtintucgv("select * from tintuc");
+						$p->loadtintucgv();
 						?>
                         </div>
                         </div>
