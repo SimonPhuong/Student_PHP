@@ -20,7 +20,7 @@ $layid=$_SESSION['user'];
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kết quả học tập</title>
+    <title>Learning outcomes</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
     <link rel="stylesheet" href="ketquahoctap.css">
       <link rel="stylesheet" href="login.css">
@@ -41,12 +41,12 @@ $layid=$_SESSION['user'];
             <!--Kết quả học tập HK1-->
                         <tr>
                             <td align="left">
-                                <div class="info" style="margin-bottom: 10px;">KẾT QUẢ HỌC TẬP</div>
+                                <div class="info" style="margin-bottom: 10px;">LEARNING OUTCOMES</div>
                             </td>
                         </tr>
                         
                         <tr>
-                            <td width="190">Chọn năm học:</td>
+                            <td width="190">Choose a school year:</td>
                             <td align="left">
                                    <select name="namhoc" id="namhoc" class="form-control" style="margin-top:10px;">
                                <option value="2022-2023" selected="selected">2022-2023</option>
@@ -57,8 +57,8 @@ $layid=$_SESSION['user'];
                         </tr>
                             <td width="190"></td>
                             <td align="left">
-                               <input class="btn btn-primary d-grid w-100" type="submit" name="button" id="button" value="Xem"/>
-                               <a href="index.php"><input class="btn btn-primary d-grid w-100" type="button" name="button" id="button" value="Trở lại trang chủ"/></a>
+                               <input class="btn btn-primary d-grid w-100" type="submit" name="button" id="button" value="Confirm"/>
+                               <a href="index.php"><input class="btn btn-primary d-grid w-100" type="button" name="button" id="button" value="Back to homepage"/></a>
                             </td>
                         </tr>
                     </tbody>
@@ -70,7 +70,7 @@ $layid=$_SESSION['user'];
             <div id="bangDiem">
 
                 <!--Bảng điểm HK1-->
-                <div class="title"><b>Kết quả học tập học kỳ 1</b></div>
+                <div class="title"><b>SEMESTER 1 ACADEMIC RESULTS</b></div>
                 <?php $p->loadid($layid) ?>
                 <table class="center">
                     <tbody>
@@ -94,6 +94,8 @@ $layid=$_SESSION['user'];
                            <?php
                            $hk=1;
                            $mamh=1;
+                           if(isset($_POST['button']))
+                           {
 						   switch($_POST['button'])
                  {
 	              case 'Xem':
@@ -103,6 +105,7 @@ $layid=$_SESSION['user'];
 						   $p->loadscore($id,$mamh,$hk,$nh);
 				   }
 				 }
+                }
 						   ?>
                         </tr>
 
@@ -111,6 +114,8 @@ $layid=$_SESSION['user'];
                             <?php
                            $hk=1;
                            $mamh=2;
+                           if(isset($_POST['button']))
+                           {
 						   switch($_POST['button'])
                  {
 	              case 'Xem':
@@ -120,6 +125,7 @@ $layid=$_SESSION['user'];
                        $p->loadscore($id,$mamh,$hk,$nh);
 				   }
 				 }
+                }
 						   ?>
                         </tr>
 
@@ -128,6 +134,8 @@ $layid=$_SESSION['user'];
                             <?php
                            $hk=1;
                            $mamh=3;
+                           if(isset($_POST['button']))
+                           {
 						   switch($_POST['button'])
                  {
 	              case 'Xem':
@@ -137,6 +145,7 @@ $layid=$_SESSION['user'];
                        $p->loadscore($id,$mamh,$hk,$nh);
 				   }
 				 }
+                }
 						   ?>
                         </tr>
 
@@ -145,6 +154,8 @@ $layid=$_SESSION['user'];
                             <?php
                            $hk=1;
                            $mamh=4;
+                           if(isset($_POST['button']))
+                           {
 						   switch($_POST['button'])
                  {
 	              case 'Xem':
@@ -154,6 +165,7 @@ $layid=$_SESSION['user'];
                        $p->loadscore($id,$mamh,$hk,$nh);
 				   }
 				 }
+                }
 						   ?>
                         </tr>
 
@@ -162,6 +174,8 @@ $layid=$_SESSION['user'];
                             <?php
                            $hk=1;
                            $mamh=5;
+                           if(isset($_POST['button']))
+                           {
 						   switch($_POST['button'])
                  {
 	              case 'Xem':
@@ -171,6 +185,7 @@ $layid=$_SESSION['user'];
                        $p->loadscore($id,$mamh,$hk,$nh);
 				   }
 				 }
+                }
 						   ?>
                         </tr>
 
@@ -179,6 +194,8 @@ $layid=$_SESSION['user'];
                             <?php
                            $hk=1;
                            $mamh=6;
+                           if(isset($_POST['button']))
+                           {
 						   switch($_POST['button'])
                  {
 	              case 'Xem':
@@ -188,6 +205,7 @@ $layid=$_SESSION['user'];
                        $p->loadscore($id,$mamh,$hk,$nh);
 				   }
 				 }
+                }
 						   ?>
                         </tr>
 
@@ -196,6 +214,8 @@ $layid=$_SESSION['user'];
                             <?php
                            $hk=1;
                            $mamh=7;
+                           if(isset($_POST['button']))
+                           {
 						   switch($_POST['button'])
                  {
 	              case 'Xem':
@@ -205,6 +225,7 @@ $layid=$_SESSION['user'];
                        $p->loadscore($id,$mamh,$hk,$nh);
 				   }
 				 }
+                }
 						   ?>
                         </tr>
 
@@ -213,6 +234,8 @@ $layid=$_SESSION['user'];
                             <?php
                            $hk=1;
                            $mamh=8;
+                           if(isset($_POST['button']))
+                           {
 						   switch($_POST['button'])
                  {
 	              case 'Xem':
@@ -222,6 +245,7 @@ $layid=$_SESSION['user'];
                        $p->loadscore($id,$mamh,$hk,$nh);
 				   }
 				 }
+                }
 						   ?>
                         </tr>
 
@@ -230,6 +254,8 @@ $layid=$_SESSION['user'];
                             <?php
                            $hk=1;
                            $mamh=9;
+                           if(isset($_POST['button']))
+                           {
 						   switch($_POST['button'])
                  {
 	              case 'Xem':
@@ -239,6 +265,7 @@ $layid=$_SESSION['user'];
                        $p->loadscore($id,$mamh,$hk,$nh);
 				   }
 				 }
+                }
 						   ?>
                         </tr>
 
@@ -247,6 +274,8 @@ $layid=$_SESSION['user'];
                             <?php
                            $hk=1;
                            $mamh=10;
+                           if(isset($_POST['button']))
+                           {
 						   switch($_POST['button'])
                  {
 	              case 'Xem':
@@ -256,6 +285,7 @@ $layid=$_SESSION['user'];
                        $p->loadscore($id,$mamh,$hk,$nh);
 				   }
 				 }
+                }
 						   ?>
                         </tr>
                         
@@ -264,6 +294,8 @@ $layid=$_SESSION['user'];
                             <?php
                            $hk=1;
                            $mamh=11;
+                           if(isset($_POST['button']))
+                           {
 						   switch($_POST['button'])
                  {
 	              case 'Xem':
@@ -273,6 +305,7 @@ $layid=$_SESSION['user'];
                        $p->loadscore($id,$mamh,$hk,$nh);
 				   }
 				 }
+                }
 						   ?>
                         </tr>
 
@@ -281,6 +314,8 @@ $layid=$_SESSION['user'];
                             <?php
                            $hk=1;
                            $mamh=12;
+                           if(isset($_POST['button']))
+                           {
 						   switch($_POST['button'])
                  {
 	              case 'Xem':
@@ -290,6 +325,7 @@ $layid=$_SESSION['user'];
                        $p->loadscore($id,$mamh,$hk,$nh);
 				   }
 				 }
+                }
 						   ?>
                         </tr>
 
@@ -298,6 +334,8 @@ $layid=$_SESSION['user'];
                             <?php
                            $hk=1;
                            $mamh=13;
+                           if(isset($_POST['button']))
+                           {
 						   switch($_POST['button'])
                  {
 	              case 'Xem':
@@ -307,6 +345,7 @@ $layid=$_SESSION['user'];
                        $p->loadscore($id,$mamh,$hk,$nh);
 				   }
 				 }
+                }
 						   ?>
                         </tr>
 
@@ -314,7 +353,7 @@ $layid=$_SESSION['user'];
                 </table>
                 
                 <!--Thành tích HK1-->
-                <div class="title"><b>Thành tích HK1</b></div>
+                <div class="title"><b>Academic Achievements Semester 1</b></div>
 
                 <table class="center">
                     <tbody>
@@ -344,7 +383,9 @@ $layid=$_SESSION['user'];
                 
 
                 <!--Bảng điểm HK2-->
-                <div class="title"><b>Kết quả học tập học kỳ 2</b></div>
+                <div class="title"><b>SEMESTER 2 ACADEMIC RESULTS
+
+</b></div>
                 
                 <table class="center">
                     <tbody>
@@ -368,6 +409,8 @@ $layid=$_SESSION['user'];
                            <?php
                            $hk=2;
                            $mamh=1;
+                           if(isset($_POST['button']))
+                           {
 						   switch($_POST['button'])
                  {
 	              case 'Xem':
@@ -377,6 +420,7 @@ $layid=$_SESSION['user'];
 						   $p->loadscore($id,$mamh,$hk,$nh);
 				   }
 				 }
+                }
 						   ?>
                         </tr>
 
@@ -385,6 +429,8 @@ $layid=$_SESSION['user'];
                             <?php
                            $hk=2;
                            $mamh=2;
+                           if(isset($_POST['button']))
+                           {
 						   switch($_POST['button'])
                  {
 	              case 'Xem':
@@ -394,6 +440,7 @@ $layid=$_SESSION['user'];
                        $p->loadscore($id,$mamh,$hk,$nh);
 				   }
 				 }
+                }
 						   ?>
                         </tr>
 
@@ -402,6 +449,8 @@ $layid=$_SESSION['user'];
                             <?php
                            $hk=2;
                            $mamh=3;
+                           if(isset($_POST['button']))
+                           {
 						   switch($_POST['button'])
                  {
 	              case 'Xem':
@@ -411,6 +460,7 @@ $layid=$_SESSION['user'];
                        $p->loadscore($id,$mamh,$hk,$nh);
 				   }
 				 }
+                }
 						   ?>
                         </tr>
 
@@ -419,6 +469,8 @@ $layid=$_SESSION['user'];
                             <?php
                            $hk=2;
                            $mamh=4;
+                           if(isset($_POST['button']))
+                           {
 						   switch($_POST['button'])
                  {
 	              case 'Xem':
@@ -428,6 +480,7 @@ $layid=$_SESSION['user'];
                        $p->loadscore($id,$mamh,$hk,$nh);
 				   }
 				 }
+                }
 						   ?>
                         </tr>
 
@@ -436,6 +489,8 @@ $layid=$_SESSION['user'];
                             <?php
                            $hk=2;
                            $mamh=5;
+                           if(isset($_POST['button']))
+                           {
 						   switch($_POST['button'])
                  {
 	              case 'Xem':
@@ -445,6 +500,7 @@ $layid=$_SESSION['user'];
                        $p->loadscore($id,$mamh,$hk,$nh);
 				   }
 				 }
+                }
 						   ?>
                         </tr>
 
@@ -453,6 +509,8 @@ $layid=$_SESSION['user'];
                             <?php
                            $hk=2;
                            $mamh=6;
+                           if(isset($_POST['button']))
+                           {
 						   switch($_POST['button'])
                  {
 	              case 'Xem':
@@ -462,6 +520,7 @@ $layid=$_SESSION['user'];
                        $p->loadscore($id,$mamh,$hk,$nh);
 				   }
 				 }
+                }
 						   ?>
                         </tr>
 
@@ -470,6 +529,8 @@ $layid=$_SESSION['user'];
                             <?php
                            $hk=2;
                            $mamh=7;
+                           if(isset($_POST['button']))
+                           {
 						   switch($_POST['button'])
                  {
 	              case 'Xem':
@@ -479,6 +540,7 @@ $layid=$_SESSION['user'];
                        $p->loadscore($id,$mamh,$hk,$nh);
 				   }
 				 }
+                }
 						   ?>
                         </tr>
 
@@ -487,6 +549,8 @@ $layid=$_SESSION['user'];
                             <?php
                            $hk=2;
                            $mamh=8;
+                           if(isset($_POST['button']))
+                           {
 						   switch($_POST['button'])
                  {
 	              case 'Xem':
@@ -496,6 +560,7 @@ $layid=$_SESSION['user'];
                        $p->loadscore($id,$mamh,$hk,$nh);
 				   }
 				 }
+                }
 						   ?>
                         </tr>
 
@@ -504,6 +569,8 @@ $layid=$_SESSION['user'];
                             <?php
                            $hk=2;
                            $mamh=9;
+                           if(isset($_POST['button']))
+                           {
 						   switch($_POST['button'])
                  {
 	              case 'Xem':
@@ -513,6 +580,7 @@ $layid=$_SESSION['user'];
                        $p->loadscore($id,$mamh,$hk,$nh);
 				   }
 				 }
+                }
 						   ?>
                         </tr>
 
@@ -521,6 +589,8 @@ $layid=$_SESSION['user'];
                             <?php
                            $hk=2;
                            $mamh=10;
+                           if(isset($_POST['button']))
+                           {
 						   switch($_POST['button'])
                  {
 	              case 'Xem':
@@ -530,6 +600,7 @@ $layid=$_SESSION['user'];
                        $p->loadscore($id,$mamh,$hk,$nh);
 				   }
 				 }
+                }
 						   ?>
                         </tr>
                         
@@ -538,6 +609,8 @@ $layid=$_SESSION['user'];
                             <?php
                            $hk=2;
                            $mamh=11;
+                           if(isset($_POST['button']))
+                           {
 						   switch($_POST['button'])
                  {
 	              case 'Xem':
@@ -547,6 +620,7 @@ $layid=$_SESSION['user'];
                        $p->loadscore($id,$mamh,$hk,$nh);
 				   }
 				 }
+                }
 						   ?>
                         </tr>
 
@@ -555,6 +629,8 @@ $layid=$_SESSION['user'];
                             <?php
                            $hk=2;
                            $mamh=12;
+                           if(isset($_POST['button']))
+                           {
 						   switch($_POST['button'])
                  {
 	              case 'Xem':
@@ -564,6 +640,7 @@ $layid=$_SESSION['user'];
                        $p->loadscore($id,$mamh,$hk,$nh);
 				   }
 				 }
+                }
 						   ?>
                         </tr>
 
@@ -572,6 +649,8 @@ $layid=$_SESSION['user'];
                             <?php
                            $hk=2;
                            $mamh=13;
+                           if(isset($_POST['button']))
+                           {
 						   switch($_POST['button'])
                  {
 	              case 'Xem':
@@ -581,6 +660,7 @@ $layid=$_SESSION['user'];
                        $p->loadscore($id,$mamh,$hk,$nh);
 				   }
 				 }
+                }
 						   ?>
                         </tr>
                     </tbody>

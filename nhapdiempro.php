@@ -62,13 +62,13 @@ if(isset($_REQUEST['id']))
             <!--Kết quả học tập HK1-->
                         <tr>
                             <td align="left">
-                                <div class="info" style="margin-bottom: 10px;">NHẬP ĐIỂM</div>
+                                <div class="info" style="margin-bottom: 10px;">ENTER STUDENT POINTS</div>
                                 <form method="POST" action="">
                             </td>
                         </tr>
                         
                         <tr>
-                            <td width="190">Chọn năm học:</td>
+                            <td width="190">Choose a school year:</td>
                             <td align="left">
                                 <select id="namhoc" name="namhoc" class="form-control" style="margin-top:10px;">
                                <option value="2022-2023" selected="selected">2022-2023</option>
@@ -78,7 +78,7 @@ if(isset($_REQUEST['id']))
                             </td>
                         </tr>
 						<tr>
-                            <td width="190">Chọn học kì:</td>
+                            <td width="190">Choose a semester:</td>
                             <td align="left">
                                 <select id="hocki" name="hocki" class="form-control" style="margin-top:10px;">
                                <option value="1" selected="selected">1</option>
@@ -87,17 +87,17 @@ if(isset($_REQUEST['id']))
                             </td>
                         </tr>
 						<tr>
-                            <td width="190">Chọn lớp</td>
+                            <td width="190">Choose a class</td>
                             <td align="left">
                                 <?php
-                                $p->loadlop($layid);
+                                $p->loadclass($layid);
 								?>
                             </td>
                         </tr>
 						<tr>
                             <td width="190"></td>
                             <td align="left">
-                                <a href="index1.php"><input class="btn btn-primary d-grid w-100" type="button"  value="Quay về trang chủ"/></a>
+                                <a href="index1.php"><input class="btn btn-primary d-grid w-100" type="button"  value="Back to home page"/></a>
                             </td>
                         </tr>
                     </tbody>
@@ -106,27 +106,20 @@ if(isset($_REQUEST['id']))
 
             <div id="bangDiem">
 <?php
-				$p->loadmamon($layid);
-				
-				//switch($_POST['button'])
-               //  {
-	         //     case 'Xem':
-	             //  {
+				$p->loadidsub($layid);
+				if(isset($_REQUEST['txtmamh']))
+                {
 				$mamon=$_REQUEST['txtmamh'];
-				//$nh=$_REQUEST['namhoc'];
-		          //           $mamon=$_REQUEST['txtmamh'];
-				 //        	$p->loaddiemhspro("select * from diem where mamonhoc=$mamon and hocki=1 and namhoc='$nh'");
-				 //  }
-				 //  }
+                }
 				?>
                 <!--Bảng điểm HK1-->
-                <div class="title"><h2>Nhập điểm</h2></div>
+                <div class="title"><h2>Enter student grades</h2></div>
                 <table class="center">
                     <tbody id="ten">
               
                     </tbody>
                 </table>
-                <input class="btn btn-primary d-grid w-100" type="submit" name="button" id="button" value="Xác nhận" style="margin:0 auto; margin-top:20px;"/>
+                <input class="btn btn-primary d-grid w-100" type="submit" name="button" id="button" value="Confirm" style="margin:0 auto; margin-top:20px;"/>
                 <script type="text/javascript">
 					 $(document).ready(function() {
                         $("#lop").change(function()

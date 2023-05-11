@@ -13,7 +13,7 @@ else
 include("cls/cls.php");
 $p=new tmdt();
 $layid=$_SESSION['user'];
-$layidtt=$_REQUEST['matt'];
+$layidnews=$_REQUEST['matt'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -101,55 +101,31 @@ a:hover
                     <h3>Dashboard</h3>
                 </a><a href="thongtinchitietgv.php">
                     <span class="material-icons-sharp">person_outline</span>
-                    <h3>Xem thông tin chi tiết</h3>
-                </a><a href ="#">
-                    <span class="material-icons-sharp">auto_graph</span>
-                    <h3>Thống kê</h3>
-                </a><a href ="#">
-                    <span class="material-icons-sharp">mail_outline</span>
-                    <h3>Thông báo</h3>
-                    <span class="message-count">27</span>
-                </a><a href ="#">
-                    <span class="material-icons-sharp">report_gmailerrorred</span>
-                    <h3>Báo cáo</h3>
-                </a><a href ="#">
-                    <span class="material-icons-sharp">settings</span>
-                    <h3>Cài đặt</h3>
+                    <h3>View details</h3>
                 </a><a href="guigopygv.php">
                     <span class="material-icons-sharp">add_circle_outline</span>
-                    <h3>Đóng góp ý kiến</h3>
+                    <h3>Contact</h3>
                 </a>
                 <a href="thaydoipassgv.php">
                     <span class="material-icons-sharp">add_circle_outline</span>
-                    <h3>Thay đổi mật khẩu</h3>
+                    <h3>Change the password</h3>
                 </a>
-                <a href ="#">
-                 <form action="" method="POST">
-     <span class="material-icons-sharp">logout</span>
-    <button class="form-control" type="submit" id="nut1" name="nut1" value="Đăng xuất">Log out</button>
-       <?php
-         switch($_POST['nut1'])
-         {
-	        case 'Đăng xuất':
-	          {
-		         session_destroy();
-		         header("location:index.php");
-	          }
-          }
-       ?>
-       </a>
-                    </form>
+                <a href="logout.php">
+                        <span class="material-icons-sharp">logout</span>
+                        <button class="form-control" type="submit" id="nut1" name="nut1" value="Đăng xuất">Log
+                            out</button>
+                </a>
             </div>
         </aside>
         <!------------------- END OF ASIDE --------------------> 
          <main>
-            <div class=title><h1>TIN TỨC</h1></div>
+            <div class=title><h1>NEWS</h1></div>
 
             <div class="main-section-content" id="contnet">
                 <div class="row" style="display:block">
                 <form action="" method="POST">
                                             <?php
-											$p->loadcttintuc($layidtt);
+											$p->loaddetailnews($layidnews);
 											?>
                                             </form>
                 </div>
@@ -175,19 +151,19 @@ a:hover
                                 <div class="icon">
                                     <span class="material-icons-sharp">calendar_month</span>
                                 </div>
-                                <span lang="menusinhvien-8-vt">Lịch giảng dạy</span>
+                                <span lang="menusinhvien-8-vt">Teaching schedule</span>
                             </div>
                         </a>
                     </div>
                     </div>
                      <div class="col-xs-6">
                     <div class="featured-item">
-                       <a  href="xemdiemhs.php" title="Lịch theo tuần" langid="Lichtheotuan">
+                      <a  href="xemdiemhs.php" title="Lịch theo tuần" langid="Lichtheotuan">
                             <div class="box-df">
                                 <div class="icon">
                                     <span class="material-icons-sharp">calendar_month</span>
                                 </div>
-                                <span lang="menusinhvien-8-vt">Xem điểm học sinh</span>
+                                <span lang="menusinhvien-8-vt">View student grades</span>
                             </div>
                         </a>
                     </div>
@@ -200,7 +176,7 @@ a:hover
                                 <div class="icon">
                                     <span class="material-icons-sharp">description</span>
                                 </div>
-                                <span lang="menusinhvien-8-vt">Đăng tài liệu</span>
+                                <span lang="menusinhvien-8-vt">Post documents</span>
                             </div>
                         </a>
                     </div>
@@ -210,12 +186,12 @@ a:hover
 
        
 
-                <div class="row">
+                <div class="row" style="box-shadow: 0 2px 10px 0 rgba(114, 109, 109, 0.993); margin-top:10px; border-radius:10px">
                     <div class="card">
                         <div class="card-header">
                             <div class="card-title"><h5>Tin tức</h5>
                                                     <?php
-						$p->loadtintuc("select * from tintuc");
+						$p->loadnewsteacher();
 						?>
                         </div>
                         </div>

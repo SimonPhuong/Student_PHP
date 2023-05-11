@@ -50,17 +50,47 @@ $layid=$_SESSION['user'];
         box-shadow: 0 2px 10px 0 rgba(114, 109, 109, 0.993);
         transition: all 300ms ease;
     }
-
+    .profile-userpic img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%!important;
+    float: none;
+    margin: 0 auto;
+    box-shadow: 0 2px 10px 0 rgba(114, 109, 109, 0.993);
+    
+}
     img:hover {
         width: 200px;
         height: 200px;
-        box-shadow: 0 5px 10px 0 rgba(114, 109, 109, 0.993);
+        box-shadow: 0 10px 10px 0 rgba(114, 109, 109, 0.993);
         transition: all 300ms ease;
     }
 
     a:hover {
         color: #00F;
     }
+    aside .sidebar{
+    background: white;
+    display: flex;
+    flex-direction: column;
+    height: 80%;
+    position: relative;
+    top: 0.6rem;
+	box-shadow: 0 2px 10px 0 rgba(114, 109, 109, 0.993);
+    border-radius: 10px;
+    margin-left: 10px;
+} 
+
+aside .top{
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+	box-shadow: 0 2px 10px 0 rgba(114, 109, 109, 0.993);
+    border-radius: 10px;
+    margin-left: 10px;
+    margin-top: 10px;
+}
     </style>
 </head>
 
@@ -83,21 +113,22 @@ $layid=$_SESSION['user'];
                     <h3>Dashboard</h3>
                 </a><a href="thongtinchitiet.php">
                     <span class="material-icons-sharp">person_outline</span>
-                    <h3>Xem thông tin chi tiết</h3>
+                    <h3>View details</h3>
                 </a><a href="doingugv.php">
                     <span class="material-icons-sharp">school</span>
-                    <h3>Đội ngũ giáo viên</h3>
-                </a><a href="#">
-                    <span class="material-icons-sharp">mail_outline</span>
-                    <h3>Thông báo</h3>
-                    <span class="message-count">27</span>
-                </a><a href="guigopy.php">
+                    <h3>See the team of teachers</h3>
+                </a>
+                <a href="seestudent.php">
+                    <span class="material-icons-sharp">groups</span>
+                    <h3>See students in class</h3>
+                </a>
+                <a href="guigopy.php">
                     <span class="material-icons-sharp">add_circle_outline</span>
-                    <h3>Đóng góp ý kiến</h3>
+                    <h3>Contact</h3>
                 </a>
                 <a href="thaydoipass.php">
                     <span class="material-icons-sharp">add_circle_outline</span>
-                    <h3>Thay đổi mật khẩu</h3>
+                    <h3>Change the password</h3>
                 </a>
                 <a href="logout.php">
                         <span class="material-icons-sharp">logout</span>
@@ -109,13 +140,13 @@ $layid=$_SESSION['user'];
         <!------------------- END OF ASIDE -------------------->
         <main>
             <div class=title>
-                <h1>Dashboard</h1>
+                <h1>DASHBOARD</h1>
             </div>
 
             <div class="main-section-content" id="contnet">
                 <div class="row" style="display:block">
                     <?php
-											$p->loadtt($layid);
+											$p->loadstudent($layid);
 											?>
 
                 </div>
@@ -141,7 +172,7 @@ $layid=$_SESSION['user'];
                                     <div class="icon">
                                         <span class="material-icons-sharp">calendar_month</span>
                                     </div>
-                                    <span lang="menusinhvien-8-vt">Thời khoá biểu</span>
+                                    <span lang="menusinhvien-8-vt">Schedule</span>
                                 </div>
                             </a>
                         </div>
@@ -154,7 +185,7 @@ $layid=$_SESSION['user'];
                                     <div class="icon">
                                         <span class="material-icons-sharp">leaderboard</span>
                                     </div>
-                                    <span lang="menusinhvien-8-vt">Kết quả học tập</span>
+                                    <span lang="menusinhvien-8-vt">Learning outcomes</span>
                                 </div>
                             </a>
                         </div>
@@ -169,7 +200,7 @@ $layid=$_SESSION['user'];
                                     <div class="icon">
                                         <span class="material-icons-sharp">description</span>
                                     </div>
-                                    <span lang="menusinhvien-8-vt">Tài liệu trực tuyến</span>
+                                    <span lang="menusinhvien-8-vt">Study document</span>
                                 </div>
                             </a>
                         </div>
@@ -182,7 +213,7 @@ $layid=$_SESSION['user'];
                                     <div class="icon">
                                         <span class="material-icons-sharp">attach_money</span>
                                     </div>
-                                    <span lang="menusinhvien-8-vt">Công nợ</span>
+                                    <span lang="menusinhvien-8-vt">Debts</span>
                                 </div>
                             </a>
                         </div>
@@ -194,9 +225,9 @@ $layid=$_SESSION['user'];
                     <div class="card">
                         <div class="card-header">
                             <div class="card-title">
-                                <h5>Tin tức</h5>
+                                <h5>News</h5>
                                 <?php
-						$p->loadtintuc("select * from tintuc");
+						$p->loadnews();
 						?>
                             </div>
                         </div>

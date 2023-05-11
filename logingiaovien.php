@@ -74,6 +74,8 @@ $p=new login();
                                 <div class="mb-3">
                                   <button class="btn btn-primary d-grid w-100" type="submit" name="button" id="button" value="Đăng nhập">Đăng nhập</button>
                                   <?php
+                                  if(isset($_POST['button']))
+                                  {
   switch($_POST['button'])
   {
 	  case 'Đăng nhập':
@@ -96,6 +98,7 @@ $p=new login();
 	  }
 	  
   }
+}
   ?>
     <a href="login.php"><button class="btn btn-primary d-grid w-100" style=" margin-top:20px;" type="button">Đăng nhập dành cho học sinh</button></a>
                                 </div>

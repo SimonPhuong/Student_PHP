@@ -62,13 +62,13 @@ if(isset($_REQUEST['id']))
             <!--Kết quả học tập HK1-->
                         <tr>
                             <td align="left">
-                                <div class="info" style="margin-bottom: 10px;">KẾT QUẢ HỌC TẬP</div>
+                                <div class="info" style="margin-bottom: 10px;">LEARNING OUTCOMES</div>
                                 <form method="POST" action="">
                             </td>
                         </tr>
                         
                         <tr>
-                            <td width="190">Chọn năm học:</td>
+                            <td width="190">Choose a school year:</td>
                             <td align="left">
                                 <select name="namhoc" id="namhoc" class="form-control" style="margin-top:10px;">
                                <option value="2022-2023" selected="selected">2022-2023</option>
@@ -78,7 +78,7 @@ if(isset($_REQUEST['id']))
                             </td>
                         </tr>
                         <tr>
-                            <td width="190">Chọn học kì:</td>
+                            <td width="190">Choose a semester:</td>
                             <td align="left">
                                 <select name="hocki" id="hocki" class="form-control" style="margin-top:10px;">
                                <option value="1" selected="selected">1</option>
@@ -87,18 +87,18 @@ if(isset($_REQUEST['id']))
                             </td>
                         </tr>
                         <tr>
-                            <td width="190">Chọn lớp</td>
+                            <td width="190">Choose a class:</td>
                             <td align="left">
                                 <?php
-                                $p->loadlop($layid);
+                                $p->loadclass($layid);
 								?>
                             </td>
                         </tr>
                          <tr>
                             <td width="190"></td>
                             <td align="left">
-                                <a href="index1.php"><input class="btn btn-primary d-grid w-100" type="button"  value="Quay về trang chủ"/></a>
-                                <a href="nhapdiempro.php"><input class="btn btn-primary d-grid w-100" type="button"  value="Nhập điểm và chỉnh sửa điểm"/></a>
+                                <a href="index1.php"><input class="btn btn-primary d-grid w-100" type="button"  value="Back to home page"/></a>
+                                <a href="nhapdiempro.php"><input class="btn btn-primary d-grid w-100" type="button"  value="Enter scores and edit scores"/></a>
                             </td>
                         </tr>
                     </tbody>
@@ -109,40 +109,22 @@ if(isset($_REQUEST['id']))
 
                 <!--Bảng điểm HK1-->
                    <?php
-				$p->loadmamon($layid);
-				
-				//switch($_POST['button'])
-               //  {
-	         //     case 'Xem':
-	             //  {
+				$p->loadidsub($layid);
+                if(isset($_REQUEST['txtmamh']))
+                {
 				$mamon=$_REQUEST['txtmamh'];
-				//$nh=$_REQUEST['namhoc'];
-		          //           $mamon=$_REQUEST['txtmamh'];
-				 //        	$p->loaddiemhspro("select * from diem where mamonhoc=$mamon and hocki=1 and namhoc='$nh'");
-				 //  }
-				 //  }
+                }
 				?>
-                <div class="title"><b>Kết quả học tập</b></div>
+                <div class="title"><b>Learning outcomes</b></div>
                 <table class="center">
                     <tbody id="load">
               <?php
-			//	$p->loadmamon("select mamonhoc from giaovienmonhoc where magiaovien=".$layid."");
-				//switch($_POST['button'])
-                 //{
-	              //case 'Xem':
-	               //{
-				//$mamon=$_REQUEST['txtmamh'];
-				//$nh=$_REQUEST['namhoc'];
-		         //            $mamon=$_REQUEST['txtmamh'];
-				  //       	$p->loaddiemhs("select * from diem where mamonhoc=$mamon and hocki=1 and namhoc='$nh'");
-				   //}
-				   //}
 				?>
                     </tbody>
                 </table>
                 
                 <!--Thành tích HK1-->
-                <div class="title"><b>Thành tích HK1</b></div>
+                <div class="title"><b>Academic achievement of semester 1</b></div>
 
                 <table class="center">
                     <tbody>
