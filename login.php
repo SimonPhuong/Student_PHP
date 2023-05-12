@@ -9,10 +9,10 @@ $p=new login();
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="login.css">
+    <title>Login student</title>
+    <link rel="stylesheet" href="css/login.css">
 </head>
-
+</style>
 <body>
     <main class="wapper-login">
         <header class="header" style="background: #ffffff;">
@@ -93,7 +93,7 @@ $p=new login();
   }
 }
   ?>
-                                        <a href="logingiaovien.php"><button class="btn btn-primary d-grid w-100"
+                                        <a href="loginteacher.php"><button class="btn btn-primary d-grid w-100"
                                                 style=" margin-top:20px;" type="button">Đăng nhập dành cho giáo
                                                 viên</button></a>
                                     </div>

@@ -191,7 +191,7 @@ function chanepass($pass2,$layid)
                                                 <img src="img/'.$img.'" class="img-responsive" style="object-fit: cover;">
                                             </div>
                                             <div class="text-center">
-                                                <a href="suathongtin.php" class="color-active" lang="db-chitiet-button">Edit information</a>
+                                                <a href="#" class="color-active" lang="db-chitiet-button">'.$fullname.'</a>
                                             </div>
                                         </div>
 
@@ -225,7 +225,7 @@ function chanepass($pass2,$layid)
 			}
 	}
 	//load thông tin chi tiết của học sinh
-	public function loaddetail($layid)
+	public function loaddetailstudent($layid)
 	{
 		$con=$this->connectpdo();
         $stmt = $con->prepare("select * from students where id_student='$layid' limit 1");
@@ -262,7 +262,7 @@ function chanepass($pass2,$layid)
 											<img src="img/'.$img.'" class="img-responsive" style="object-fit: cover;">
 										</div>
 										<div class="text-center">
-											<a href="suathongtin.php" class="color-active" lang="db-chitiet-button">Edit information</a>
+											<a href="editstudent.php" class="color-active" lang="db-chitiet-button">Edit information</a>
 										</div>
 									</div>
 
@@ -303,6 +303,7 @@ function chanepass($pass2,$layid)
 					</div>';
 			}
 	}
+	///load thông tin chi tiết giáo viên
 	public function loaddetailteacher($layid)
 	{
 		$con=$this->connectpdo();
@@ -341,7 +342,7 @@ function chanepass($pass2,$layid)
 											<img src="img/'.$image.'" class="img-responsive" style="object-fit: cover;">
 										</div>
 										<div class="text-center">
-											<a href="suathongtingv.php" class="color-active" lang="db-chitiet-button">Edit information</a>
+											<a href="editteacher.php" class="color-active" lang="db-chitiet-button">Edit information</a>
 										</div>
 									</div>
 
@@ -416,16 +417,40 @@ function chanepass($pass2,$layid)
                                                         <label class="col-xs-6"> ID STUDENT:
 														 <input type="text" name="id" id="id" class="form-control" value="'.$id_stu.'" readonly="readonly" >
 														</label>
-                                                        <label class="col-xs-6"> GENDER(Male/Female/Unknown):
-														<input type="text" name="gender" id="gender" class="form-control" value="'.$gender.'" >
+                                                        <label class="col-xs-6"> GENDER(Male/Female/Unknown):';
+														if($gender == 'Male'){
+															
+														echo
+														'<select id="gender" name="gender" class="form-control">
+														<option value="Male" selected>Male</option>
+														<option value="Female">Female</option>
+														<option value="Unknown"">Unknown</option>
+														</select>'; }else if($gender == 'Female'){
+															echo
+															'<select id="gender" name="gender" class="form-control">
+															<option value="Male">Male</option>
+															<option value="Female" selected>Female</option>
+															<option value="Unknown">Unknown</option>
+															</select>';
+
+														}else{
+															echo
+															'<select id="gender" name="gender" class="form-control">
+															<option value="Male" >Male</option>
+															<option value="Female">Female</option>
+															<option value="Unknown" selected>Unknown</option>
+															</select>';
+														}
+
+														echo'
 														</label>
                                                     </div>
 													<div class="form-group">
 														<label class="col-xs-6"> FIRSTNAME:
-														<input type="text" name="fn" id="fn" class="form-control" value="'.$fn.'" >
+														<input type="text" name="fn" id="fn" class="form-control" value="'.$fn.'"  >
 														</label>
 														<label class="col-xs-6"> LASTNAME:
-														<input type="text" name="ln" id="ln" class="form-control" value="'.$ln.'">
+														<input type="text" name="ln" id="ln" class="form-control" value="'.$ln.'" >
 														</label>
 														</div>
                                                     <div class="form-group">
@@ -441,32 +466,32 @@ function chanepass($pass2,$layid)
                                                     </div>
                                                     <div class="form-group">
                                                         <label class="col-xs-6"> DATE OF BIRTH:
-														<input type="date" name="dob" id="dob" class="form-control" value="'.$dob.'">
+														<input type="date" name="dob" id="dob" class="form-control" value="'.$dob.'" required>
 														</label>
                                                        	<label class="col-xs-6"> CITIZEN IDENTITY CARD:
-														<input type="number" name="cic" id="cic" class="form-control" value="'.$cic.'">
+														<input type="number" name="cic" id="cic" class="form-control" value="'.$cic.'" required>
 														</label>
 														</div>
 														 <div class="form-group">
                                                         <label class="col-xs-6"> NATION:
-														<input type="text" name="nation" id="nation" class="form-control" value="'.$nation.'">
+														<input type="text" name="nation" id="nation" class="form-control" value="'.$nation.'" required>
 														</label>
                                                         <label class="col-xs-6"> RELIGION:
-														<input type="text" name="religion" id="religion" class="form-control" value="'.$religion.'">
+														<input type="text" name="religion" id="religion" class="form-control" value="'.$religion.'" required>
 														</div>
 														  <div class="form-group">
                                                         <label class="col-xs-6"> ADDRESS:
-														<input type="text" name="address" id="address" class="form-control" value="'.$address.'">
+														<input type="text" name="address" id="address" class="form-control" value="'.$address.'" required >
 														</label>
                                                         <label class="col-xs-6"> STATE:
-														<input type="text" name="state" id="state" class="form-control" value="'.$state.'">
+														<input type="text" name="state" id="state" class="form-control" value="'.$state.'" required>
 														</label>
 														<label class="col-xs-6"> CITY:
-														<input type="text" name="city" id="city" class="form-control" value="'.$city.'">
+														<input type="text" name="city" id="city" class="form-control" value="'.$city.'" required>
 														</label>
 														<div class="form-group">
                                                         <label class="col-xs-12">
-														<input type="hidden" name="img" id="img" class="form-control" value="'.$img.'">
+														<input type="hidden" name="img" id="img" class="form-control" value="'.$img.'" required>
 														</label>
 														</div>
 	<input type="submit" name="button" id="button" value="Confirm"/>
@@ -529,8 +554,32 @@ function chanepass($pass2,$layid)
                                                         <label class="col-xs-6"> ID TEACHER:
 														 <input type="text" name="id" id="id" class="form-control" value="'.$id_tea.'" readonly="readonly" >
 														</label>
-                                                        <label class="col-xs-6"> GENDER(Male/Female/Unknown):
-														<input type="text" name="gender" id="gender" class="form-control" value="'.$gender.'" >
+                                                        <label class="col-xs-6"> GENDER(Male/Female/Unknown):';
+														if($gender == 'Male'){
+															
+														echo
+														'<select id="gender" name="gender" class="form-control">
+														<option value="Male" selected>Male</option>
+														<option value="Female">Female</option>
+														<option value="Unknown"">Unknown</option>
+														</select>'; }else if($gender == 'Female'){
+															echo
+															'<select id="gender" name="gender" class="form-control">
+															<option value="Male">Male</option>
+															<option value="Female" selected>Female</option>
+															<option value="Unknown">Unknown</option>
+															</select>';
+
+														}else{
+															echo
+															'<select id="gender" name="gender" class="form-control">
+															<option value="Male" >Male</option>
+															<option value="Female">Female</option>
+															<option value="Unknown" selected>Unknown</option>
+															</select>';
+														}
+
+														echo'
 														</label>
                                                     </div>
 													<div class="form-group">
@@ -736,6 +785,7 @@ function chanepass($pass2,$layid)
 		</tr>';
 			}
 	}
+	///load thông tin giáo viên
 	public function loadteacher($layid)
 	{
 		$con=$this->connectpdo();
@@ -774,7 +824,7 @@ function chanepass($pass2,$layid)
                                                 <img src="img/'.$image.'" class="img-responsive" style="object-fit: cover;">
                                             </div>
                                             <div class="text-center">
-                                                <a href="suathongtingv.php" class="color-active" lang="db-chitiet-button">Edit information</a>
+                                                <a href="#" class="color-active" lang="db-chitiet-button">'.$fullname.'</a>
                                             </div>
                                         </div>
 
@@ -821,7 +871,7 @@ function chanepass($pass2,$layid)
 				$id=$row['id'];
 				$cate=$row['category_id'];
 				$title=$row['title'];
-				echo '<a href="xemtt.php?matt='.$id.'">
+				echo '<a href="newsstudent.php?matt='.$id.'">
 				<div id="tt">
 				'.$title.'
 				</div></a> ';
@@ -840,7 +890,7 @@ function chanepass($pass2,$layid)
 				$id=$row['id'];
 				$cate=$row['category_id'];
 				$title=$row['title'];
-				echo '<a href="xemttgv.php?matt='.$id.'">
+				echo '<a href="newsteacher.php?matt='.$id.'">
 				<div id="tt">
 				'.$title.'
 				</div></a> ';
