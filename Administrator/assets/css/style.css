@@ -5867,7 +5867,8 @@ body.rtl .main-content {
 .table-content.table-basic .card {
   background-color: var(--ot-bg-table-card);
   border: 1px solid transparent;
-  filter: drop-shadow(0px 2px 8px rgba(0, 0, 0, 0.05));
+  /* filter: drop-shadow(0px 2px 8px rgba(0, 0, 0, 0.05)); */
+  box-shadow:  1px 1px 0 rgba(0, 0, 0, 0.1), 0 1px 10px 0 rgba(0, 0, 0, 0.05);
   border-radius: 0;
 }
 .table-content.table-basic .card-body {
@@ -6679,10 +6680,10 @@ body.rtl .main-content {
   border: none;
 }
 
-.btn-close {
+/* .btn-close {
   background: rgba(255, 255, 255, 0.3215686275);
   border-radius: 50%;
-}
+} */
 
 .btn-gradian {
   color: white;

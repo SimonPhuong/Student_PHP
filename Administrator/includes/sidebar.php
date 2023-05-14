@@ -17,13 +17,19 @@
     </button>
 </div>
 
+<?php
+$currentUrl = basename($_SERVER['REQUEST_URI']);
+?>
 <!--- Sidemenu -->
 <div class="sidebar-menu">
     <div class="sidebar-menu-section">
-        <ul class="sidebar-dropdown-menu parent-menu-list metismenu">
+        <ul class="sidebar-dropdown-menu parent-menu-list">
+
+
 
             <li class="sidebar-menu-item">
-                <a href="dashboard.php" class="parent-item-content ">
+                <a href="dashboard.php"
+                    class="parent-item-content <?php echo ($currentUrl == 'dashboard.php') ? 'active' : ''; ?>">
                     <i class="las la-home "></i>
                     <span class="on-half-expanded">Dashboard</span>
                 </a>
@@ -31,56 +37,137 @@
 
 
             <li class="sidebar-menu-item">
-                <a href="javascript:void(0)" class="parent-item-content has-arrow in-active">
+                <a href="javascript:void(0)"
+                    class="parent-item-content has-arrow <?php echo in_array($currentUrl, ['student.php', 'create.student.php']) ? 'active' : 'in-active'; ?>">
                     <i class="las la-user-alt"></i>
                     <span class="on-half-expanded">
                         Students
                     </span>
                 </a>
-                <ul class="child-menu-list mm-collapse mm-show" style="">
-                    <li class="nav-item">
-                        <a href="account-student.php">Tài khoản </a>
+                <ul class="child-menu-list mm-collapse <?php echo in_array($currentUrl, ['student.php', 'create.student.php']) ? 'mm-show' : ''; ?>"
+                    style="">
+                    <li class="nav-item <?php echo ($currentUrl == 'student.php') ? 'active' : 'in-active'; ?>">
+                        <a href="student.php">
+                            <span>Student List</span>
+                        </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="manage-student.php">Danh sách học sinh </a>
+                    <li class="nav-item <?php echo ($currentUrl == 'create.student.php') ? 'active' : ''; ?>">
+                        <a href="create.student.php" class=" ">
+                            <span>Student Add</span>
+                        </a>
                     </li>
                 </ul>
             </li>
 
             <li class="sidebar-menu-item">
-                <a href="javascript:void(0);" class="parent-item-content "><i class="mdi mdi-format-list-bulleted"></i>
-                    <span> Giáo viên </span> <span class="menu-arrow"></span></a>
-                <ul class="list-unstyled">
-                    <li><a href="account-teacher.php">Tài khoản </a></li>
-                    <li><a href="manage-teacher.php">Danh sách giáo viên </a></li>
+                <a href="javascript:void(0)"
+                    class="parent-item-content has-arrow <?php echo in_array($currentUrl, ['teachers.php', 'create.teacher.php','assign-teaching.php']) ? 'active' : 'in-active'; ?>">
+                    <i class="las la-chalkboard-teacher"></i>
+                    <span class="on-half-expanded">
+                        Teachers
+                    </span>
+                </a>
+                <ul class="child-menu-list mm-collapse <?php echo in_array($currentUrl, ['teachers.php', 'create.teacher.php','assign-teaching.php']) ? 'mm-show' : ''; ?>"
+                    style="">
+                    <li class="nav-item <?php echo ($currentUrl == 'teachers.php') ? 'active' : 'in-active'; ?>">
+                        <a href="teachers.php" class=" ">
+                            <span>Teacher List</span>
+                        </a>
+                    </li>
+                    <li class="nav-item <?php echo ($currentUrl == 'create.teacher.php') ? 'active' : 'in-active'; ?>">
+                        <a href="create.teacher.php" class=" ">
+                            <span>Teacher Add</span>
+                        </a>
+                    </li>
+                    <li class="nav-item <?php echo ($currentUrl == 'assign-teaching.php') ? 'active' : 'in-active'; ?>">
+                        <a href="assign-teaching.php" class=" ">
+                            <span>Assign Teaching</span>
+                        </a>
+                    </li>
                 </ul>
             </li>
 
             <li class="sidebar-menu-item">
-                <a href="javascript:void(0);" class="parent-item-content "><i class="mdi mdi-format-list-bulleted"></i>
-                    <span> Tin tức </span> <span class="menu-arrow"></span></a>
-                <ul class="list-unstyled">
-                    <li><a href="add-news.php">Đăng bài </a></li>
-                    <li><a href="manage-news.php">Danh sách </a></li>
+                <a href="javascript:void(0)"
+                    class="parent-item-content has-arrow <?php echo in_array($currentUrl, ['news.php', 'create.news.php','categories.php']) ? 'active' : 'in-active'; ?>">
+                    <i class="las la-newspaper"></i>
+                    <span class="on-half-expanded">
+                        News
+                    </span>
+                </a>
+                <ul class="child-menu-list mm-collapse <?php echo in_array($currentUrl, ['news.php', 'create.news.php','categories.php']) ? 'mm-show' : ''; ?>"
+                    style="">
+                    <li class="nav-item <?php echo ($currentUrl == 'news.php') ? 'active' : 'in-active'; ?>">
+                        <a href="news.php" class=" ">
+                            <span>News List</span>
+                        </a>
+                    </li>
+                    <li class="nav-item <?php echo ($currentUrl == 'create.news.php') ? 'active' : 'in-active'; ?>">
+                        <a href="create.news.php" class=" ">
+                            <span>News Add</span>
+                        </a>
+                    </li>
+                    <li class="nav-item <?php echo ($currentUrl == 'categoires.php') ? 'active' : 'in-active'; ?>">
+                        <a href="categories.php" class=" ">
+                            <span>Category</span>
+                        </a>
+                    </li>
                 </ul>
             </li>
 
             <li class="sidebar-menu-item">
-                <a href="class.php" class="parent-item-content "><i class="mdi mdi-format-list-bulleted"></i> <span>Lớp
-                    </span> </a>
+                <a href="javascript:void(0)"
+                    class="parent-item-content has-arrow <?php echo in_array($currentUrl, ['subjects.php', 'grades.php','classrooms.php']) ? 'active' : 'in-active'; ?>">
+                    <i class="las la-tools"></i>
+                    <span class="on-half-expanded">
+                        School Systems
+                    </span>
+                </a>
+                <ul class="child-menu-list mm-collapse <?php echo in_array($currentUrl, ['subjects.php', 'grades.php','classrooms.php']) ? 'mm-show' : ''; ?>"
+                    style="">
+                    <li class="nav-item <?php echo ($currentUrl == 'subjects.php') ? 'active' : 'in-active'; ?>">
+                        <a href="subjects.php" class="">
+                            <span class="on-half-expanded">Subjects</span>
+                        </a>
+                    </li>
+                    <li class="nav-item <?php echo ($currentUrl == 'grades.php') ? 'active' : 'in-active'; ?>">
+                        <a href="grades.php" class="">
+
+                            <span class="on-half-expanded">Grades</span>
+                        </a>
+                    </li>
+                    <li class="nav-item <?php echo ($currentUrl == 'classrooms.php') ? 'active' : 'in-active'; ?>">
+                        <a href="classrooms.php" class="">
+
+                            <span class="on-half-expanded">Classrooms</span>
+                        </a>
+                    </li>
+                </ul>
             </li>
 
             <li class="sidebar-menu-item">
-                <a href="subject.php" class="parent-item-content "><i class="mdi mdi-format-list-bulleted"></i> <span>Bộ
-                        môn
-                    </span> </a>
+                <a href="../../Admin/view/timetable.php" class="parent-item-content ">
+                    <i class="las la-calendar-check"></i>
+                    <span>Schedule</span> </a>
             </li>
 
             <li class="sidebar-menu-item">
-                <a href="../../Admin/view/timetable.php" class="parent-item-content "><i
-                        class="mdi mdi-format-list-bulleted"></i>
-                    <span>Thời khoá biểu </span> </a>
+                <a href="feedback.php"
+                    class="parent-item-content <?php echo ($currentUrl == 'feedback.php') ? 'active' : 'in-active'; ?>">
+                    <i class="las la-comment"></i>
+                    <span class="on-half-expanded">Feedback</span>
+                </a>
             </li>
+
+            <li class="sidebar-menu-item">
+                <a href="logout.php" class="parent-item-content">
+                    <i class="las la-sign-out-alt"></i>
+                    <span class="on-half-expanded">
+                        Logout
+                    </span>
+                </a>
+            </li>
+
         </ul>
     </div>
 </div>

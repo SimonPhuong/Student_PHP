@@ -1,10 +1,9 @@
 <?php
 session_start();
-include('includes/config.php');
 error_reporting(0);
 if(strlen($_SESSION['login'])==0)
   { 
-header('location:index.php');
+header('location:login.php');
 }
 else{
     ?>
@@ -17,7 +16,7 @@ else{
     <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
     <meta name="author" content="Coderthemes">
     <!-- App title -->
-    <title>Administrator | Dashboard</title>
+    <title>Administrator | <?php echo isset($subTitle) ? $subTitle : $title ?></title>
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="./assets/vendors/fontawesome/css/all.min.css">
@@ -42,6 +41,8 @@ else{
     <link rel="stylesheet" href="./assets/vendors/select2/css/select2.min.css">
     <!-- toastr -->
     <link rel="stylesheet" href="./assets/css/toastr.css">
+    <!-- Data table -->
+    <link href="https://cdn.datatables.net/v/bs5/dt-1.13.4/datatables.min.css" rel="stylesheet" />
 
     <link rel="stylesheet" href="./assets/css/style.css">
     <link rel="stylesheet" href="./assets/css/daterangepicker.css">
@@ -57,8 +58,6 @@ else{
             <?php include('includes/header.php');?>
         </header>
 
-
-
         <aside class="sidebar" id="sidebar">
             <?php include('includes/sidebar.php');?>
         </aside>
@@ -67,14 +66,23 @@ else{
             <div class="page-content ph-32 pt-100">
                 <div class="breadcrumb-warning d-flex justify-content-between ot-card">
                     <div>
-                        <h3></h3>
+                        <h3><?php echo isset($subTitle) ? $subTitle : $title ?></h3>
                     </div>
                     <nav aria-label="breadcrumb ">
                         <ol class="breadcrumb ot-breadcrumb ot-breadcrumb-basic">
                             <li class="breadcrumb-item ">
-                                <a href="#">Dashboard</a>
+                                <a href="#">Dashboard </a>
                             </li>
-                            <li class="breadcrumb-item active"></li>
+                            <?php if(isset($title)) :  ?>
+                            <li class="breadcrumb-item active">
+                                <?php echo $title?>
+                            </li>
+                            <?php endif ?>
+                            <?php if(isset($subTitle)) :  ?>
+                            <li class="breadcrumb-item active">
+                                <?php echo $subTitle?>
+                            </li>
+                            <?php endif ?>
                         </ol>
                     </nav>
                 </div>
@@ -96,6 +104,7 @@ else{
     <!--  Bootstrap 5 -->
     <script src="./assets/vendors/bootstrap/js/popper.min.js"></script>
     <script src="./assets/vendors/bootstrap/js/bootstrap.min.js"></script>
+
     <!-- RTL -->
     <script src="./assets/vendors/rtlcss/js/semantic.min.js"></script>
     <!-- Metis Menu -->
@@ -123,8 +132,15 @@ else{
 
     <script src="./assets/js/axios.js"></script>
 
+    <script type="text/javascript" language="javascript" src="./assets/vendors/ckeditor/ckeditor.js"></script>
+
     <!-- Table -->
-    <script src="./assets/backend/js/table/data-table.js"></script>
+    <!-- <script src="./assets/backend/js/table/data-table.js"></script> -->
+    <script src="https://cdn.datatables.net/v/bs5/dt-1.13.4/datatables.min.js"></script>
+
+    <!-- Sweet alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
     <script src="./assets/backendjs/fs_d_ecma/chart/echarts.min.js"></script>
     <script type="module" src="./assets/backend/js/fs_d_ecma/components/dashboard.js"></script>

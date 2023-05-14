@@ -56,17 +56,13 @@
                 <div class="profile-expand-container">
                     <div class="profile-expand-list d-flex flex-column">
                         <a class="profile-expand-item profile-border" href="#">
-                            <span>My profile</span>
-                        </a>
-                        <a class="profile-expand-item" href="#" data-bs-toggle="tooltip" data-bs-placement="right"
-                            data-bs-title="Thông báo">
-                            <span><i class="las la-bell"></i>Notification</span>
+                            <span><i class="las la-user"></i>My profile</span>
                         </a>
                         <a class="profile-expand-item profile-border" href="#">
                             <span><i class="las la-cog"></i> Settings</span>
                         </a>
-                        <a class="profile-expand-item " href="">
-                            <span>Log out</span>
+                        <a class="profile-expand-item btn btn-danger" href="logout.php">
+                            Logout
                         </a>
                     </div>
                 </div>
