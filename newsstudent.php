@@ -1,7 +1,15 @@
 <?php
 include("cls/cls.php");
 $p=new tmdt();
-$layidtt=$_REQUEST['matt'];
+$layidnews=$_REQUEST['matt'];
+session_start();
+error_reporting(0);
+if(strlen($_SESSION['login'])==0)
+  { 
+header('location:login.php');
+}
+else{
+$layid=$_SESSION['id'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -76,7 +84,7 @@ a:hover
                 <div class="row" style="display:block">
                 <form action="" method="POST">
                                             <?php
-											$p->loaddetailnews($layidtt);
+											$p->loaddetailnews($layidnews);
 											?>
                                             </form>
                 </div>
@@ -92,3 +100,4 @@ include("eomstudent.php");
 </body>
 
 </html>
+<?php } ?>

@@ -1,18 +1,14 @@
 <?php
 session_start();
-if(isset($_SESSION['user'])&& isset($_SESSION['pass']))
-{
-	include("cls/clslogin.php");
-	$q=new login();
-	$q->confirmlogin($_SESSION['user'],$_SESSION['pass']);
+error_reporting(0);
+if(strlen($_SESSION['login'])==0)
+  { 
+header('location:login.php');
 }
-else
-{
-	header('location:login.php');
-}
+else{
 include("cls/cls.php");
 $p=new tmdt();
-$layid=$_SESSION['user'];
+$layid=$_SESSION['id'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,6 +20,7 @@ $layid=$_SESSION['user'];
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/learning.css">
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
    <style>
 		  #nut1
@@ -99,34 +96,37 @@ a:hover
                 <div class="row" style="display:block">
                 <div class="box-df profile-ds-info">
                 <form action="" method="POST">
-                <h2>Choose subject:</h2>    
-    <?php
+                <h2>Choose subject: 
+                    <?php
 	$p->loadsubject();
 	?>
-   <h2>Information teacher</h2>
-                                        <div id="loadgv"></div>
-                                          <script type="text/javascript">
+    </h2>    
+    <h2>Information teacher</h2>
+                <table class="center" style="margin:0 auto; margin-top:30px;">
+                    <tbody id="loadteacher">
+                    </tbody>
+                </table>
+                <script type="text/javascript">
 					 $(document).ready(function() {
                         $("#subject").change(function()
 						{
-							var mh=$(this).val()
+							var sub=$(this).val()
 							$.ajax({
 								url:"ajax/data.php",
 								method:"POST",
-								data:{mh:mh},
+								data:{sub:sub},
 								success:function(data)
 								{
-									$("#loadgv").html(data);
+									$("#loadteacher").html(data);
 								}
 								});
 						});
                     });
 					 </script>
-                   </form>
+                </form>  
                 </div>
-            </div>
-            </div>
-
+                </div>
+                </div>
         </main>
         <!-------------------- END OF MAIN ------------------->
         <?php
@@ -137,3 +137,4 @@ include("eomstudent.php");
 </body>
 
 </html>
+<?php } ?>

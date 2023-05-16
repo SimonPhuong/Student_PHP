@@ -1,18 +1,14 @@
 <?php
 session_start();
-if(isset($_SESSION['user'])&& isset($_SESSION['pass']))
-{
-	include("cls/clslogin.php");
-	$q=new login();
-	$q->confirmlogin($_SESSION['user'],$_SESSION['pass']);
+error_reporting(0);
+if(strlen($_SESSION['login'])==0)
+  { 
+header('location:login.php');
 }
-else
-{
-	header('location:login.php');
-}
+else{
 include("cls/cls.php");
 $p=new tmdt();
-$layid=$_SESSION['user'];
+$layid=$_SESSION['id'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -116,7 +112,6 @@ aside .top{
 	<th>PHONE</th>
 	<th>EMAIL</th>
 	<th>DATE OF BIRTH</th>
-	<th>CITIZEN IDENTITY CARD</th>
 	<th>NATION</th>
     <th>RELIGION</th>
     <th>ADDRESS</th>
@@ -159,3 +154,4 @@ include("eomstudent.php");
 </body>
 
 </html>
+<?php } ?>

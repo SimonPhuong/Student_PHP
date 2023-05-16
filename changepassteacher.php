@@ -1,3 +1,15 @@
+<?php
+session_start();
+error_reporting(0);
+if(strlen($_SESSION['login'])==0)
+  { 
+header('location:login.php');
+}
+else{
+include("cls/cls.php");
+$p=new tmdt();
+$layid=$_SESSION['id'];
+?>
 <?php 
 session_start();
 if(isset($_SESSION['user'])&& isset($_SESSION['pass']))
@@ -178,3 +190,4 @@ a:hover
     <script src="index.js"></script>
 </body>
 </html>
+<?php } ?>

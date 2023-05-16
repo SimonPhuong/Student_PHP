@@ -2,19 +2,16 @@
 include("cls/clsupload.php");
 $a=new myfile();
 session_start();
-if(isset($_SESSION['user'])&& isset($_SESSION['pass']))
-{
-	include("cls/clslogin.php");
-	$q=new login();
-	$q->confirmlogin($_SESSION['user'],$_SESSION['pass']);
+error_reporting(0);
+if(strlen($_SESSION['login'])==0)
+  { 
+header('location:login.php');
 }
-else
-{
-	header('location:login.php');
-}
+else{
 include("cls/cls.php");
 $p=new tmdt();
-$layid=$_SESSION['user'];
+$layid=$_SESSION['id'];
+$idstu=$_SESSION['login'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -188,7 +185,7 @@ margin-top:20px;
                                             </div>
                                         </div>
                                         <?php
-											$p->loadeditstudent($layid);
+											$p->loadeditstudent($layid,$idstu);
 											?>
                                     </div>    
                                 </div>
@@ -241,7 +238,6 @@ switch($_POST['button'])
 {
 	case 'Confirm':
 	{
-	 $id=$_REQUEST['id'];
 							 $fn=$_REQUEST['fn'];
 							 $ln=$_REQUEST['ln'];
 							 $gender=$_REQUEST['gender'];
@@ -254,7 +250,7 @@ switch($_POST['button'])
 							 $address=$_REQUEST['address'];
 							 $state=$_REQUEST['state'];
 							 $city=$_REQUEST['city'];
-					if($p->editstudent($id,$fn,$ln,$gender,$phone,$email,$dob,$cic,$nation,$religion,$address,$state,$city)==1)
+					if($p->editstudent($layid,$fn,$ln,$gender,$phone,$email,$dob,$cic,$nation,$religion,$address,$state,$city)==1)
                     {
                         echo'<script> alert("Edited information successfully!"); </script>'; 
                     }
@@ -278,3 +274,4 @@ include("eomstudent.php");
 <script src="js/index.js"></script>
 </body>
 </html>
+<?php } ?>

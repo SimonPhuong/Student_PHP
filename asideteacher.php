@@ -19,6 +19,10 @@ echo'
         <span class="material-icons-sharp">person_outline</span>
         <h3>View details</h3>
     </a>
+    <a href="editteacher.php" title="Chỉnh sửa thông tin">
+    <span class="material-icons-sharp">edit</span>
+    <h3>Edit infomation</h3>
+    </a>
     <a href="seestudentbyteacher.php" title="Xem học sinh của các lớp">
     <span class="material-icons-sharp">groups</span>
     <h3>See students in class</h3>

@@ -1,23 +1,14 @@
-	<?php
+<?php
 session_start();
-if(isset($_SESSION['user'])&& isset($_SESSION['pass']))
-{
-	include("cls/clslogin.php");
-	$q=new login();
-	$q->confirmlogin1($_SESSION['user'],$_SESSION['pass']);
+error_reporting(0);
+if(strlen($_SESSION['login'])==0)
+  { 
+header('location:login.php');
 }
-else
-{
-	header('location:loginteacher.php');
-}
+else{
 include("cls/cls.php");
 $p=new tmdt();
-$layid=$_SESSION['user'];
-$layidhs=0;
-if(isset($_REQUEST['id']))
-{
-	$layidhs=$_REQUEST['id'];
-}
+$layid=$_SESSION['id'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -118,8 +109,6 @@ if(isset($_REQUEST['id']))
                 <div class="title"><b>Learning outcomes</b></div>
                 <table class="center">
                     <tbody id="load">
-              <?php
-				?>
                     </tbody>
                 </table>
                 
@@ -177,3 +166,4 @@ if(isset($_REQUEST['id']))
     </main>
 </body>
 </html>
+<?php } ?>

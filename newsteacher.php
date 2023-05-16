@@ -1,19 +1,14 @@
 <?php
-session_start();
-if(isset($_SESSION['user'])&& isset($_SESSION['pass']))
-{
-	include("cls/clslogin.php");
-	$q=new login();
-	$q->confirmlogin1($_SESSION['user'],$_SESSION['pass']);
-}
-else
-{
-	header('location:loginteacher.php');
-}
 include("cls/cls.php");
 $p=new tmdt();
-$layid=$_SESSION['user'];
 $layidnews=$_REQUEST['matt'];
+session_start();
+error_reporting(0);
+if(strlen($_SESSION['login'])==0)
+  { 
+header('location:login.php');
+}
+else{
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -106,3 +101,4 @@ a:hover
     <script src="js/index.js"></script>
 </body>
 </html>
+<?php } ?>

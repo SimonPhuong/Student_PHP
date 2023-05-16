@@ -1,23 +1,14 @@
-	<?php
+<?php
 session_start();
-if(isset($_SESSION['user'])&& isset($_SESSION['pass']))
-{
-	include("cls/clslogin.php");
-	$q=new login();
-	$q->confirmlogin1($_SESSION['user'],$_SESSION['pass']);
+error_reporting(0);
+if(strlen($_SESSION['login'])==0)
+  { 
+header('location:login.php');
 }
-else
-{
-	header('location:loginteacher.php');
-}
+else{
 include("cls/cls.php");
 $p=new tmdt();
-$layid=$_SESSION['user'];
-$layidhs=0;
-if(isset($_REQUEST['id']))
-{
-	$layidhs=$_REQUEST['id'];
-}
+$layid=$_SESSION['id'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,7 +18,7 @@ if(isset($_REQUEST['id']))
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Enter score</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
-    <link rel="stylesheet" href="ketquahoctap.css">
+    <link rel="stylesheet" href="css/learning.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/login.css">
@@ -97,7 +88,7 @@ if(isset($_REQUEST['id']))
 						<tr>
                             <td width="190"></td>
                             <td align="left">
-                                <a href="index1.php"><input class="btn btn-primary d-grid w-100" type="button"  value="Back to home page"/></a>
+                                <a href="indexteacher.php"><input class="btn btn-primary d-grid w-100" type="button"  value="Back to home page"/></a>
                             </td>
                         </tr>
                     </tbody>
@@ -248,3 +239,4 @@ if(isset($_REQUEST['id']))
     </main>
 </body>
 </html>
+<?php } ?>

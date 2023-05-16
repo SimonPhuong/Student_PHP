@@ -1,18 +1,14 @@
 <?php
 session_start();
-if(isset($_SESSION['user'])&& isset($_SESSION['pass']))
-{
-	include("cls/clslogin.php");
-	$q=new login();
-	$q->confirmlogin($_SESSION['user'],$_SESSION['pass']);
+error_reporting(0);
+if(strlen($_SESSION['login'])==0)
+  { 
+header('location:login.php');
 }
-else
-{
-	header('location:login.php');
-}
+else{
 include("cls/cls.php");
 $p=new tmdt();
-$layid=$_SESSION['user'];
+$layid=$_SESSION['id'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -71,7 +67,6 @@ $layid=$_SESSION['user'];
 
                 <!--Bảng điểm HK1-->
                 <div class="title"><b>SEMESTER 1 ACADEMIC RESULTS</b></div>
-                <?php $p->loadid($layid) ?>
                 <table class="center">
                     <tbody>
                         <tr class="tophead">
@@ -101,8 +96,7 @@ $layid=$_SESSION['user'];
 	              case 'Confirm':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-                       $id=$_REQUEST['id'];
-						   $p->loadscore($id,$mamh,$hk,$nh);
+						   $p->loadscore($layid,$mamh,$hk,$nh);
 				   }
 				 }
                 }
@@ -121,8 +115,7 @@ $layid=$_SESSION['user'];
 	              case 'Confirm':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-                       $id=$_REQUEST['id'];
-                       $p->loadscore($id,$mamh,$hk,$nh);
+                       $p->loadscore($layid,$mamh,$hk,$nh);
 				   }
 				 }
                 }
@@ -141,8 +134,7 @@ $layid=$_SESSION['user'];
 	              case 'Confirm':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-                       $id=$_REQUEST['id'];
-                       $p->loadscore($id,$mamh,$hk,$nh);
+                       $p->loadscore($layid,$mamh,$hk,$nh);
 				   }
 				 }
                 }
@@ -161,8 +153,7 @@ $layid=$_SESSION['user'];
 	              case 'Confirm':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-                       $id=$_REQUEST['id'];
-                       $p->loadscore($id,$mamh,$hk,$nh);
+                       $p->loadscore($layid,$mamh,$hk,$nh);
 				   }
 				 }
                 }
@@ -181,8 +172,7 @@ $layid=$_SESSION['user'];
 	              case 'Confirm':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-                       $id=$_REQUEST['id'];
-                       $p->loadscore($id,$mamh,$hk,$nh);
+                       $p->loadscore($layid,$mamh,$hk,$nh);
 				   }
 				 }
                 }
@@ -201,8 +191,7 @@ $layid=$_SESSION['user'];
 	              case 'Confirm':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-                       $id=$_REQUEST['id'];
-                       $p->loadscore($id,$mamh,$hk,$nh);
+                       $p->loadscore($layid,$mamh,$hk,$nh);
 				   }
 				 }
                 }
@@ -221,8 +210,7 @@ $layid=$_SESSION['user'];
 	              case 'Confirm':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-                       $id=$_REQUEST['id'];
-                       $p->loadscore($id,$mamh,$hk,$nh);
+                       $p->loadscore($layid,$mamh,$hk,$nh);
 				   }
 				 }
                 }
@@ -241,8 +229,7 @@ $layid=$_SESSION['user'];
 	              case 'Confirm':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-                       $id=$_REQUEST['id'];
-                       $p->loadscore($id,$mamh,$hk,$nh);
+                       $p->loadscore($layid,$mamh,$hk,$nh);
 				   }
 				 }
                 }
@@ -261,8 +248,7 @@ $layid=$_SESSION['user'];
 	              case 'Confirm':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-                       $id=$_REQUEST['id'];
-                       $p->loadscore($id,$mamh,$hk,$nh);
+                       $p->loadscore($layid,$mamh,$hk,$nh);
 				   }
 				 }
                 }
@@ -281,8 +267,7 @@ $layid=$_SESSION['user'];
 	              case 'Confirm':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-                       $id=$_REQUEST['id'];
-                       $p->loadscore($id,$mamh,$hk,$nh);
+                       $p->loadscore($layid,$mamh,$hk,$nh);
 				   }
 				 }
                 }
@@ -301,8 +286,7 @@ $layid=$_SESSION['user'];
 	              case 'Confirm':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-                       $id=$_REQUEST['id'];
-                       $p->loadscore($id,$mamh,$hk,$nh);
+                       $p->loadscore($layid,$mamh,$hk,$nh);
 				   }
 				 }
                 }
@@ -321,8 +305,7 @@ $layid=$_SESSION['user'];
 	              case 'Confirm':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-                       $id=$_REQUEST['id'];
-                       $p->loadscore($id,$mamh,$hk,$nh);
+                       $p->loadscore($layid,$mamh,$hk,$nh);
 				   }
 				 }
                 }
@@ -341,8 +324,7 @@ $layid=$_SESSION['user'];
 	              case 'Confirm':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-                       $id=$_REQUEST['id'];
-                       $p->loadscore($id,$mamh,$hk,$nh);
+                       $p->loadscore($layid,$mamh,$hk,$nh);
 				   }
 				 }
                 }
@@ -416,8 +398,7 @@ $layid=$_SESSION['user'];
 	              case 'Confirm':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-                       $id=$_REQUEST['id'];
-						   $p->loadscore($id,$mamh,$hk,$nh);
+						   $p->loadscore($layid,$mamh,$hk,$nh);
 				   }
 				 }
                 }
@@ -436,8 +417,7 @@ $layid=$_SESSION['user'];
 	              case 'Confirm':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-                       $id=$_REQUEST['id'];
-                       $p->loadscore($id,$mamh,$hk,$nh);
+                       $p->loadscore($layid,$mamh,$hk,$nh);
 				   }
 				 }
                 }
@@ -456,8 +436,7 @@ $layid=$_SESSION['user'];
 	              case 'Confirm':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-                       $id=$_REQUEST['id'];
-                       $p->loadscore($id,$mamh,$hk,$nh);
+                       $p->loadscore($layid,$mamh,$hk,$nh);
 				   }
 				 }
                 }
@@ -476,8 +455,7 @@ $layid=$_SESSION['user'];
 	              case 'Confirm':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-                       $id=$_REQUEST['id'];
-                       $p->loadscore($id,$mamh,$hk,$nh);
+                       $p->loadscore($layid,$mamh,$hk,$nh);
 				   }
 				 }
                 }
@@ -496,8 +474,7 @@ $layid=$_SESSION['user'];
 	              case 'Confirm':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-                       $id=$_REQUEST['id'];
-                       $p->loadscore($id,$mamh,$hk,$nh);
+                       $p->loadscore($layid,$mamh,$hk,$nh);
 				   }
 				 }
                 }
@@ -516,8 +493,7 @@ $layid=$_SESSION['user'];
 	              case 'Confirm':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-                       $id=$_REQUEST['id'];
-                       $p->loadscore($id,$mamh,$hk,$nh);
+                       $p->loadscore($layid,$mamh,$hk,$nh);
 				   }
 				 }
                 }
@@ -536,8 +512,7 @@ $layid=$_SESSION['user'];
 	              case 'Confirm':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-                       $id=$_REQUEST['id'];
-                       $p->loadscore($id,$mamh,$hk,$nh);
+                       $p->loadscore($layid,$mamh,$hk,$nh);
 				   }
 				 }
                 }
@@ -556,8 +531,7 @@ $layid=$_SESSION['user'];
 	              case 'Confirm':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-                       $id=$_REQUEST['id'];
-                       $p->loadscore($id,$mamh,$hk,$nh);
+                       $p->loadscore($layid,$mamh,$hk,$nh);
 				   }
 				 }
                 }
@@ -576,8 +550,7 @@ $layid=$_SESSION['user'];
 	              case 'Confirm':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-                       $id=$_REQUEST['id'];
-                       $p->loadscore($id,$mamh,$hk,$nh);
+                       $p->loadscore($layid,$mamh,$hk,$nh);
 				   }
 				 }
                 }
@@ -596,8 +569,7 @@ $layid=$_SESSION['user'];
 	              case 'Confirm':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-                       $id=$_REQUEST['id'];
-                       $p->loadscore($id,$mamh,$hk,$nh);
+                       $p->loadscore($layid,$mamh,$hk,$nh);
 				   }
 				 }
                 }
@@ -616,8 +588,7 @@ $layid=$_SESSION['user'];
 	              case 'Confirm':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-                       $id=$_REQUEST['id'];
-                       $p->loadscore($id,$mamh,$hk,$nh);
+                       $p->loadscore($layid,$mamh,$hk,$nh);
 				   }
 				 }
                 }
@@ -636,8 +607,7 @@ $layid=$_SESSION['user'];
 	              case 'Confirm':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-                       $id=$_REQUEST['id'];
-                       $p->loadscore($id,$mamh,$hk,$nh);
+                       $p->loadscore($layid,$mamh,$hk,$nh);
 				   }
 				 }
                 }
@@ -656,8 +626,7 @@ $layid=$_SESSION['user'];
 	              case 'Confirm':
 	               {
 					   $nh=$_REQUEST['namhoc'];
-                       $id=$_REQUEST['id'];
-                       $p->loadscore($id,$mamh,$hk,$nh);
+                       $p->loadscore($layid,$mamh,$hk,$nh);
 				   }
 				 }
                 }
@@ -671,3 +640,4 @@ $layid=$_SESSION['user'];
     </main>
 </body>
 </html>
+<?php } ?>

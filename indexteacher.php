@@ -1,18 +1,15 @@
 <?php
 session_start();
-if(isset($_SESSION['user'])&& isset($_SESSION['pass']))
-{
-	include("cls/clslogin.php");
-	$q=new login();
-	$q->confirmlogin1($_SESSION['user'],$_SESSION['pass']);
+error_reporting(0);
+if(strlen($_SESSION['login'])==0)
+  { 
+header('location:login.php');
 }
-else
-{
-	header('location:logingiaovien.php');
-}
+else{
 include("cls/cls.php");
 $p=new tmdt();
-$layid=$_SESSION['user'];
+$layid=$_SESSION['id'];
+$idtea=$_SESSION['login'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -83,7 +80,7 @@ a:hover
             <div class="main-section-content" id="contnet">
                 <div class="row" style="display:block">
                                             <?php
-											$p->loadteacher($layid);
+											$p->loadteacher($layid,$idtea);
 											?>
                 </div>
             </div>
@@ -95,3 +92,4 @@ a:hover
     <script src="js/index.js"></script>
 </body>
 </html>
+<?php } ?>

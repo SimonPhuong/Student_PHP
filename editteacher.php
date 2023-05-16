@@ -2,19 +2,16 @@
 include("cls/clsupload.php");
 $a=new myfile();
 session_start();
-if(isset($_SESSION['user'])&& isset($_SESSION['pass']))
-{
-	include("cls/clslogin.php");
-	$q=new login();
-	$q->confirmlogin1($_SESSION['user'],$_SESSION['pass']);
+error_reporting(0);
+if(strlen($_SESSION['login'])==0)
+  { 
+header('location:login.php');
 }
-else
-{
-	header('location:loginteacher.php');
-}
+else{
 include("cls/cls.php");
 $p=new tmdt();
-$layid=$_SESSION['user'];
+$layid=$_SESSION['id'];
+$idtea=$_SESSION['login'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,7 +19,7 @@ $layid=$_SESSION['user'];
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit teacher/title>
+    <title>Edit teacher</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
        <link rel="stylesheet" href="css/login.css">
@@ -82,6 +79,42 @@ a:hover
 {
 	color:#00F;
 }
+#button1
+{
+border: none;
+background: blue;
+color: white;
+padding: auto;
+border-radius: 4px;
+box-shadow: 0 5px 10px 0 rgba(114, 109, 109, 0.993);
+transition: .5s;
+height:30px;
+width: 150px;
+margin-top:20px;
+}
+#button1:hover
+{
+    box-shadow: none;
+    transform: translateY(5px); 
+}
+#button
+{
+border: none;
+background: blue;
+color: white;
+padding: auto;
+border-radius: 4px;
+box-shadow: 0 5px 10px 0 rgba(114, 109, 109, 0.993);
+transition: .5s;
+height:50px;
+width: 250px;
+margin-top:20px;
+}
+#button:hover
+{
+    box-shadow: none;
+    transform: translateY(5px); 
+}
   </style>
 </head>
 
@@ -95,8 +128,8 @@ a:hover
             <div class="main-section-content" id="contnet">
                 <div class="row" style="display:block">
                 <form action="" method="post" enctype="multipart/form-data" name="form1" id="form1">
-                                           <?php
-											$p->loadeditteacher($layid);
+                <?php
+											$p->loadeditteacher($layid,$idtea);
 											?>
                                        <?php
                                        ////chỉnh sửa ảnh
@@ -145,7 +178,7 @@ a:hover
                         {
 	                      case 'Xác nhận':
                           {
-                            $id=$_REQUEST['id'];
+                           
                             $fn=$_REQUEST['fn'];
                             $ln=$_REQUEST['ln'];
                             $gender=$_REQUEST['gender'];
@@ -158,13 +191,14 @@ a:hover
                             $address=$_REQUEST['address'];
                             $state=$_REQUEST['state'];
                             $city=$_REQUEST['city'];
-					if($p->editteacher($id,$fn,$ln,$gender,$phone,$email,$dob,$cic,$nation,$religion,$address,$state,$city)==1)
+					if($p->editteacher($layid,$fn,$ln,$gender,$phone,$email,$dob,$cic,$nation,$religion,$address,$state,$city)==1)
 			                    {
 			              	      echo'<script> alert("Edited information successfully!"); </script>'; 
 			                    }
 			                 else
 			                    {
 				                   echo '<script> alert("Edited information failed!"); </script>';
+
 								}
                         }
 						}
@@ -182,4 +216,5 @@ a:hover
    <script src="js/index.js"></script>
 </body>
 </html>
+<?php } ?>
 

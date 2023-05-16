@@ -64,10 +64,10 @@ function chanepass($pass2,$layid)
 		}
 	}
 	///hàm sửa thông tin học sinh
-	function editstudent($id,$fn,$ln,$gender,$phone,$email,$dob,$cic,$nation,$religion,$address,$state,$city)
+	function editstudent($layid,$fn,$ln,$gender,$phone,$email,$dob,$cic,$nation,$religion,$address,$state,$city)
 	{
 		$dbh=$this->connectpdo();
-		$stmt = $dbh->prepare("update students set first_name='$fn',last_name='$ln',gender='$gender',phone=$phone,email='$email',date_of_birth='$dob',citizen_identity_card=$cic,nation='$nation',religion='$religion',address='$address',state='$state',city='$city' where id_student=$id");
+		$stmt = $dbh->prepare("update students set first_name='$fn',last_name='$ln',gender='$gender',phone=$phone,email='$email',date_of_birth='$dob',citizen_identity_card=$cic,nation='$nation',religion='$religion',address='$address',state='$state',city='$city' where user_id=$layid");
 		//$stmt->bindParam(':value', $giatri);
 		if($stmt->execute())
 		{
@@ -79,10 +79,10 @@ function chanepass($pass2,$layid)
 		}
 	}
 		///hàm sửa thông tin giáo viên
-		function editteacher($id,$fn,$ln,$gender,$phone,$email,$dob,$cic,$nation,$religion,$address,$state,$city)
+		function editteacher($layid,$fn,$ln,$gender,$phone,$email,$dob,$cic,$nation,$religion,$address,$state,$city)
 		{
 			$dbh=$this->connectpdo();
-			$stmt = $dbh->prepare("update teachers set first_name='$fn',last_name='$ln',gender='$gender',phone=$phone,email='$email',date_of_birth='$dob',citizen_identity_card=$cic,nation='$nation',religion='$religion',address='$address',state='$state',city='$city' where id_teacher=$id");
+			$stmt = $dbh->prepare("update teachers set first_name='$fn',last_name='$ln',gender='$gender',phone=$phone,email='$email',date_of_birth='$dob',citizen_identity_card=$cic,nation='$nation',religion='$religion',address='$address',state='$state',city='$city' where user_id=$layid");
 			//$stmt->bindParam(':value', $giatri);
 			if($stmt->execute())
 			{
@@ -93,26 +93,11 @@ function chanepass($pass2,$layid)
 				return 0;	
 			}
 		}
-	//hàm sửa thông tin giáo viên
-	function guigopygv($nd,$layid)
-	{
-		$dbh=$this->connectpdo();
-		$stmt = $dbh->prepare("insert into guigopy (mahocsinh,noidung,magiaovien) values('0','$nd','$layid')");
-		//$stmt->bindParam(':value', $giatri);
-		if($stmt->execute())
-		{
-			return 1;	
-		}
-		else
-		{
-			return 0;	
-		}
-	}
 	///đăng tài liệu
 	function addfile($mon,$layid,$name,$khoi)
 	{
 		$dbh=$this->connectpdo();
-		$stmt = $dbh->prepare("insert into documents(subject,teacher_id,topic,grades) values('$mon',(select id from teachers where id_teacher='$layid'),'$name','$khoi')");
+		$stmt = $dbh->prepare("insert into documents(subject,teacher_id,topic,grades) values('$mon',(select id from teachers where user_id='$layid'),'$name','$khoi')");
 		//$stmt->bindParam(':value', $giatri);
 		if($stmt->execute())
 		{
@@ -127,7 +112,7 @@ function chanepass($pass2,$layid)
 	function addimagestudent($name,$layid)
 	{
 		$dbh=$this->connectpdo();
-		$stmt = $dbh->prepare("update students set image='$name' where id_student='$layid'");
+		$stmt = $dbh->prepare("update students set image='$name' where user_id='$layid'");
 		//$stmt->bindParam(':value', $giatri);
 		if($stmt->execute())
 		{
@@ -142,7 +127,7 @@ function chanepass($pass2,$layid)
 	function addimageteacher($name,$layid)
 	{
 		$dbh=$this->connectpdo();
-		$stmt = $dbh->prepare("update teachers set image='$name' where id_teacher='$layid'");
+		$stmt = $dbh->prepare("update teachers set image='$name' where user_id='$layid'");
 		//$stmt->bindParam(':value', $giatri);
 		if($stmt->execute())
 		{
@@ -154,16 +139,15 @@ function chanepass($pass2,$layid)
 		}
 	}
 	//load thông tin của học sinh
-	public function loadstudent($layid)
+	public function loadstudent($layid,$idstu)
 	{
 		$con=$this->connectpdo();
-        $stmt = $con->prepare("select * from students where id_student='$layid' limit 1");
+        $stmt = $con->prepare("select * from students where user_id='$layid' limit 1");
         $stmt->execute();
 		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 		$kq=$stmt->fetchALL();
          foreach($kq as $row)
 		 {
-				$id_stu=$row['id_student'];
 				$fullname=$row['first_name'].' '.$row['last_name'];
 				$gender=$row['gender'];
 				$phone=$row['phone'];
@@ -199,7 +183,7 @@ function chanepass($pass2,$layid)
 				<div class="form-horizontal">
                                                 <div class="form-body">
                                                     <div class="form-group">
-                                                        <label class="col-xs-6"><span lang="sv-mssv">ID STUDENT</span>: <span class="bold">'.$id_stu.'</span></label>
+                                                        <label class="col-xs-6"><span lang="sv-mssv">ID STUDENT</span>: <span class="bold">'.$idstu.'</span></label>
                                                         <label class="col-xs-6"><span lang="sv-mssv">FULL NAME</span>: <span class="bold">'.$fullname.'</span></label>
                                                     </div>
                                                     <div class="form-group">
@@ -225,10 +209,10 @@ function chanepass($pass2,$layid)
 			}
 	}
 	//load thông tin chi tiết của học sinh
-	public function loaddetailstudent($layid)
+	public function loaddetailstudent($layid,$idstu)
 	{
 		$con=$this->connectpdo();
-        $stmt = $con->prepare("select * from students where id_student='$layid' limit 1");
+        $stmt = $con->prepare("select * from students where user_id='$layid' limit 1");
         $stmt->execute();
 		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 		$kq=$stmt->fetchALL();
@@ -270,7 +254,7 @@ function chanepass($pass2,$layid)
 			                            <div class="form-horizontal">
 											<div class="form-body">
 												<div class="form-group">
-													<label class="col-xs-6"><span lang="sv-mssv">ID STUDENT</span>: <span class="bold">'.$id_stu.'</span></label>
+													<label class="col-xs-6"><span lang="sv-mssv">ID STUDENT</span>: <span class="bold">'.$idstu.'</span></label>
 													<label class="col-xs-6"><span lang="sv-mssv">FULL NAME</span>: <span class="bold">'.$fullname.'</span></label>
 												</div>
 												<div class="form-group">
@@ -304,10 +288,10 @@ function chanepass($pass2,$layid)
 			}
 	}
 	///load thông tin chi tiết giáo viên
-	public function loaddetailteacher($layid)
+	public function loaddetailteacher($layid,$idtea)
 	{
 		$con=$this->connectpdo();
-        $stmt = $con->prepare("select * from teachers where id_teacher='$layid' limit 1");
+        $stmt = $con->prepare("select * from teachers where user_id='$layid' limit 1");
         $stmt->execute();
 		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 		$kq=$stmt->fetchALL();
@@ -384,16 +368,15 @@ function chanepass($pass2,$layid)
 			}
 	}
 	////load thông tin học sinh để sửa
-	public function loadeditstudent($layid)
+	public function loadeditstudent($layid,$idstu)
 	{
 		$con=$this->connectpdo();
-        $stmt = $con->prepare("select * from students where id_student='$layid' limit 1");
+        $stmt = $con->prepare("select * from students where user_id='$layid' limit 1");
         $stmt->execute();
 		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 		$kq=$stmt->fetchALL();
          foreach($kq as $row)
 		 {
-			$id_stu=$row['id_student'];
 			$fn=$row['first_name'];
 			$ln=$row['last_name'];
 			$gender=$row['gender'];
@@ -415,7 +398,7 @@ function chanepass($pass2,$layid)
                                                 <div class="form-body">
                                                     <div class="form-group">
                                                         <label class="col-xs-6"> ID STUDENT:
-														 <input type="text" name="id" id="id" class="form-control" value="'.$id_stu.'" readonly="readonly" >
+														 <input type="text" name="id" id="id" class="form-control" value="'.$idstu.'" readonly="readonly" >
 														</label>
                                                         <label class="col-xs-6"> GENDER(Male/Female/Unknown):';
 														if($gender == 'Male'){
@@ -490,8 +473,11 @@ function chanepass($pass2,$layid)
 														<input type="text" name="city" id="city" class="form-control" value="'.$city.'" required>
 														</label>
 														<div class="form-group">
-                                                        <label class="col-xs-12">
-														<input type="hidden" name="img" id="img" class="form-control" value="'.$img.'" required>
+														<label class="col-xs-6"> CITY:
+														<input type="text" name="city" id="city" class="form-control" value="'.$city.'" required>
+														</label>
+                                                        <label class="col-xs-6">
+														<input type="hidden" name="img" id="img" class="form-control" value="'.$img.'">
 														</label>
 														</div>
 	<input type="submit" name="button" id="button" value="Confirm"/>
@@ -504,16 +490,15 @@ function chanepass($pass2,$layid)
 			}
 	}
 	////load form sửa thông tin giáo viên
-	public function loadeditteacher($layid)
+	public function loadeditteacher($layid,$idtea)
 	{
 		$con=$this->connectpdo();
-        $stmt = $con->prepare("select * from teachers where id_teacher='$layid' limit 1");
+        $stmt = $con->prepare("select * from teachers where user_id='$layid' limit 1");
         $stmt->execute();
 		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 		$kq=$stmt->fetchALL();
          foreach($kq as $row)
 		 {
-			$id_tea=$row['id_teacher'];
 			$fn=$row['first_name'];
 			$ln=$row['last_name'];
 			$gender=$row['gender'];
@@ -543,7 +528,7 @@ function chanepass($pass2,$layid)
 											Choose an alternate photo:
         <label for="myfile"></label>
         <input type="file" name="myfile" id="myfile" class="form-control" />
-		<input class="btn btn-primary d-grid w-100" type="submit" name="button1" id="button1" value="Upload"/>
+		<input type="submit" name="button1" id="button1" value="Upload"/>
                                             </div>
                                         </div>
 
@@ -552,7 +537,7 @@ function chanepass($pass2,$layid)
                                                 <div class="form-body">
                                                     <div class="form-group">
                                                         <label class="col-xs-6"> ID TEACHER:
-														 <input type="text" name="id" id="id" class="form-control" value="'.$id_tea.'" readonly="readonly" >
+														 <input type="text" name="id" id="id" class="form-control" value="'.$idtea.'" readonly="readonly" >
 														</label>
                                                         <label class="col-xs-6"> GENDER(Male/Female/Unknown):';
 														if($gender == 'Male'){
@@ -584,54 +569,54 @@ function chanepass($pass2,$layid)
                                                     </div>
 													<div class="form-group">
 														<label class="col-xs-6"> FIRSTNAME:
-														<input type="text" name="fn" id="fn" class="form-control" value="'.$fn.'" >
+														<input type="text" name="fn" id="fn" class="form-control" value="'.$fn.'" required>
 														</label>
 														<label class="col-xs-6"> LASTNAME:
-														<input type="text" name="ln" id="ln" class="form-control" value="'.$ln.'">
+														<input type="text" name="ln" id="ln" class="form-control" value="'.$ln.'"required>
 														</label>
 														</div>
                                                     <div class="form-group">
                                                         <label class="col-xs-6"> PHONE:
-														<input type="number" name="phone" id="phone" class="form-control" value="'.$phone.'">
+														<input type="number" name="phone" id="phone" class="form-control" value="'.$phone.'"required>
 														<div id="ktten">...</div>
 														</label>
 														 <label class="col-xs-6"> EMAIL:
-														<input type="text" name="email" id="email" class="form-control" value="'.$email.'">
+														<input type="text" name="email" id="email" class="form-control" value="'.$email.'"required>
 														<div id="ktsdt">...</div>
 														</label>
 																
                                                     </div>
                                                     <div class="form-group">
                                                         <label class="col-xs-6"> DATE OF BIRTH:
-														<input type="date" name="dob" id="dob" class="form-control" value="'.$dob.'">
+														<input type="date" name="dob" id="dob" class="form-control" value="'.$dob.'"required>
 														</label>
                                                        	<label class="col-xs-6"> CITIZEN IDENTITY CARD:
-														<input type="number" name="cic" id="cic" class="form-control" value="'.$cic.'">
+														<input type="number" name="cic" id="cic" class="form-control" value="'.$cic.'"required>
 														</label>
 														</div>
 														 <div class="form-group">
                                                         <label class="col-xs-6"> NATION:
-														<input type="text" name="nation" id="nation" class="form-control" value="'.$nation.'">
+														<input type="text" name="nation" id="nation" class="form-control" value="'.$nation.'"required>
 														</label>
                                                         <label class="col-xs-6"> RELIGION:
-														<input type="text" name="religion" id="religion" class="form-control" value="'.$religion.'">
+														<input type="text" name="religion" id="religion" class="form-control" value="'.$religion.'"required>
 														</div>
 														  <div class="form-group">
-                                                        <label class="col-xs-4"> ADDRESS:
-														<input type="text" name="address" id="address" class="form-control" value="'.$address.'">
+                                                        <label class="col-xs-6"> ADDRESS:
+														<input type="text" name="address" id="address" class="form-control" value="'.$address.'"required>
 														</label>
-                                                        <label class="col-xs-4"> STATE:
-														<input type="text" name="state" id="state" class="form-control" value="'.$state.'">
-														</label>
-														<label class="col-xs-4"> CITY:
-														<input type="text" name="city" id="city" class="form-control" value="'.$city.'">
+                                                        <label class="col-xs-6"> STATE:
+														<input type="text" name="state" id="state" class="form-control" value="'.$state.'"required>
 														</label>
 														<div class="form-group">
-                                                        <label class="col-xs-12">
-														<input type="text" name="img" id="img" class="form-control" value="'.$img.'">
+														<label class="col-xs-6"> CITY:
+														<input type="text" name="city" id="city" class="form-control" value="'.$city.'"required>
+														</label>
+                                                        <label class="col-xs-6">
+														<input type="hidden" name="img" id="img" class="form-control" value="'.$img.'">
 														</label>
 														</div>
-	<input class="btn btn-primary d-grid w-100" type="submit" name="button" id="button" value="Xác nhận"/>
+	<input type="submit" name="button" id="button" value="Xác nhận"/>
 														</div>
 													
                                                     </div>
@@ -645,10 +630,10 @@ function chanepass($pass2,$layid)
 			}
 	}
 	///load điểm hs khi hs muốn xem điểm của mình
-	public function loadscore($id,$mamh,$hk,$nh)
+	public function loadscore($layid,$mamh,$hk,$nh)
 	{
 		$con=$this->connectpdo();
-        $stmt = $con->prepare("select * from scores where student_id='$id' and subject_id='$mamh' and semester='$hk' and school_year='$nh'");
+        $stmt = $con->prepare("select * from scores where student_id=(select id from students where user_id='$layid') and subject_id='$mamh' and semester='$hk' and school_year='$nh'");
         $stmt->execute();
 		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 		$kq=$stmt->fetchALL();
@@ -721,25 +706,11 @@ function chanepass($pass2,$layid)
                             <td></td>';
 		}*/
 	}
-	//load id
-	public function loadid($layid)
-	{
-		$con=$this->connectpdo();
-        $stmt = $con->prepare("select * from students where id_student='$layid'");
-        $stmt->execute();
-		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-		$kq=$stmt->fetchALL();
-         foreach($kq as $row)
-		 {
-			$id=$row['id'];
-			echo '<input value="'.$id.'" id="id" type="hidden" name="id" />';
-			}
-	}
 	////load lớp trên trang see student
 	public function loadclassseestudent($layid)
 	{
 		$con=$this->connectpdo();
-        $stmt = $con->prepare("select * from classrooms where id=(select classroom_id from students where id_student='$layid')");
+        $stmt = $con->prepare("select * from classrooms where id=(select classroom_id from students where user_id='$layid')");
         $stmt->execute();
 		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 		$kq=$stmt->fetchALL();
@@ -753,7 +724,7 @@ function chanepass($pass2,$layid)
 	public function loadseestudent($layid)
 	{
 		$con=$this->connectpdo();
-        $stmt = $con->prepare("select * from students where classroom_id=(select classroom_id from students where id_student='$layid')");
+        $stmt = $con->prepare("select * from students where classroom_id=(select classroom_id from students where user_id='$layid')");
         $stmt->execute();
 		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 		$kq=$stmt->fetchALL();
@@ -766,7 +737,6 @@ function chanepass($pass2,$layid)
 				$email=$row['email'];
 				$dob=$row['date_of_birth'];
 				$acayear=$row['academic_year'];
-				$cid=$row['citizen_identity_card'];
 				$nation=$row['nation'];
 				$religion=$row['religion'];
 				$address=$row['address'].', '.$row['state'].', '.$row['city'];
@@ -778,7 +748,6 @@ function chanepass($pass2,$layid)
 			<th>'.$phone.'</th>
 			<th>'.$email.'</th>
 			<th>'.$dob.'</th>
-			<th>'.$cid.'</th>
 			<th>'.$nation.'</th>
 			<th>'.$religion.'</th>
 			<th>'.$address.'</th>
@@ -786,10 +755,10 @@ function chanepass($pass2,$layid)
 			}
 	}
 	///load thông tin giáo viên
-	public function loadteacher($layid)
+	public function loadteacher($layid,$idtea)
 	{
 		$con=$this->connectpdo();
-        $stmt = $con->prepare("select * from teachers where id_teacher='$layid' limit 1");
+        $stmt = $con->prepare("select * from teachers where user_id='$layid' limit 1");
         $stmt->execute();
 		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 		$kq=$stmt->fetchALL();
@@ -807,7 +776,6 @@ function chanepass($pass2,$layid)
 				$religion=$row['religion'];
 				$address=$row['address'].', '.$row['state'].', '.$row['city'];
 				$image=$row['image'];
-				$idtea=$row['id_teacher'];
 				echo ' <div class="row" style="display:block">
                         <div class="box-df profile-ds-info">
                             <div class="portlet">
@@ -952,7 +920,7 @@ function chanepass($pass2,$layid)
 	public function loadsubfile($layid)
 	{ 
 		$con=$this->connectpdo();
-        $stmt = $con->prepare("select * from subjects where id=(select subject_id from teachers where id_teacher=$layid)");
+        $stmt = $con->prepare("select * from subjects where id=(select subject_id from teachers where user_id=$layid)");
         $stmt->execute();
 		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 		$kq=$stmt->fetchALL();
@@ -962,82 +930,11 @@ function chanepass($pass2,$layid)
 				echo '<input type="text" name="txtmon" id="txtmon" class="form-control" value="'.$subn.'" readonly="readonly">';
 			}
 	}
-	public function loadkhoi($sql)
-	{
-		$link=$this->connect();
-		$kq=mysqli_query($link,$sql);
-		mysqli_close($link);
-		$i=mysqli_num_rows($kq);
-		if($i>0)
-		{
-			while($row=mysqli_fetch_array($kq))
-			{
-				$bm=$row['tenkhoi'];
-				$mk=$row['makhoi'];
-				echo '<option value="'.$mk.'">'.$bm.'</option>';
-			}
-		}
-		else
-		{
-			echo "Đang cập nhật dữ liệu";
-		}
-	}
-	/////////load điểm học sinh trong bảng điểm của giáo viên
-	public function loaddiemhs($sql)
-	{
-		$con=$this->connectpdo();
-        $stmt = $con->prepare("select * from diem where mamonhoc=$mamon and hocki=2 and namhoc='$nh'");
-        $stmt->execute();
-		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-		$kq=$stmt->fetchALL();
-         foreach($kq as $row)
-		 {
-				$mieng=$row['diemmieng'];
-				$muoilamphut=$row['diem15phut'];
-				$mottiet=$row['diem1tiet'];
-				$gk=$row['diemgk'];
-				$ck=$row['diemck'];
-				$tbmon=$row['diemtbmon'];
-				$tbcaki=$row['diemtbcaki'];
-				$hocluc=$row['hocluc'];
-				$hanhkiem=$row['hanhkiem'];
-				$ht=$row['hoten'];
-				$nh=$row['namhoc'];
-				$mamh=$row['mamonhoc'];
-				$hk=$row['hocki'];
-				$tbm=($mieng+$muoilamphut+$mottiet+$gk+$ck)/5;
-				echo ' 
-				<tr>
-				<td class="subjects">'.$ht.'</td>
-				<td>
-                                <span style="display: inline-grid;width: 20px; text-align: center;">'.$mieng.'</span>
-                            </td>
-                            <td>
-							<span style="display: inline-grid;width: 20px; text-align: center;">'.$muoilamphut.'</span>
-							</td>
-                            <td>
-							<span style="display: inline-grid;width: 20px; text-align: center;">'.$mottiet.'</span>
-							</td>
-                            <td>
-							<span style="display: inline-grid;width: 20px; text-align: center;">'.$gk.'</span>
-							</td>
-                            <td>
-							<span style="display: inline-grid;width: 20px; text-align: center;">'.$ck.'</span>
-							</td>
-                            <td>
-							<a href="suadiem.php?ht='.$ht.'&nh='.$nh.'&mamh='.$mamh.'&hk='.$hk.'">Sửa điểm</a>
-							</td>
-							<td>
-							<span style="display: inline-grid;width: 20px; text-align: center;">'.$tbm.'</span>
-							</td>
-							</tr>';
-			}
-	}	
 	/////////// load mã môn và tên môn ở trang xem điểm của giáo viên
 	public function loadidsub($layid)
 	{
 		$con=$this->connectpdo();
-        $stmt = $con->prepare("select * from subjects where id=(select subject_id from teachers where id_teacher=$layid)");
+        $stmt = $con->prepare("select * from subjects where id=(select subject_id from teachers where user_id=$layid)");
         $stmt->execute();
 		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 		$kq=$stmt->fetchALL();
@@ -1053,42 +950,6 @@ function chanepass($pass2,$layid)
 			';			
 			}
 	}
-	/////load điểm hs lên để sửa 
-	public function loaddiemhsedit($sql)
-	{
-		$link=$this->connect();
-		$kq=mysqli_query($link,$sql);
-		mysqli_close($link);
-		$i=mysqli_num_rows($kq);
-		if($i>0)
-		{
-			while($row=mysqli_fetch_array($kq))
-			{
-				$mieng=$row['diemmieng'];
-				$mottiet=$row['diem1tiet'];
-				$diem15p=$row['diem15phut'];
-				$gk=$row['diemgk'];
-				$ck=$row['diemck'];
-				$tbmon=$row['diemtbmon'];
-				$tbcaki=$row['diemtbcaki'];
-				$hocluc=$row['hocluc'];
-				$hanhkiem=$row['hanhkiem'];
-				echo ' 
-                      <h3>Điểm miệng:</h3>
-                     <input type="number" class="form-control" id="txtdm" name="txtdm" value="'.$mieng.'"/>
-                      <h3>Điểm 1 tiết:</h3>
-                     <input type="number" class="form-control" id="txt45" name="txt45" value="'.$mottiet.'"/>
-					    <h3>Điểm 15 phút</h3>
-                     <input type="number" class="form-control" id="tx15" name="txt15" value="'.$diem15p.'"/>
-                      <h3>Điểm giữa kì:</h3>
-                     <input type="number" class="form-control" id="txtgk" name="txtgk" value="'.$gk.'"/>
-                      <h3>Điểm cuối kì:<h3>
-                     <input type="number" class="form-control" id="txtck" name="txtck" value="'.$ck.'"/>
-                     <button id="nut" type="submit" name="button" id="button" value="Xác nhận">Xác nhận</button>
-                    ';
-			}
-		}
-	}	
 	/////load môn để đăng tài liệu
 		public function loadsubject()
 	{
@@ -1134,34 +995,11 @@ function chanepass($pass2,$layid)
 			echo' <input type="hidden" class="form-control" id="txtpasscu" name="txtpasscu" value="'.$pass.'"/>';			
 		 }
 	}
-	////LOAD HỌC SINH ĐỂ NHẬP ĐIỂM
-			public function loadtenhs($sql)
-	{
-		$link=$this->connect();
-		$kq=mysqli_query($link,$sql);
-		mysqli_close($link);
-		$i=mysqli_num_rows($kq);
-		if($i>0)
-		{
-			 echo '<select name="hoten" id="hoten" class="form-control">';
-			while($row=mysqli_fetch_array($kq))
-			{
-				$bm=$row['hoten'];
-				$mahs=$row['mahocsinh'];
-			echo'<option value="'.$mahs.'"selected="selected">'.$bm.'</option>';			
-			}
-			echo "</select>";
-		}
-		else
-		{
-			echo '<select name="hoten" id="hoten" class="form-control"></select>';
-		}
-	}
 	////load lớp học để nhập điểm
 		public function loadclass($layid)
 	{
 		$con=$this->connectpdo();
-        $stmt = $con->prepare("select * from  teacher_classrooms where teacher_id=(select id from teachers where id_teacher=$layid)");
+        $stmt = $con->prepare("select * from  teacher_classrooms where teacher_id=(select id from teachers where user_id=$layid)");
         $stmt->execute();
 		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 		$kq=$stmt->fetchALL();
@@ -1174,27 +1012,11 @@ function chanepass($pass2,$layid)
 			}
 			echo "</select>";
 	}
-	////load mã học sinh từ tên để nhập điểm
-		public function loadmahs($sql)
-	{
-		$link=$this->connect();
-		$kq=mysqli_query($link,$sql);
-		mysqli_close($link);
-		$i=mysqli_num_rows($kq);
-		if($i>0)
-		{
-			while($row=mysqli_fetch_array($kq))
-			{
-				$mahs=$row['mahocsinh'];
-			echo'<input type="text" class="form-control" id="txtmahs" name="txtmahs" value="'.$mahs.'"/>';			
-			}
-		}
-	}
 	///LOAD CÔNG NỢ
-	public function loaddebt($layid)
+	public function loaddebt($layid,$idstu)
 	{
 		$con=$this->connectpdo();
-        $stmt = $con->prepare("select * from debt where id_student='$layid'");
+        $stmt = $con->prepare("select * from debt where id_student=(select id from students where user_id='$layid')");
         $stmt->execute();
 		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 		$kq=$stmt->fetchALL();
@@ -1205,7 +1027,6 @@ function chanepass($pass2,$layid)
 				$aom=$row['amount of money'];
 				$dd=$row['deduct'];
 				$sta=$row['status'];
-				$idstu=$row['id_student'];
 				echo '
 				<tr class="tophead"> 
 				<th>
@@ -1260,64 +1081,18 @@ function chanepass($pass2,$layid)
 		 {
 				$topic=$row['topic'];
 				$sub=$row['subject'];
-				$file=$row['files'];
+				$grade=$row['grade'];
 				echo '
 				<a href="#">
 				<div id="tailieu">
 			    <img src="img/tailieu.jpg" style="height:150px;width:80%;margin: 0 auto;">
-				<h3>Tên tài liệu:'.$file.'</h3>
-				<h3>Môn học:'.$sub.'</h3>
+				<h3>Name:'.$topic.'</h3>
+				<h3>Subject:'.$sub.'</h3>
+				<h3>Grade:'.$grade.'</h3>
 				</div>
 				</a>
 							';
 			}
 	}
-	///load diem hoc sinh pro
-	public function loaddiemhspro($sql)
-	{
-		$link=$this->connect();
-		$kq=mysqli_query($link,$sql);
-		mysqli_close($link);
-		$i=mysqli_num_rows($kq);
-		if($i>0)
-		{
-			while($row=mysqli_fetch_array($kq))
-			{
-				$mieng=$row['diemmieng'];
-				$muoilamphut=$row['diem15phut'];
-				$mottiet=$row['diem1tiet'];
-				$gk=$row['diemgk'];
-				$ck=$row['diemck'];
-				$tbmon=$row['diemtbmon'];
-				$tbcaki=$row['diemtbcaki'];
-				$hocluc=$row['hocluc'];
-				$hanhkiem=$row['hanhkiem'];
-				$ht=$row['hoten'];
-				$nh=$row['namhoc'];
-				$mamh=$row['mamonhoc'];
-				$hk=$row['hocki'];
-				$tbm=($mieng+$muoilamphut+$mottiet+$gk+$ck)/5;
-				echo ' 
-				<tr>
-				<td class="subjects">'.$ht.'</td>
-				<td>
-                                <input type="number" name="txtsdt" id="txtsdt" class="form-control" style=" margin:0 auto;">
-                            </td>
-                            <td>
-							<input type="number" name="txtsdt" id="txtsdt" class="form-control" style=" margin:0 auto;">
-							</td>
-                            <td>
-							<input type="number" name="txtsdt" id="txtsdt" class="form-control" style=" margin:0 auto;">
-							</td>
-                            <td>
-							<input type="number" name="txtsdt" id="txtsdt" class="form-control" style=" margin:0 auto;">
-							</td>
-                            <td>
-							<input type="number" name="txtsdt" id="txtsdt" class="form-control" style=" margin:0 auto;">
-							</td>
-							</tr>';
-			}
-		}
-	}	
 }
 ?>
