@@ -58,8 +58,11 @@
                         <a class="profile-expand-item profile-border" href="#">
                             <span><i class="las la-user"></i>My profile</span>
                         </a>
-                        <a class="profile-expand-item profile-border" href="#">
+                        <a class="profile-expand-item" href="#">
                             <span><i class="las la-cog"></i> Settings</span>
+                        </a>
+                        <a class="profile-expand-item profile-border" href="change-password.php">
+                            <span><i class="las la-lock"></i> Change password</span>
                         </a>
                         <a class="profile-expand-item btn btn-danger" href="logout.php">
                             Logout

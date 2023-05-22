@@ -77,11 +77,25 @@ include('includes/config.php');
                 </div>
             </div>
         </div>
+
+        <div class="col-12 pb-24 pl-12 pr-12">
+            <div class="card statistic-card ot-card">
+                <div class="card-header d-flex flex-row justify-content-between align-items-baseline">
+                    <div class="card-title">
+                        <h3>Revenue</h3>
+                    </div>
+                </div>
+                <div class="card-body pt-0">
+                    <div id="revenueChart" class="custom-chart"></div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-
+<script src="assets/backend/js/fs_d_ecma/chart/echarts.min.js"></script>
+<script src="assets/backend/js/fs_d_ecma/components/dashboard.js"></script>
 <?php
-
+$title = "Home";
 $content = ob_get_clean();
 require 'layout.php';
 ?>

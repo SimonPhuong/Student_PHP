@@ -43,6 +43,8 @@ else{
     <link rel="stylesheet" href="./assets/css/toastr.css">
     <!-- Data table -->
     <link href="https://cdn.datatables.net/v/bs5/dt-1.13.4/datatables.min.css" rel="stylesheet" />
+    <!-- Full calendar -->
+    <link rel="stylesheet" href="./fullcalendar/lib/main.css">
 
     <link rel="stylesheet" href="./assets/css/style.css">
     <link rel="stylesheet" href="./assets/css/daterangepicker.css">

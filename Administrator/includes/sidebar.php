@@ -38,16 +38,16 @@ $currentUrl = basename($_SERVER['REQUEST_URI']);
 
             <li class="sidebar-menu-item">
                 <a href="javascript:void(0)"
-                    class="parent-item-content has-arrow <?php echo in_array($currentUrl, ['student.php', 'create.student.php']) ? 'active' : 'in-active'; ?>">
+                    class="parent-item-content has-arrow <?php echo in_array($currentUrl, ['students.php', 'create.student.php']) ? 'active' : 'in-active'; ?>">
                     <i class="las la-user-alt"></i>
                     <span class="on-half-expanded">
                         Students
                     </span>
                 </a>
-                <ul class="child-menu-list mm-collapse <?php echo in_array($currentUrl, ['student.php', 'create.student.php']) ? 'mm-show' : ''; ?>"
+                <ul class="child-menu-list mm-collapse <?php echo in_array($currentUrl, ['students.php', 'create.student.php']) ? 'mm-show' : ''; ?>"
                     style="">
-                    <li class="nav-item <?php echo ($currentUrl == 'student.php') ? 'active' : 'in-active'; ?>">
-                        <a href="student.php">
+                    <li class="nav-item <?php echo ($currentUrl == 'students.php') ? 'active' : 'in-active'; ?>">
+                        <a href="students.php">
                             <span>Student List</span>
                         </a>
                     </li>
@@ -107,9 +107,9 @@ $currentUrl = basename($_SERVER['REQUEST_URI']);
                             <span>News Add</span>
                         </a>
                     </li>
-                    <li class="nav-item <?php echo ($currentUrl == 'categoires.php') ? 'active' : 'in-active'; ?>">
+                    <li class="nav-item <?php echo ($currentUrl == 'categories.php') ? 'active' : 'in-active'; ?>">
                         <a href="categories.php" class=" ">
-                            <span>Category</span>
+                            <span>Categories</span>
                         </a>
                     </li>
                 </ul>
@@ -145,12 +145,16 @@ $currentUrl = basename($_SERVER['REQUEST_URI']);
                 </ul>
             </li>
 
-            <li class="sidebar-menu-item">
+            <!-- <li class="sidebar-menu-item">
                 <a href="../../Admin/view/timetable.php" class="parent-item-content ">
                     <i class="las la-calendar-check"></i>
                     <span>Schedule</span> </a>
+            </li> -->
+            <li class="sidebar-menu-item">
+                <a href="schedule.php" class="parent-item-content ">
+                    <i class="las la-calendar-check"></i>
+                    <span>Schedule</span> </a>
             </li>
-
             <li class="sidebar-menu-item">
                 <a href="feedback.php"
                     class="parent-item-content <?php echo ($currentUrl == 'feedback.php') ? 'active' : 'in-active'; ?>">

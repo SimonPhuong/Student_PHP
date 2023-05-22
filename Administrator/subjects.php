@@ -64,7 +64,29 @@ if (isset($_POST['delete_subject'])) {
         exit(0);
     }
 }
+
+// if(isset($_POST['update']))
+// {
+//     $subject_name = $_POST['new_subject_name'];
+    
+
+//     $query = "UPDATE subjects SET subject_name = ? WHERE id = ? ";
+//     $stmt = $con->prepare($query);
+//     $stmt->execute([$subject_name,  $row['id']]);
+
+//     session_start();
+//     if ($stmt) {
+//         $_SESSION['msg'] = "Updated successfully!";
+//         header('Location: subjects.php');
+//         exit(0);
+//     } else {
+//         $_SESSION['msg'] = "Error!";
+//         header('Location: subjects.php');
+//         exit(0);
+//     }
+// }
 ?>
+
 
 <div class="table-content table-basic">
     <div class="card">
@@ -113,7 +135,6 @@ if (isset($_POST['delete_subject'])) {
 
                             <tbody class="tbody">
                                 <?php
-                                    $cnt = 1;
                                     $limit = isset($_GET['limit']) ? $_GET['limit'] : 5;
                                     
                                     $records = $con->prepare("SELECT COUNT(*) FROM subjects");
@@ -127,6 +148,8 @@ if (isset($_POST['delete_subject'])) {
                                     $start = ($current_page - 1) * $limit;
                                     $end = $start + $limit - 1;
                                     
+                                    $cnt=($limit * ($current_page - 1)) + 1;;
+
                                     $query = "SELECT subject_id, COUNT(*) AS teacher_count FROM teachers GROUP BY subject_id";
                                     $stmt = $con->prepare($query);
                                     $stmt->execute();
@@ -145,8 +168,13 @@ if (isset($_POST['delete_subject'])) {
                                     $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
                                     $stmt->execute();
                                     
+                                    
+    
+                                                
+
                                     while($row = $stmt->fetch(PDO::FETCH_ASSOC)) 
-                                    { $subject_id = $row['id'];
+                                    { 
+                                        $subject_id = $row['id'];
                                         $subject_name = $row['subject_name'];
                                         $count_teacher = isset($teacher_counts[$subject_id]) ? $teacher_counts[$subject_id] : 0;
                                         ?>
@@ -158,35 +186,54 @@ if (isset($_POST['delete_subject'])) {
 
                                     <td align="center">
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                            data-bs-target="#id<?= $row['id'] ?>">
+                                            data-bs-target="#id<?= $subject_id ?>">
                                             <i class="fa fa-pencil"></i>
                                         </button>
                                     </td>
-                                    <div class="modal fade mt-5" id="id<?= $row['id'] ?>" tabindex="-1"
+
+                                    <div class="modal fade mt-5" id="id<?= $subject_id ?>" tabindex="-1"
                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Edit subject
-                                                    </h1>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close"></button>
-                                                </div>
+                                                <?php
 
-                                                <div class="modal-body">
-                                                    <input type="text" class="form-control"
-                                                        value="<?= $row['subject_name'] ?>">
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                        data-bs-dismiss="modal">Close</button>
-                                                    <button type="button" class="btn btn-primary">Save
-                                                        changes</button>
-                                                </div>
+                                                    if (isset($_POST['update'])) {
+                                                        $new_subject_name = $_POST['new_subject_name'];
+                                                        $subject_id = $_POST['subject_id'];
+
+                                                        // Thực hiện câu truy vấn cập nhật tên môn học
+                                                        $update_query = "UPDATE subjects SET subject_name = ? WHERE id = ?";
+                                                        $update_stmt = $con->prepare($update_query);
+                                                        $update_stmt->execute([$new_subject_name, $subject_id]);
+
+                                                        // Refresh trang sau khi cập nhật thành công
+                                                        header("Refresh:0");
+                                                    }
+                                                    ?>
+                                                <form action="" method="POST">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit subject
+                                                        </h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+
+                                                    <div class="modal-body">
+                                                        <input type="hidden" name="subject_id"
+                                                            value="<?= $subject_id ?>">
+                                                        <input type="text" class="form-control" name="new_subject_name"
+                                                            value="<?= $row['subject_name'] ?>">
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-primary" name="update">Save
+                                                            changes</button>
+                                                    </div>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
-
                                     <td align="center">
                                         <form action="" method="POST" style="display: inline-block;">
                                             <button type="submit" class="btn btn-danger" name="delete_subject"
@@ -272,36 +319,9 @@ if (isset($_POST['delete_subject'])) {
     </div>
 </div>
 <!-- Modal -->
-<?php
-    $stmt = $con->prepare("SELECT * FROM subjects WHERE id = 1");
-    $stmt->execute();
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-?>
-<!-- <div class="modal fade mt-5" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Edit subject
-                </h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-
-            <div class="modal-body">
-                <input type="text" class="form-control" value="<?= $row['subject_name'] ?>">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save
-                    changes</button>
-            </div>
-        </div>
-    </div>
-</div> -->
-
 
 <?php
 $title = 'Subjects';
 $content = ob_get_clean();
 require 'layout.php';
-?>
 ?>

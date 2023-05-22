@@ -33,7 +33,7 @@ if (isset($_POST['update_student_btn']))
 
     session_start();
     if ($stmt) {
-        $_SESSION['msg'] = "Created successfully!";
+        $_SESSION['msg'] = "Updated successfully!";
         header('Location: student.php');
         exit(0);
     } else {

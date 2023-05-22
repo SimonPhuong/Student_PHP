@@ -131,7 +131,6 @@ if (isset($_POST['delete_student'])) {
                     </thead>
                     <tbody class="tbody">
                         <?php 
-                            $cnt=1;
                             $limit = isset($_GET['limit']) ? $_GET['limit'] : 10;
                             $searchKeyword = isset($_GET['search']) ? $_GET['search'] : '';
 
@@ -147,6 +146,9 @@ if (isset($_POST['delete_student'])) {
                             $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
                             $start = ($current_page - 1) * $limit;
                             $end = $start + $limit - 1;
+
+                            $cnt=($limit * ($current_page - 1)) + 1;;
+
                             $query = $con->prepare("SELECT s.id, s.first_name, s.last_name, s.gender, s.phone, s.email, c.classroom_name, g.grade_name, u.id_user 
                                                     FROM students s INNER JOIN classrooms c ON s.classroom_id = c.id
                                                     INNER JOIN users u ON s.user_id = u.id

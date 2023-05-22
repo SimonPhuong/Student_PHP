@@ -64,6 +64,7 @@ if (isset($_POST['delete_grade'])) {
         exit(0);
     }
 }
+
 ?>
 
 <div class="table-content table-basic">
@@ -134,8 +135,11 @@ if (isset($_POST['delete_grade'])) {
                                     $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
                                     $stmt->execute();
                                     
+                                    
+
                                     while($row = $stmt->fetch(PDO::FETCH_ASSOC)) 
-                                    { $grade_id = $row['id'];
+                                    { 
+                                        $grade_id = $row['id'];
                                         $grade_name = $row['grade_name'];
                                         $count_teacher = isset($teacher_counts[$grade_id]) ? $teacher_counts[$grade_id] : 0;
                                         ?>
@@ -146,31 +150,48 @@ if (isset($_POST['delete_grade'])) {
 
                                     <td align="center">
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                            data-bs-target="#id<?= $row['id'] ?>">
+                                            data-bs-target="#id<?= $grade_id ?>">
                                             <i class="fa fa-pencil"></i>
                                         </button>
                                     </td>
-                                    <div class="modal fade mt-5" id="id<?= $row['id'] ?>" tabindex="-1"
+                                    <div class="modal fade mt-5" id="id<?= $grade_id ?>" tabindex="-1"
                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Edit grade
-                                                    </h1>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close"></button>
-                                                </div>
+                                                <?php
+                                                    if (isset($_POST['update'])) {
+                                                        $new_grade_name = $_POST['new_grade_name'];
+                                                        $grade_id = $_POST['grade_id'];
+                                                    
+                                                        // Thực hiện câu truy vấn cập nhật tên môn học
+                                                        $update_query = "UPDATE grades SET grade_name = ? WHERE id = ?";
+                                                        $update_stmt = $con->prepare($update_query);
+                                                        $update_stmt->execute([$new_grade_name, $grade_id]);
+                                                    
+                                                        // Refresh trang sau khi cập nhật thành công
+                                                        header("Refresh:0");
+                                                    }
+                                                ?>
+                                                <form action="" method="POST">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit grade
+                                                        </h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
 
-                                                <div class="modal-body">
-                                                    <input type="text" class="form-control"
-                                                        value="<?= $row['grade_name'] ?>">
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                        data-bs-dismiss="modal">Close</button>
-                                                    <button type="button" class="btn btn-primary">Save
-                                                        changes</button>
-                                                </div>
+                                                    <div class="modal-body">
+                                                        <input type="hidden" name="grade_id" value="<?= $grade_id ?>">
+                                                        <input type="text" class="form-control" name="new_grade_name"
+                                                            value="<?= $row['grade_name'] ?>">
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-primary" name="update">Save
+                                                            changes</button>
+                                                    </div>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>

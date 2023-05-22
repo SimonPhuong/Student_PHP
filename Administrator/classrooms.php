@@ -112,7 +112,6 @@ if (isset($_POST['delete_classroom'])) {
 
                             <tbody class="tbody">
                                 <?php
-                                    $cnt = 1;
                                     $limit = isset($_GET['limit']) ? $_GET['limit'] : 5;
                                     
                                     $records = $con->prepare("SELECT COUNT(*) FROM classrooms");
@@ -126,7 +125,7 @@ if (isset($_POST['delete_classroom'])) {
                                     $start = ($current_page - 1) * $limit;
                                     $end = $start + $limit - 1;
 
-
+                                    $cnt=($limit * ($current_page - 1)) + 1;;
 
                                     $query = "SELECT * FROM classrooms ORDER BY id ASC LIMIT :start, :limit";
                                     $stmt = $con->prepare($query);
@@ -135,7 +134,8 @@ if (isset($_POST['delete_classroom'])) {
                                     $stmt->execute();
                                     
                                     while($row = $stmt->fetch(PDO::FETCH_ASSOC)) 
-                                    { $classroom_id = $row['id'];
+                                    { 
+                                        $classroom_id = $row['id'];
                                         $classroom_name = $row['classroom_name'];
                                         $count_teacher = isset($teacher_counts[$classroom_id]) ? $teacher_counts[$classroom_id] : 0;
                                         ?>
@@ -146,31 +146,51 @@ if (isset($_POST['delete_classroom'])) {
 
                                     <td align="center">
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                            data-bs-target="#id<?= $row['id'] ?>">
+                                            data-bs-target="#id<?= $classroom_id ?>">
                                             <i class="fa fa-pencil"></i>
                                         </button>
                                     </td>
-                                    <div class="modal fade mt-5" id="id<?= $row['id'] ?>" tabindex="-1"
+                                    <div class="modal fade mt-5" id="id<?= $classroom_id ?>" tabindex="-1"
                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Edit classroom
-                                                    </h1>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close"></button>
-                                                </div>
+                                                <?php
+                                                    if (isset($_POST['update'])) {
+                                                        $new_classroom_name = $_POST['new_classroom_name'];
+                                                        $classroom_id = $_POST['classroom_id'];
+                                                    
+                                                        // Thực hiện câu truy vấn cập nhật tên môn học
+                                                        $update_query = "UPDATE classrooms SET classroom_name = ? WHERE id = ?";
+                                                        $update_stmt = $con->prepare($update_query);
+                                                        $update_stmt->execute([$new_classroom_name, $classroom_id]);
+                                                    
+                                                        // Refresh trang sau khi cập nhật thành công
+                                                        header("Refresh:0");
+                                                    }
+                                                ?>
+                                                <form action="" method="POST">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit
+                                                            classroom
+                                                        </h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
 
-                                                <div class="modal-body">
-                                                    <input type="text" class="form-control"
-                                                        value="<?= $row['classroom_name'] ?>">
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                        data-bs-dismiss="modal">Close</button>
-                                                    <button type="button" class="btn btn-primary">Save
-                                                        changes</button>
-                                                </div>
+                                                    <div class="modal-body">
+                                                        <input type="hidden" name="classroom_id"
+                                                            value="<?= $classroom_id ?>">
+                                                        <input type="text" class="form-control"
+                                                            name="new_classroom_name"
+                                                            value="<?= $row['classroom_name'] ?>">
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-primary" name="update">Save
+                                                            changes</button>
+                                                    </div>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>

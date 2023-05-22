@@ -4,6 +4,7 @@ include('includes/config.php');
 if(isset($_POST['login']))
   {
     // Getting username and password
+    
     $id_user=$_POST['id_user'];
     $password=$_POST['password'];
     // Fetch data from database on the basis of username and password
@@ -17,17 +18,19 @@ if(isset($_POST['login']))
         if (password_verify($password, $hashpassword)) {
             if ($row['is_admin'] == 1) {
                 $_SESSION['login'] = $id_user;
+
                 header('Location: index.php');
                 exit();
             }
-            else {
-                echo "<script>alert('Tài khoản không phải là admin');</script>";
-            }
         } else {
-            echo "<script>alert('Sai mật khẩu');</script>";
+            $_SESSION['msg'] = "Incorrect account!";
+            header('Location: login.php');
+            exit(0);
         }
     } else {
-        echo "<script>alert('Tài khoản không tồn tại');</script>";
+        $_SESSION['msg'] = "Incorrect account!";
+        header('Location: login.php');
+        exit(0);
     }
 }
 ?>
@@ -75,7 +78,7 @@ if(isset($_POST['login']))
                             <div class="">
                                 <h2 class="mb-4 f-w-600" align="center">Login</h2>
                             </div>
-                            <form id="formAuthentication" class="mb-3" action="" method="POST">
+                            <form id="" class="mb-3" action="" method="POST" onsubmit="return validateForm()">
                                 <?php 
                                     $token = bin2hex(random_bytes(16));
                                     $_SESSION['csrf_token'] = $token;
@@ -85,12 +88,16 @@ if(isset($_POST['login']))
                                     <div class="form-group mb-3">
                                         <label for="email" class="form-label">Your ID</label>
                                         <input class="form-control" type="text" name="id_user"
-                                            placeholder="Enter your ID">
+                                            placeholder="Enter your ID" required>
+                                        <span id="id_user_error" style="color: red"></span>
                                     </div>
+
+
                                     <div class="form-group mb-3">
                                         <label for="password" class="form-label">Password</label>
                                         <input class="form-control" type="password" name="password"
-                                            placeholder="Enter your password">
+                                            placeholder="Enter your password" required>
+                                        <span id="password_error" style="color: red"></span>
                                     </div>
 
                                     <div class="d-grid">
@@ -99,6 +106,12 @@ if(isset($_POST['login']))
                                     </div>
                                 </div>
                             </form>
+                            <?php if(isset($_SESSION['msg'])) : ?>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <span><?= $_SESSION['msg']; ?></span>
+                            </div>
+                            <?php  endif ?>
+                            <?php unset($_SESSION['msg']) ?>
                         </div>
                     </div>
                     <div class="col-xl-6 img-card-side">
@@ -123,5 +136,25 @@ if(isset($_POST['login']))
         </div>
     </div>
 </body>
+<script>
+function validateForm() {
+    var id_user = document.getElementsByName('id_user')[0].value;
+
+    var hasError = false;
+
+    // Kiểm tra first_name có ký tự đặc biệt
+    var specialCharacters = /[!@#$%^&*(),.?":{}|<>]/;
+    if (specialCharacters.test(id_user)) {
+        document.getElementById('id_user_error').textContent = 'Id cannot contain special characters.';
+        return false
+    } else {
+        document.getElementById('id_user_error').textContent = '';
+    }
+
+
+    // Nếu không có lỗi, cho phép submit form
+    return true;
+}
+</script>
 
 </html>

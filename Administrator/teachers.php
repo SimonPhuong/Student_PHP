@@ -129,22 +129,24 @@ if (isset($_POST['delete_teacher'])) {
                     </thead>
                     <tbody class="tbody">
                         <?php 
-                            $cnt=1;
                             $limit = isset($_GET['limit']) ? $_GET['limit'] : 10;
                             $searchKeyword = isset($_GET['search']) ? $_GET['search'] : '';
-
+                            
                             $records = $con->prepare("SELECT COUNT(*) FROM teachers 
                                                         WHERE (first_name LIKE CONCAT('%', :searchKeyword, '%'))
                                                         OR (last_name LIKE CONCAT('%', :searchKeyword, '%'))");
                             $records->bindParam(':searchKeyword', $searchKeyword);
                             $records->execute();
                             $total_records = $records->fetchColumn();
-
+                            
                             $total_pages = ceil($total_records/$limit);
+                            
                             
                             $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
                             $start = ($current_page - 1) * $limit;
                             $end = $start + $limit - 1;
+                            
+                            $cnt=($limit * ($current_page - 1)) + 1;;
                             $query = $con->prepare("SELECT t.id, t.first_name, t.last_name, t.gender, t.phone, t.email, t.degree, s.subject_name, u.id_user 
                                                     FROM teachers t 
                                                     INNER JOIN users u ON t.user_id = u.id
@@ -196,7 +198,7 @@ if (isset($_POST['delete_teacher'])) {
                             </td>
                         </tr>
                         <?php
-                            $cnt+=1;
+                            $cnt+=1 ;
                         } ?>
                     </tbody>
                 </table>
