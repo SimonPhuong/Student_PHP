@@ -8,7 +8,7 @@ header('location:login.php');
 else{
 include("cls/cls.php");
 $p=new tmdt();
-$layid=$_SESSION['id'];
+$layid=$_SESSION['login'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,6 +20,7 @@ $layid=$_SESSION['id'];
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
      <link rel="stylesheet" href="css/login.css">
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
    <style>
 		  #nut1
 {
@@ -77,7 +78,7 @@ a:hover
                             <div class="portlet">
                                 <div class="portlet-title">
                                     <div class="caption">
-                                        <span class="caption-subject bold" lang="db-thongtinsinhvien">Thay đổi mật khẩu</span>
+                                        <span class="caption-subject bold" lang="db-thongtinsinhvien">Change password</span>
                                     </div>
                                 </div>
 
@@ -88,80 +89,89 @@ a:hover
                                                     <div class="form-group">
                                                     <form id="formAuthentication" class="mb-3" action="" method="POST">
                                                     <?php
-													$p->loadpasscu($layid);
+													$p->loadpassold($layid);
 													?>
-                                                                               <label for="email" class="form-label">Nhập mật khẩu cũ:</label>
+                                                                               <label for="email" class="form-label">Enter old password:</label>
                                   <input
                                     type="text"
                                     class="form-control"
-                                    id="txtpasscure"
-                                    name="txtpasscure"
-                                    placeholder="Mật khẩu cũ"
-                                    autofocus
-                                    style="margin-bottom:30px;"
-                                  />
-                                                         <label for="email" class="form-label">Nhập mật khẩu mới:</label>
+                                    id="passoe"
+                                    name="passoe"
+                                    style="margin-bottom:30px;"/>
+                                  <div id="loadpassold"></div>
+                                                         <label for="email" class="form-label">Enter your new password:</label>
                                   <input
                                     type="text"
                                     class="form-control"
-                                    id="txtpass"
-                                    name="txtpass"
-                                    placeholder="Mật khẩu mới"
-                                    autofocus
-                                    style="margin-bottom:30px;"
-                                  />
-                                  <label for="email" class="form-label">Nhập lại mật khẩu mới:</label>
+                                    id="passnew"
+                                    name="passnew"   
+                                    style="margin-bottom:30px;"/>
+                                  <label for="email" class="form-label">Enter the new password again:</label>
                                    <input
                                     type="text"
                                     class="form-control"
-                                    id="txtrepass"
-                                    name="txtrepass"
-                                    placeholder="Nhập lại mật khẩu mới"
-                                    autofocus
-                                  />
-                                                        <button class="btn btn-primary d-grid w-100" type="submit" name="button" id="button" value="Xác nhận">Xác nhận</button>
+                                    id="repassnew"
+                                    name="repassnew"/>
+                                                        <input class="btn btn-primary d-grid w-100" type="submit" name="button" id="button" value="Confirm"/>
                                                             <?php
                    switch($_POST['button'])
                         {
-	                      case 'Xác nhận':
+	                      case 'Confirm':
                           {
-							  $passcu=$_REQUEST['txtpasscu'];
-							  $passcure=$_REQUEST['txtpasscure'];
-							  $passcuremd5=md5($passcure);
-							  $pass=$_REQUEST['txtpass'];
-		                    $pass1=$_REQUEST['txtrepass'];
-							$pass2=md5($pass1);
-					if($passcuremd5==$passcu)
-					{
-						if($pass1==$pass)
-						{	
-				        	if($p->chanepass($pass2,$layid)==1)
-			                    {
-			              	      echo '<script> alert("Thay đổi mật khẩu thành công!"); </script>'; 
-			                    }
-			                 else
-			                    {
-				                   echo '<script> alert("Thay đổi mật khẩu không thành công!"); </script>';
-								}
-                         }
-						else
-						{
-							echo'Mật khẩu nhập lại không trùng khớp!';
+							  $passnew=$_REQUEST['passnew'];
+							  $repassnew=$_REQUEST['repassnew'];
+                              $passold=$_REQUEST['passold'];
+							  $passoe=$_REQUEST['passoe'];
+                              $passnew1=password_hash($passnew, PASSWORD_BCRYPT);
+                              if(password_verify($passoe,$passold)) 
+                              {
+                                 if($passnew==$repassnew)
+                                 {
+                                     if($p->chanepass($passnew1,$layid)==1)
+                                     {
+                                        echo '<script> alert("Change password successfully!"); </script>'; 
+                                     }
+                                     else
+                                     {
+                                        echo '<script> alert("Password change failed!"); </script>'; 
+                                     }
+                                 } 
+                                 else
+                                 {
+                                    echo '<script> alert("Re-entered password is incorrect!"); </script>'; 
+                                 }      
+						      }
+                              else
+                              {
+                                echo '<script> alert("old password is not correct!"); </script>'; 
+                              }
 						}
-					}
-				    else
-						{
-							echo'Mật khẩu cũ không đúng!';
-						}
-						  }
-						}
+                    }
                  ?>
+                  <script type="text/javascript">
+					 $(document).ready(function() {
+                        $("#passoe").blur(function()
+						{
+							var passoe=$(this).val()
+                            var passold=$('#passold').val();
+							$.ajax({
+								url:"ajax/data.php",
+								method:"POST",
+								data:{passoe:passoe,passold:passold},
+								success:function(data)
+								{
+									$("#loadpassold").html(data);
+								}
+								});
+						});
+                    });
+					 </script>
                  </form>
                                                     </div>
                                                     </div>
                                                 </div>
                                             </div>
-											 </div>
+									</div>
                             </div>
                         </div>
                 </div>

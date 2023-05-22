@@ -203,7 +203,6 @@ $stmt = $con->prepare("select * from teachers where subject_id='$sub'");
 	$kq=$stmt->fetchALL();
 	echo'
 	<tr class="tophead">
-	<th width="300px;">ID TEACHER</th>
 	<th>STUDEN NAME</th>
 	<th>GENDER</th>
 	<th>PHONE</th>
@@ -212,6 +211,7 @@ $stmt = $con->prepare("select * from teachers where subject_id='$sub'");
 	<th>NATION</th>
     <th>RELIGION</th>
     <th>ADDRESS</th>
+	<th>IMAGE</th>
 </tr>
 	';
 	 foreach($kq as $row)
@@ -226,9 +226,9 @@ $stmt = $con->prepare("select * from teachers where subject_id='$sub'");
 				$nation=$row['nation'];
 				$religion=$row['religion'];
 				$address=$row['address'].', '.$row['state'].', '.$row['city'];
+				$img=$row['image'];
 			echo '
 			<tr class="tophead">
-			<th width="300px;">'.$id_teacher.'</th>
 			<th>'.$fullname.'</th>
 			<th>'.$gender.'</th>
 			<th>'.$phone.'</th>
@@ -237,6 +237,7 @@ $stmt = $con->prepare("select * from teachers where subject_id='$sub'");
 			<th>'.$nation.'</th>
 			<th>'.$religion.'</th>
 			<th>'.$address.'</th>
+			<th><img src="img/'.$img.'" class="img-responsive" style="object-fit: cover;" alt=""></th>
 			</tr>';
 }
 }
@@ -289,6 +290,19 @@ $stmt = $con->prepare("select * from students where classroom_id='$lop'");
 			<th>'.$religion.'</th>
 			<th>'.$address.'</th>
 			</tr>';
+}
+}
+//load học sinh trong lớp dc chọn ở trang seestudentbyteacher.php
+if(isset($_POST['passold']))
+{
+$passold = $_POST['passold'];
+$passolden= $_POST['passoe'];
+if (password_verify($passolden,$passold)) {
+echo"<h3 style='color:green'>The old password is correct✓</h3>";
+}
+else
+{
+	echo"<h3 style='color:red'>Wrong old password!</h3>";
 }
 }
 ?>

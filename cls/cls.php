@@ -34,25 +34,10 @@ class tmdt
 		}
 	}
 ///hàm thay đổi mật khẩu
-function chanepass($pass2,$layid)
+function chanepass($passnew1,$layid)
 	{
 		$dbh=$this->connectpdo();
-		$stmt = $dbh->prepare("UPDATE taikhoanhs SET pass= '$pass2' WHERE mahocsinh ='$layid' LIMIT 1 ;");
-		//$stmt->bindParam(':value', $giatri);
-		if($stmt->execute())
-		{
-			return 1;	
-		}
-		else
-		{
-			return 0;	
-		}
-	}
-	//hàm thay đổi mật khẩu giáo viên
-	function chanepassgv($pass2,$layid)
-	{
-		$dbh=$this->connectpdo();
-		$stmt = $dbh->prepare("UPDATE taikhoangv SET pass= '$pass2' WHERE magiaovien ='$layid' LIMIT 1 ;");
+		$stmt = $dbh->prepare("UPDATE users SET pass_word= '$passnew1' WHERE id_user ='$layid' LIMIT 1 ;");
 		//$stmt->bindParam(':value', $giatri);
 		if($stmt->execute())
 		{
@@ -968,17 +953,17 @@ function chanepass($pass2,$layid)
 			echo "</select>";
 	}
 	////load mật khảu cũ để so khớp khi thay đổi pass
-		public function loadpasscu($layid)
+		public function loadpassold($layid)
 	{
 		$con=$this->connectpdo();
-        $stmt = $con->prepare("select pass from taikhoanhs where mahocsinh=".$layid."");
+        $stmt = $con->prepare("select pass_word from users where id_user=".$layid."");
         $stmt->execute();
 		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 		$kq=$stmt->fetchALL();
          foreach($kq as $row)
 		 {
-				$pass=$row['pass'];
-			echo' <input type="hidden" class="form-control" id="txtpasscu" name="txtpasscu" value="'.$pass.'"/>';			
+				$pass=$row['pass_word'];
+			echo' <input type="hidden" class="form-control" id="passold" name="passold" value="'.$pass.'"/>';			
 		 }
 	}
 	////load mật khảu cũ để so khớp khi thay đổi pass của giáo viên

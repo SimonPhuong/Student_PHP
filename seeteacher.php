@@ -83,6 +83,15 @@ a:hover
 	border-radius:10px;
 	border:2px solid #000;
 }
+img {
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+    float: none;
+    margin: 0 auto;
+    box-shadow: 0 2px 10px 0 rgba(114, 109, 109, 0.993);
+    
+}
 </style>
 </head>
 <body>

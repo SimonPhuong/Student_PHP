@@ -13,7 +13,7 @@ if(isset($_POST['login']))
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if($row) {
-        $hashpassword = $row['password'];
+        $hashpassword = $row['pass_word'];
         if (password_verify($password, $hashpassword)) {
             if ($row['is_student'] == 1) {
                 $_SESSION['login'] = $id_user;
