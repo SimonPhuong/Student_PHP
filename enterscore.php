@@ -110,6 +110,7 @@ $layid=$_SESSION['id'];
               
                     </tbody>
                 </table>
+				<div id="#loadj"></div>
                 <input class="btn btn-primary d-grid w-100" type="submit" name="button" id="button" value="Confirm" style="margin:0 auto; margin-top:20px;"/>
                 <script type="text/javascript">
 					 $(document).ready(function() {
@@ -146,9 +147,15 @@ $layid=$_SESSION['id'];
 							 var id=$(this).data('id1');
 							 var text=$(this).text();
 							 var hocki=$('#hocki').val();
+							 if( isNaN(text) || text>10 || text<0)
+							 {
+                                alert("Input data must be numeric and must have a value between 0 and 10");
+							 }
+							 else
+							 {
 							 insert_data(id,text,"oral_exam_1",mamh,nh,hocki);
+							 }
 							 });
-							 
 							 /////
 					    $(document).on('blur','.oe2',function(){
 							var nh=$('#namhoc').val();
@@ -156,7 +163,14 @@ $layid=$_SESSION['id'];
 							 var id=$(this).data('id2');
 							 var text=$(this).text();
 							 var hocki=$('#hocki').val();
+							 if( isNaN(text) || text>10 || text<0)
+							 {
+                                alert("Input data must be numeric and must have a value between 0 and 10");
+							 }
+							 else
+							 {
 							 insert_data(id,text,"oral_exam_2",mamh,nh,hocki);
+							 }
 							 });
 							 /////
 	                    $(document).on('blur','.oe3',function(){
@@ -165,7 +179,14 @@ $layid=$_SESSION['id'];
 							 var id=$(this).data('id3');
 							 var text=$(this).text();
 							 var hocki=$('#hocki').val();
+							 if( isNaN(text) || text>10 || text<0)
+							 {
+                                alert("Input data must be numeric and must have a value between 0 and 10");
+							 }
+							 else
+							 {
 							 insert_data(id,text,"oral_exam_3",mamh,nh,hocki);
+							 }
 							 });
 							 /////
 						$(document).on('blur','.e15m1',function(){
@@ -174,7 +195,14 @@ $layid=$_SESSION['id'];
 							 var id=$(this).data('id4');
 							 var text=$(this).text();
 							 var hocki=$('#hocki').val();
+							 if( isNaN(text) || text>10 || text<0)
+							 {
+                                alert("Input data must be numeric and must have a value between 0 and 10");
+							 }
+							 else
+							 {
 							 insert_data(id,text,"exam_15m_1",mamh,nh,hocki);
+							 }
 							 });
 							 //////
 						$(document).on('blur','.e15m2',function(){
@@ -183,7 +211,14 @@ $layid=$_SESSION['id'];
 							 var id=$(this).data('id5');
 							 var text=$(this).text();
 							 var hocki=$('#hocki').val();
+							 if( isNaN(text) || text>10 || text<0)
+							 {
+                                alert("Input data must be numeric and must have a value between 0 and 10");
+							 }
+							 else
+							 {
 							 insert_data(id,text,"exam_15m_2",mamh,nh,hocki);
+							 }
 							 });
 							 ///////
 							 $(document).on('blur','.e15m3',function(){
@@ -192,7 +227,14 @@ $layid=$_SESSION['id'];
 							 var id=$(this).data('id6');
 							 var text=$(this).text();
 							 var hocki=$('#hocki').val();
+							 if( isNaN(text) || text>10 || text<0)
+							 {
+                                alert("Input data must be numeric and must have a value between 0 and 10");
+							 }
+							 else
+							 {
 							 insert_data(id,text,"exam_15m_3",mamh,nh,hocki);
+							 }
 							 });
 							 ///////
 							 $(document).on('blur','.e45m1',function(){
@@ -201,7 +243,14 @@ $layid=$_SESSION['id'];
 							 var id=$(this).data('id7');
 							 var text=$(this).text();
 							 var hocki=$('#hocki').val();
+							 if( isNaN(text) || text>10 || text<0)
+							 {
+                                alert("Input data must be numeric and must have a value between 0 and 10");
+							 }
+							 else
+							 {
 							 insert_data(id,text,"exam_45m_1",mamh,nh,hocki);
+							 }
 							 });
 							 ///////
 							 $(document).on('blur','.e45m2',function(){
@@ -210,7 +259,14 @@ $layid=$_SESSION['id'];
 							 var id=$(this).data('id8');
 							 var text=$(this).text();
 							 var hocki=$('#hocki').val();
+							 if( isNaN(text) || text>10 || text<0)
+							 {
+                                alert("Input data must be numeric and must have a value between 0 and 10");
+							 }
+							 else
+							 {
 							 insert_data(id,text,"exam_45m_2",mamh,nh,hocki);
+							 }
 							 });
 							 ///////
 							 $(document).on('blur','.e45m3',function(){
@@ -219,7 +275,14 @@ $layid=$_SESSION['id'];
 							 var id=$(this).data('id9');
 							 var text=$(this).text();
 							 var hocki=$('#hocki').val();
+							 if( isNaN(text) || text>10 || text<0)
+							 {
+                                alert("Input data must be numeric and must have a value between 0 and 10");
+							 }
+							 else
+							 {
 							 insert_data(id,text,"exam_45m_3",mamh,nh,hocki);
+							 }
 							 });
 							 ///////
 							 $(document).on('blur','.fe',function(){
@@ -228,7 +291,14 @@ $layid=$_SESSION['id'];
 							 var id=$(this).data('id10');
 							 var text=$(this).text();
 							 var hocki=$('#hocki').val();
+							 if( isNaN(text) || text>10 || text<0)
+							 {
+                                alert("Input data must be numeric and must have a value between 0 and 10");
+							 }
+							 else
+							 {
 							 insert_data(id,text,"final_exam",mamh,nh,hocki);
+							 }
 							 });
 							 ///////
                     });

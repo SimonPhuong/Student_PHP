@@ -416,19 +416,21 @@ function chanepass($passnew1,$layid)
 													<div class="form-group">
 														<label class="col-xs-6"> FIRSTNAME:
 														<input type="text" name="fn" id="fn" class="form-control" value="'.$fn.'"  >
+														<div id="checkfn">...</div>
 														</label>
 														<label class="col-xs-6"> LASTNAME:
 														<input type="text" name="ln" id="ln" class="form-control" value="'.$ln.'" >
+														<div id="checkln">...</div>
 														</label>
 														</div>
                                                     <div class="form-group">
                                                         <label class="col-xs-6"> PHONE:
 														<input type="number" name="phone" id="phone" class="form-control" value="'.$phone.'">
-														<div id="ktten">...</div>
+														<div id="checkphone">...</div>
 														</label>
 														 <label class="col-xs-6"> EMAIL:
 														<input type="text" name="email" id="email" class="form-control" value="'.$email.'">
-														<div id="ktsdt">...</div>
+														<div id="checkemail">...</div>
 														</label>
 																
                                                     </div>
@@ -438,6 +440,7 @@ function chanepass($passnew1,$layid)
 														</label>
                                                        	<label class="col-xs-6"> CITIZEN IDENTITY CARD:
 														<input type="number" name="cic" id="cic" class="form-control" value="'.$cic.'" required>
+														<div id="checkcic">...</div>
 														</label>
 														</div>
 														 <div class="form-group">
@@ -555,19 +558,21 @@ function chanepass($passnew1,$layid)
 													<div class="form-group">
 														<label class="col-xs-6"> FIRSTNAME:
 														<input type="text" name="fn" id="fn" class="form-control" value="'.$fn.'" required>
+														<div id="checkfn">...</div>
 														</label>
 														<label class="col-xs-6"> LASTNAME:
 														<input type="text" name="ln" id="ln" class="form-control" value="'.$ln.'"required>
+														<div id="checkln">...</div>
 														</label>
 														</div>
                                                     <div class="form-group">
                                                         <label class="col-xs-6"> PHONE:
 														<input type="number" name="phone" id="phone" class="form-control" value="'.$phone.'"required>
-														<div id="ktten">...</div>
+														<div id="checkphone">...</div>
 														</label>
 														 <label class="col-xs-6"> EMAIL:
 														<input type="text" name="email" id="email" class="form-control" value="'.$email.'"required>
-														<div id="ktsdt">...</div>
+														<div id="checkemail">...</div>
 														</label>
 																
                                                     </div>
@@ -577,6 +582,7 @@ function chanepass($passnew1,$layid)
 														</label>
                                                        	<label class="col-xs-6"> CITIZEN IDENTITY CARD:
 														<input type="number" name="cic" id="cic" class="form-control" value="'.$cic.'"required>
+														<div id="checkcic">...</div>
 														</label>
 														</div>
 														 <div class="form-group">
@@ -601,6 +607,7 @@ function chanepass($passnew1,$layid)
 														<input type="hidden" name="img" id="img" class="form-control" value="'.$img.'">
 														</label>
 														</div>
+														<div id="tb"></div>
 	<input type="submit" name="button" id="button" value="Xác nhận"/>
 														</div>
 													

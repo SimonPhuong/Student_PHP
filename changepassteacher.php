@@ -122,7 +122,7 @@ a:hover
 							  $repassnew=$_REQUEST['repassnew'];
                               $passold=$_REQUEST['passold'];
 							  $passoe=$_REQUEST['passoe'];
-                              $passnew1=password_hash( $passnew);
+                              $passnew1=password_hash( $passnew, PASSWORD_BCRYPT);
                               if (password_verify($passoe,$passold)) 
                               {
                                  if($passnew==$repassnew)

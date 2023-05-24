@@ -73,7 +73,6 @@ a:hover
 }
   </style>
 </head>
-
 <body>
     <div class="container">
     <?php include("asideteacher.php"); ?>

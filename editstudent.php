@@ -123,34 +123,95 @@ margin-top:20px;
     transform: translateY(5px); 
 }
  </style>
-  <script>
+      <script>
   $(document).ready(function(){
-	function ktten(){
-                var ten=$('#txthoten').val();
-                var regten=/^([A-Z][a-z]*(\s*[A-Z]+[a-z]*)*){0,}$/;
-                if(regten.test(ten))
+	function checkfname(){
+                var fn=$('#fn').val();
+                var regfn=/^[A-Z][a-z]*(\s*[A-Z]+[a-z]*)*$/;
+                if(regfn.test(fn))
                 {
-                    $('#ktten').html("(✓)");
+                    $('#checkfn').html("(✓)");
                     return true;
                 }else{
-                    $('#ktten').html("Chữ cái đầu tên phải viết hoa!");
+                    $('#checkfn').html("The first letter of the name must be capitalized!");
                     return false;
                 }
             }
-   function ktsdt(){
-                var dt=$("#txtsdt").val();
+            function checklname(){
+                var ln=$('#ln').val();
+                var regln=/^[A-Z][a-z]*(\s*[A-Z]+[a-z]*)*$/;
+                if(regln.test(ln))
+                {
+                    $('#checkln').html("(✓)");
+                    return true;
+                }else{
+                    $('#checkln').html("The first letter of the name must be capitalized!");
+                    return false;
+                }
+            }
+   function checkphone(){
+                var dt=$("#phone").val();
                 var regdt=/^(0\d{9})$/;
                 if(regdt.test(dt))
                 {
-                    $("#ktsdt").html("(✓)");
+                    $("#checkphone").html("(✓)");
                     return true;
                 }else{
-                    $("#ktsdt").html("Bắt đầu bằng số 0 và phải có 10 số!");
+                    $("#checkphone").html("Start with 0 and must have 10 numbers!");
                     return false;
                 }
             }
-			$('#txthoten').blur(ktten)
-			$('#txtsdt').blur(ktsdt)  
+            function checkemail(){
+                var dt=$("#email").val();
+                var regdt=/^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$/;
+                if(regdt.test(dt))
+                {
+                    $("#checkemail").html("(✓)");
+                    return true;
+                }else{
+                    $("#checkemail").html("Incorrect email format!");
+                    return false;
+                }
+            }
+            function checkcic(){
+                var dt=$("#cic").val();
+                var regdt=/^[0-9]{3,12}$/;
+                if(regdt.test(dt))
+                {
+                    $("#checkcic").html("(✓)");
+                    return true;
+                }else{
+                    $("#checkcic").html("Must number!");
+                    return false;
+                }
+            }
+			$('#fn').blur(checkfname)
+			$('#ln').blur(checklname)  
+            $('#phone').blur(checkphone)
+            $('#email').blur(checkemail)
+            $('#cic').blur(checkcic)
+            $("#button").click(function(){
+                if(checkfname()==false){
+             alert("Not enough information!");
+             return false;
+             }
+             if(checkfname()==false){
+                alert("Not enough information!");
+             return false;
+             }
+             if(checkphone()==false){
+                alert("Not enough information!");
+             return false;
+             }
+             if(checkemail()==false){
+                alert("Not enough information!");
+             return false;
+             }
+             if(checkcic()==false){
+             alert("Not enough information!");
+             return false;
+             }
+            })
   })
  </script>
 </head>

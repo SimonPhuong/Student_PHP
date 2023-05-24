@@ -21,6 +21,7 @@ $idtea=$_SESSION['login'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit teacher</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <link rel="stylesheet" href="css/styles.css">
        <link rel="stylesheet" href="css/login.css">
    <style>
@@ -115,9 +116,107 @@ margin-top:20px;
     box-shadow: none;
     transform: translateY(5px); 
 }
+#truec
+{
+    color: green;
+}
+#falsec
+{
+    color: red;
+}
   </style>
+     <script>
+  $(document).ready(function(){
+	function checkfname(){
+                var fn=$('#fn').val();
+                var regfn=/^[A-Z][a-z]*(\s*[A-Z]+[a-z]*)*$/;
+                if(regfn.test(fn))
+                {
+                    $('#checkfn').html("(✓)");
+                    return true;
+                }else{
+                    $('#checkfn').html("The first letter of the name must be capitalized!");
+                    return false;
+                }
+            }
+            function checklname(){
+                var ln=$('#ln').val();
+                var regln=/^[A-Z][a-z]*(\s*[A-Z]+[a-z]*)*$/;
+                if(regln.test(ln))
+                {
+                    $('#checkln').html("(✓)");
+                    return true;
+                }else{
+                    $('#checkln').html("The first letter of the name must be capitalized!");
+                    return false;
+                }
+            }
+   function checkphone(){
+                var dt=$("#phone").val();
+                var regdt=/^(0\d{9})$/;
+                if(regdt.test(dt))
+                {
+                    $("#checkphone").html("(✓)");
+                    return true;
+                }else{
+                    $("#checkphone").html("Start with 0 and must have 10 numbers!");
+                    return false;
+                }
+            }
+            function checkemail(){
+                var dt=$("#email").val();
+                var regdt=/^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$/;
+                if(regdt.test(dt))
+                {
+                    $("#checkemail").html("(✓)");
+                    return true;
+                }else{
+                    $("#checkemail").html("Incorrect email format!");
+                    return false;
+                }
+            }
+            function checkcic(){
+                var dt=$("#cic").val();
+                var regdt=/^[0-9]{3,12}$/;
+                if(regdt.test(dt))
+                {
+                    $("#checkcic").html("(✓)");
+                    return true;
+                }else{
+                    $("#checkcic").html("Must number!");
+                    return false;
+                }
+            }
+			$('#fn').blur(checkfname)
+			$('#ln').blur(checklname)  
+            $('#phone').blur(checkphone)
+            $('#email').blur(checkemail)
+            $('#cic').blur(checkcic)
+            $("#button").click(function(){
+                if(checkfname()==false){
+             alert("Not enough information!");
+             return false;
+             }
+             if(checkfname()==false){
+                alert("Not enough information!");
+             return false;
+             }
+             if(checkphone()==false){
+                alert("Not enough information!");
+             return false;
+             }
+             if(checkemail()==false){
+                alert("Not enough information!");
+             return false;
+             }
+             if(checkcic()==false){
+             alert("Not enough information!");
+             return false;
+             }
+            })
+  })
+ </script>
 </head>
-
 <body>
     <div class="container">
     <?php include("asideteacher.php"); ?>
@@ -171,40 +270,40 @@ margin-top:20px;
                                     }
                                    }
                                        }
-                                       ///chỉnh sửa thông tin
-                                       if(isset($_POST['button']))
-                                       {
-                                            switch($_POST['button'])
-                        {
-	                      case 'Xác nhận':
-                          {
-                           
-                            $fn=$_REQUEST['fn'];
-                            $ln=$_REQUEST['ln'];
-                            $gender=$_REQUEST['gender'];
-                             $phone=$_REQUEST['phone'];
-                            $email=$_REQUEST['email'];
-                            $dob=$_REQUEST['dob'];
-                            $cic=$_REQUEST['cic'];
-                            $nation=$_REQUEST['nation'];
-                            $religion=$_REQUEST['religion'];
-                            $address=$_REQUEST['address'];
-                            $state=$_REQUEST['state'];
-                            $city=$_REQUEST['city'];
-					if($p->editteacher($layid,$fn,$ln,$gender,$phone,$email,$dob,$cic,$nation,$religion,$address,$state,$city)==1)
-			                    {
-			              	      echo'<script> alert("Edited information successfully!"); </script>'; 
-			                    }
-			                 else
-			                    {
-				                   echo '<script> alert("Edited information failed!"); </script>';
+                                                
+            if(isset($_POST['button']))
+            {
+                 switch($_POST['button'])
+{
+case 'Xác nhận':
+{
 
-								}
-                        }
-						}
-                    }
+ $fn=$_REQUEST['fn'];
+ $ln=$_REQUEST['ln'];
+ $gender=$_REQUEST['gender'];
+  $phone=$_REQUEST['phone'];
+ $email=$_REQUEST['email'];
+ $dob=$_REQUEST['dob'];
+ $cic=$_REQUEST['cic'];
+ $nation=$_REQUEST['nation'];
+ $religion=$_REQUEST['religion'];
+ $address=$_REQUEST['address'];
+ $state=$_REQUEST['state'];
+ $city=$_REQUEST['city'];
+if($p->editteacher($layid,$fn,$ln,$gender,$phone,$email,$dob,$cic,$nation,$religion,$address,$state,$city)==1)
+     {
+        echo '<script>alert("Edited information successfully!");window.location.href="editteacher.php";</script>';
+     }
+  else
+     {
+        echo '<script> alert("Edited information failed!"); </script>';
+
+     }
+}
+}
+}
                  ?>
-                                            </form>
+                                                   </form>
                                                 
                 </div>
             </div>
