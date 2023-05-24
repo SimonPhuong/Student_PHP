@@ -122,6 +122,10 @@ margin-top:20px;
     box-shadow: none;
     transform: translateY(5px); 
 }
+#checkfn, #checkln, #checkphone, #checkemail, #checkcic
+            {
+              color: red;
+            }
  </style>
       <script>
   $(document).ready(function(){
@@ -313,7 +317,7 @@ switch($_POST['button'])
 							 $city=$_REQUEST['city'];
 					if($p->editstudent($layid,$fn,$ln,$gender,$phone,$email,$dob,$cic,$nation,$religion,$address,$state,$city)==1)
                     {
-                        echo'<script> alert("Edited information successfully!"); </script>'; 
+                        echo '<script>alert("Edited information successfully!");window.location.href="editstudent.php";</script>'; 
                     }
                  else
                     {

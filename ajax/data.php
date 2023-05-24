@@ -137,7 +137,8 @@ $hk=$_POST['hk'];
 		$e452=$row['exam_45m_2'];
 		$e453=$row['exam_45m_3'];
 		$fe=$row['final_exam'];
-		$spa=$row['spa'];
+		$spa=(($oe1+$oe2+$oe3+$e151+$e152+$e153)+($e451+$e452+$e453)*2+$fe*3)/15;
+		$spa=round(($spa*100)/100);
 		echo '   <tr>   
 		            <td>
 		            <span style="display: inline-grid;width: 20px; text-align: center;">'.$fn.'</span>
@@ -237,7 +238,7 @@ $stmt = $con->prepare("select * from teachers where subject_id='$sub'");
 			<th>'.$nation.'</th>
 			<th>'.$religion.'</th>
 			<th>'.$address.'</th>
-			<th><img src="img/'.$img.'" class="img-responsive" style="object-fit: cover;" alt=""></th>
+			<th><img src="img/'.$img.'" class="img-responsive" style="object-fit: cover;" ></th>
 			</tr>';
 }
 }
@@ -251,7 +252,6 @@ $stmt = $con->prepare("select * from students where classroom_id='$lop'");
 	$kq=$stmt->fetchALL();
 	echo'
 	<tr class="tophead">
-	<th width="300px;">ID STUDENT</th>
 	<th>STUDEN NAME</th>
 	<th>GENDER</th>
 	<th>PHONE</th>
@@ -261,6 +261,7 @@ $stmt = $con->prepare("select * from students where classroom_id='$lop'");
 	<th>NATION</th>
     <th>RELIGION</th>
     <th>ADDRESS</th>
+	<th>IMAGE</th>
 </tr>
 	';
 	 foreach($kq as $row)
@@ -279,7 +280,6 @@ $stmt = $con->prepare("select * from students where classroom_id='$lop'");
 				$img=$row['image'];
 			echo '
 			<tr class="tophead">
-			<th width="300px;">'.$id_stu.'</th>
 			<th>'.$fullname.'</th>
 			<th>'.$gender.'</th>
 			<th>'.$phone.'</th>
@@ -289,6 +289,7 @@ $stmt = $con->prepare("select * from students where classroom_id='$lop'");
 			<th>'.$nation.'</th>
 			<th>'.$religion.'</th>
 			<th>'.$address.'</th>
+			<th><img src="img/'.$img.'" class="img-responsive" style="object-fit: cover;" ></th>
 			</tr>';
 }
 }

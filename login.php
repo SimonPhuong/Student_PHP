@@ -13,7 +13,7 @@ if(isset($_POST['login']))
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if($row) {
-        $hashpassword = $row['pass_word'];
+        $hashpassword = $row['password'];
         if (password_verify($password, $hashpassword)) {
             if ($row['is_student'] == 1) {
                 $_SESSION['login'] = $id_user;
@@ -27,13 +27,13 @@ if(isset($_POST['login']))
                 header('Location: indexteacher.php');
                 exit();}
             else{
-                echo "<script>alert('Tài khoản không phải là học sinh');</script>";
+                echo "<script>alert('Account is not a student');</script>";
             }
         } else {
-            echo "<script>alert('Sai mật khẩu');</script>";
+            echo "<script>alert('Wrong password');</script>";
         }
     } else {
-        echo "<script>alert('Tài khoản không tồn tại');</script>";
+        echo "<script>alert('Account does not exist');</script>";
     }
 }
 ?>

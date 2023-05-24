@@ -124,6 +124,10 @@ margin-top:20px;
 {
     color: red;
 }
+#checkfn, #checkln, #checkphone, #checkemail, #checkcic
+            {
+              color: red;
+            }
   </style>
      <script>
   $(document).ready(function(){

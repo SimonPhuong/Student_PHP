@@ -112,11 +112,11 @@ $layid=$_SESSION['id'];
 		                    $nd=$_REQUEST['txtnd'];
 					if($p->sendcontact($layid,$nd)==1)
 			                   {
-			              	      echo '<script> alert("Gửi góp ý thành công!"); </script>'; 
+                                echo '<script>alert("Submit feedback successfully!");window.location.href="contactstudent.php";</script>'; 
 			                    }
 			                 else
 			                    {
-				                   echo '<script> alert("Gửi góp ý không thành công!"); </script>';
+				                   echo '<script> alert("Submit feedback failed!"); </script>';
 								}
                         }
 						}

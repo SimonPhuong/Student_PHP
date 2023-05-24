@@ -61,7 +61,34 @@ a:hover
 {
 	color:#00F;
 }
+#checkpass
+{
+    color:red;
+}
 </style>
+<script>
+     $(document).ready(function(){
+	function checkpass(){
+                var pn=$('#passnew').val();
+                var regpn=/^[a-zA-Z\d]{8,}$/;
+                if(regpn.test(pn))
+                {
+                    $('#checkpass').html("(✓)");
+                    return true;
+                }else{
+                    $('#checkpass').html("Password must be at least 8 characters!");
+                    return false;
+                }
+            }
+            $('#passnew').blur(checkpass)
+            $("#button").click(function(){
+            if(checkpass()==false){
+             alert("Incorrect information!");
+             return false;
+             }
+            })
+        })
+</script>
 </head>
 
 <body>
@@ -106,6 +133,7 @@ a:hover
                                     id="passnew"
                                     name="passnew"   
                                     style="margin-bottom:30px;"/>
+                                    <div id="checkpass"></div>
                                   <label for="email" class="form-label">Enter the new password again:</label>
                                    <input
                                     type="text"

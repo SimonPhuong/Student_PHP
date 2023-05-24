@@ -103,7 +103,7 @@ a:hover
                        $nd=$_REQUEST['txtnd'];
                if($p->sendcontact($layid,$nd)==1)
                           {
-                               echo '<script> alert("Submit feedback successfully!"); </script>'; 
+                            echo '<script>alert("Submit feedback successfully!");window.location.href="contactteacher.php";</script>'; 
                            }
                         else
                            {

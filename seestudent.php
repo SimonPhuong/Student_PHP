@@ -56,12 +56,6 @@ $layid=$_SESSION['id'];
     box-shadow: 0 2px 10px 0 rgba(114, 109, 109, 0.993);
     
 }
-    img:hover {
-        width: 250px;
-        height: 250px;
-        box-shadow: 0 10px 10px 0 rgba(114, 109, 109, 0.993);
-        transition: all 300ms ease;
-    }
 
     a:hover {
         color: #00F;
@@ -88,6 +82,15 @@ aside .top{
     margin-left: 10px;
     margin-top: 10px;
 }
+img {
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+    float: none;
+    margin: 0 auto;
+    box-shadow: 0 2px 10px 0 rgba(114, 109, 109, 0.993);
+    
+}
     </style>
 </head>
 
@@ -106,7 +109,6 @@ aside .top{
                 <table class="center" style="margin:0 auto; margin-top:30px;">
                     <tbody id="ten">
                     <tr class="tophead">
-	<th width="300px;">ID STUDENT</th>
 	<th>STUDEN NAME</th>
 	<th>GENDER</th>
 	<th>PHONE</th>
@@ -115,6 +117,7 @@ aside .top{
 	<th>NATION</th>
     <th>RELIGION</th>
     <th>ADDRESS</th>
+    <th>IMAGE</th>
 </tr>
 <?php
 $p->loadseestudent($layid);

@@ -37,7 +37,7 @@ class tmdt
 function chanepass($passnew1,$layid)
 	{
 		$dbh=$this->connectpdo();
-		$stmt = $dbh->prepare("UPDATE users SET pass_word= '$passnew1' WHERE id_user ='$layid' LIMIT 1 ;");
+		$stmt = $dbh->prepare("UPDATE users SET password= '$passnew1' WHERE id_user ='$layid' LIMIT 1 ;");
 		//$stmt->bindParam(':value', $giatri);
 		if($stmt->execute())
 		{
@@ -734,7 +734,6 @@ function chanepass($passnew1,$layid)
 				$address=$row['address'].', '.$row['state'].', '.$row['city'];
 				$img=$row['image'];
 			echo '<tr class="tophead">
-			<th width="300px;">'.$id_stu.'</th>
 			<th>'.$fullname.'</th>
 			<th>'.$gender.'</th>
 			<th>'.$phone.'</th>
@@ -743,6 +742,7 @@ function chanepass($passnew1,$layid)
 			<th>'.$nation.'</th>
 			<th>'.$religion.'</th>
 			<th>'.$address.'</th>
+			<th><img src="img/'.$img.'" class="img-responsive" style="object-fit: cover;" ></th>
 		</tr>';
 			}
 	}
@@ -963,13 +963,13 @@ function chanepass($passnew1,$layid)
 		public function loadpassold($layid)
 	{
 		$con=$this->connectpdo();
-        $stmt = $con->prepare("select pass_word from users where id_user=".$layid."");
+        $stmt = $con->prepare("select password from users where id_user=".$layid."");
         $stmt->execute();
 		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 		$kq=$stmt->fetchALL();
          foreach($kq as $row)
 		 {
-				$pass=$row['pass_word'];
+				$pass=$row['password'];
 			echo' <input type="hidden" class="form-control" id="passold" name="passold" value="'.$pass.'"/>';			
 		 }
 	}
